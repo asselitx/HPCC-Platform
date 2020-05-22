@@ -26,6 +26,7 @@
 
 #include "esdl2ecl.cpp"
 #include "esdl-publish.cpp"
+#include "esdlcmd_buildbind.cpp"
 
 class Esdl2XSDCmd : public EsdlHelperConvertCmd
 {
@@ -1161,6 +1162,8 @@ IEsdlCommand *createCoreEsdlCommand(const char *cmdname)
         return new EsdlListESDLDefCmd();
     if (strieq(cmdname, "LIST-BINDINGS"))
         return new EsdlListESDLBindingsCmd();
+    if (strieq(cmdname, "BUILD-BINDING"))
+        return new EsdlBuildBindingCmd();
     if (strieq(cmdname, "BIND-LOG-TRANSFORM"))
         return new EsdlBindLogTransformCmd();
     if (strieq(cmdname, "UNBIND-LOG-TRANSFORM"))
