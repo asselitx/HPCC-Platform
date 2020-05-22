@@ -143,6 +143,8 @@ typedef IEsdlCommand *(*EsdlCommandFactory)(const char *cmdname);
 #define ESDLOPT_INCLUDE_PATH_INI        "esdlIncludePath"
 #define ESDLOPT_INCLUDE_PATH_USAGE      "   -I, --include-path <include path>    Locations to look for included esdl files\n"
 
+#define ESDLOPT_MANIFEST_PATH           "--manifest"
+
 bool matchVariableOption(ArgvIterator &iter, const char prefix, IArrayOf<IEspNamedValue> &values);
 
 enum esdlCmdOptionMatchIndicator
