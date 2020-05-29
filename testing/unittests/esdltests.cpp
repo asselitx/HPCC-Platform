@@ -202,27 +202,100 @@ static constexpr const char * esdlScriptNoPrefix = R"!!(<CustomRequestTransform 
 </CustomRequestTransform>
 )!!";
 
+static constexpr const char * esdlScriptSelectPath = R"!!(
+<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
+  <es:param name="selectPath" select="''"/>
+
+  <es:set-value target="_OUTPUT_" select="$selectPath"/>
+</es:CustomRequestTransform>
+)!!";
+
+static constexpr const char * esdlScriptAbsoluteSelectPath = R"!!(
+<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
+  <es:param name="selectPath" select="'unused'"/>
+
+  <es:set-value target="_OUTPUT_" select="/soap:Envelope/soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
+</es:CustomRequestTransform>
+)!!";
+
+static constexpr const char * esdlScriptRelativeSelectPath = R"!!(
+<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
+  <es:param name="selectPath" select="'unused'"/>
+
+  <es:set-value target="_OUTPUT_" select="soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
+</es:CustomRequestTransform>
+)!!";
+
+static constexpr const char * esdlScriptAnyDescendentSelectPath = R"!!(
+<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
+  <es:param name="selectPath" select="'unused'"/>
+
+  <es:set-value target="_OUTPUT_" select="//First"/>
+</es:CustomRequestTransform>
+)!!";
+
+static constexpr const char* selectPathResult = R"!!(<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+ <soap:Body>
+  <extra>
+   <EchoPersonInfo>
+    <Context>
+     <Row>
+      <Common>
+       <TransactionId>1736623372_3126765312_1333296170</TransactionId>
+      </Common>
+     </Row>
+    </Context>
+    <_TransactionId>1736623372_3126765312_1333296170</_TransactionId>
+    <EchoPersonInfoRequest>
+     <Row>
+      <Addresses>
+       <Address>
+        <type>Home</type>
+        <Line2>Apt 202</Line2>
+        <Line1>101 Main street</Line1>
+        <City>Hometown</City>
+        <Zip>96703</Zip>
+        <State>HI</State>
+       </Address>
+      </Addresses>
+      <Name>
+       <Last>Doe</Last>
+       <First>Joe</First>
+      </Name>
+     </Row>
+     <_OUTPUT_>Joe</_OUTPUT_>
+    </EchoPersonInfoRequest>
+   </EchoPersonInfo>
+  </extra>
+ </soap:Body>
+</soap:Envelope>
+)!!";
+
 
 static const char *target_config = "<method queryname='EchoPersonInfo'/>";
 
 class ESDLTests : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE( ESDLTests );
-        CPPUNIT_TEST(testEsdlTransformScript);
-        CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
-        CPPUNIT_TEST(testEsdlTransformForEach);
-        CPPUNIT_TEST(testEsdlTransformVarScope);
-        CPPUNIT_TEST(testEsdlTransformLegacy);
-        CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
-        CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
-        CPPUNIT_TEST(testEsdlTransformFailStrict);
-        CPPUNIT_TEST(testEsdlTransformScriptVarParam);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1A);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1B);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1C);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2A);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2B);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2C);
+        // CPPUNIT_TEST(testEsdlTransformScript);
+        // CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
+        // CPPUNIT_TEST(testEsdlTransformForEach);
+        // CPPUNIT_TEST(testEsdlTransformVarScope);
+        // CPPUNIT_TEST(testEsdlTransformLegacy);
+        // CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
+        // CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
+        // CPPUNIT_TEST(testEsdlTransformFailStrict);
+        // CPPUNIT_TEST(testEsdlTransformScriptVarParam);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1A);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1B);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1C);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2A);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2B);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2C);
+        CPPUNIT_TEST(testEsdlTransformAnyDescendentPath);
+        CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
+        CPPUNIT_TEST(testEsdlTransformRelativePath);
+        CPPUNIT_TEST(testEsdlTransformSelectPath);
     CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -268,6 +341,62 @@ public:
             }
             E->Release();
         }
+    }
+
+    void testEsdlTransformSelectPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="select-path"/>
+            <Param name='selectPath' value="//First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformAbsoluteSoapPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="absolute-soap-path"/>
+            <Param name='selectPath' value="unused"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptAbsoluteSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformRelativePath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="relative-path"/>
+            <Param name='selectPath' value="unused"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptRelativeSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformAnyDescendentPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="any-descendent-path"/>
+            <Param name='selectPath' value="unused"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptAnyDescendentSelectPath, soapRequest, config, selectPathResult, 0);
     }
 
     void testEsdlTransformScript()
