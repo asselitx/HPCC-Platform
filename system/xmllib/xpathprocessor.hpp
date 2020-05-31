@@ -79,6 +79,6 @@ public:
 };
 
 extern "C" XMLLIB_API ICompiledXpath* compileXpath(const char * xpath);
-extern "C" XMLLIB_API IXpathContext*  getXpathContext(const char * xmldoc, bool strictParameterDeclaration);
+extern "C" XMLLIB_API IXpathContext*  getXpathContext(const char * xmldoc, bool strictParameterDeclaration, bool removeDocNamespaces);
 
 #endif /* XPATH_MANAGER_HPP_ */

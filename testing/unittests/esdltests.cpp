@@ -277,21 +277,21 @@ static const char *target_config = "<method queryname='EchoPersonInfo'/>";
 class ESDLTests : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE( ESDLTests );
-        // CPPUNIT_TEST(testEsdlTransformScript);
-        // CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
-        // CPPUNIT_TEST(testEsdlTransformForEach);
-        // CPPUNIT_TEST(testEsdlTransformVarScope);
-        // CPPUNIT_TEST(testEsdlTransformLegacy);
-        // CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
-        // CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
-        // CPPUNIT_TEST(testEsdlTransformFailStrict);
-        // CPPUNIT_TEST(testEsdlTransformScriptVarParam);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1A);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1B);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1C);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2A);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2B);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2C);
+        CPPUNIT_TEST(testEsdlTransformScript);
+        CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
+        CPPUNIT_TEST(testEsdlTransformForEach);
+        CPPUNIT_TEST(testEsdlTransformVarScope);
+        CPPUNIT_TEST(testEsdlTransformLegacy);
+        CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
+        CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
+        CPPUNIT_TEST(testEsdlTransformFailStrict);
+        CPPUNIT_TEST(testEsdlTransformScriptVarParam);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1A);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1B);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1C);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2A);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2B);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2C);
         CPPUNIT_TEST(testEsdlTransformAnyDescendentPath);
         CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
         CPPUNIT_TEST(testEsdlTransformRelativePath);
@@ -349,7 +349,7 @@ public:
         <config strictParams='true'>
           <Transform>
             <Param name='testcase' value="select-path"/>
-            <Param name='selectPath' value="//First"/>
+            <Param name='selectPath' select="//First"/>
           </Transform>
         </config>
       )!!";

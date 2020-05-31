@@ -802,7 +802,7 @@ void processServiceAndMethodTransforms(std::initializer_list<IEsdlCustomTransfor
         }
 
         bool strictParams = bindingCfg ? bindingCfg->getPropBool("@strictParams", false) : false;
-        Owned<IXpathContext> xpathContext = getXpathContext(content.str(), strictParams);
+        Owned<IXpathContext> xpathContext = getXpathContext(content.str(), strictParams, false);
 
         StringArray prefixes;
         for ( IEsdlCustomTransform * const & item : transforms)

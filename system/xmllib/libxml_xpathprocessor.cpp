@@ -200,12 +200,13 @@ public:
     ReadWriteLock m_rwlock;
     XPathScopeVector scopes;
     bool strictParameterDeclaration = true;
+    bool removeDocNamespaces = false;
 
     //saved state
     XPathContextStateVector saved;
 
 public:
-    CLibXpathContext(const char * xmldoc, bool _strictParameterDeclaration) : strictParameterDeclaration(_strictParameterDeclaration)
+    CLibXpathContext(const char * xmldoc, bool _strictParameterDeclaration, bool removeDocNs) : strictParameterDeclaration(_strictParameterDeclaration), removeDocNamespaces(removeDocNs)
     {
         beginScope("/");
         setXmlDoc(xmldoc);
@@ -557,6 +558,54 @@ public:
     }
 
 private:
+    xmlNodePtr checkGetSoapNamespace(xmlNodePtr cur, const char *expected, const xmlChar *&soap)
+    {
+        if (!cur)
+            return nullptr;
+        if (!streq((const char *)cur->name, expected))
+            return cur;
+        if (!soap && cur->ns && cur->ns->href)
+            soap = cur->ns->href;
+        return xmlFirstElementChild(cur);
+    }
+    void removeNamespace(xmlNodePtr cur, const xmlChar *remove)
+    {
+        //we need to recognize different namespace behavior at each entry point
+        //
+        //for backward compatibility we need to be flexible with what we receive, from the user
+        //but other entry points are dealing with standardized content
+        //hopefully even calls out to a given 3rd party services will be self consistent
+        //
+        if (!remove)
+            cur->ns=nullptr; //just a "reference", no free
+        else if (cur->ns && cur->ns->href && streq((const char *)cur->ns->href, (const char *)remove))
+            cur->ns=nullptr;
+        for (xmlNodePtr child = xmlFirstElementChild(cur); child!=nullptr; child=xmlNextElementSibling(child))
+            removeNamespace(child, remove);
+        for (xmlAttrPtr att = cur->properties; att!=nullptr; att=att->next)
+        {
+            if (!remove)
+                att->ns=nullptr;
+            else if (att->ns && att->ns->href && streq((const char *)att->ns->href, (const char *)remove))
+                att->ns=nullptr;
+        }
+    }
+    void processNamespaces()
+    {
+        const xmlChar *soap = nullptr;
+        const xmlChar *n = nullptr;
+
+        xmlNodePtr cur = checkGetSoapNamespace(xmlDocGetRootElement(m_xmlDoc), "Envelope", soap);
+        cur = checkGetSoapNamespace(cur, "Body", soap);
+        if (soap)
+            xmlXPathRegisterNs(m_xpathContext, (const xmlChar *)"soap", soap);
+        if (cur->ns && cur->ns->href)
+            n = cur->ns->href;
+        if (n)
+            xmlXPathRegisterNs(m_xpathContext, (const xmlChar *)"n", n);
+        if (removeDocNamespaces)
+            removeNamespace(xmlDocGetRootElement(m_xmlDoc), nullptr);
+    }
     bool setContextDocument(xmlDocPtr doc, xmlNodePtr node)
     {
         WriteLockBlock rblock(m_rwlock);
@@ -573,6 +622,7 @@ private:
         if (node)
             m_xpathContext->node = node;
         xmlXPathRegisterVariableLookup(m_xpathContext, variableLookupFunc, this);
+        processNamespaces();
         return true;
     }
     bool evaluateAsBoolean(xmlXPathObjectPtr evaluatedXpathObj, const char* xpath)
@@ -775,7 +825,7 @@ extern ICompiledXpath* compileXpath(const char * xpath)
     return new CLibCompiledXpath(xpath);
 }
 
-extern IXpathContext* getXpathContext(const char * xmldoc, bool strictParameterDeclaration)
+extern IXpathContext* getXpathContext(const char * xmldoc, bool strictParameterDeclaration, bool removeDocNamespaces)
 {
-    return new CLibXpathContext(xmldoc, strictParameterDeclaration);
+    return new CLibXpathContext(xmldoc, strictParameterDeclaration, removeDocNamespaces);
 }
