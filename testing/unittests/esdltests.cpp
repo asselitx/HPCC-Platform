@@ -277,21 +277,21 @@ static const char *target_config = "<method queryname='EchoPersonInfo'/>";
 class ESDLTests : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE( ESDLTests );
-        // CPPUNIT_TEST(testEsdlTransformScript);
-        // CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
-        // CPPUNIT_TEST(testEsdlTransformForEach);
-        // CPPUNIT_TEST(testEsdlTransformVarScope);
-        // CPPUNIT_TEST(testEsdlTransformLegacy);
-        // CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
-        // CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
-        // CPPUNIT_TEST(testEsdlTransformFailStrict);
-        // CPPUNIT_TEST(testEsdlTransformScriptVarParam);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1A);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1B);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel1C);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2A);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2B);
-        // CPPUNIT_TEST(testEsdlTransformFailLevel2C);
+        CPPUNIT_TEST(testEsdlTransformScript);
+        CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
+        CPPUNIT_TEST(testEsdlTransformForEach);
+        CPPUNIT_TEST(testEsdlTransformVarScope);
+        CPPUNIT_TEST(testEsdlTransformLegacy);
+        CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
+        CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
+        CPPUNIT_TEST(testEsdlTransformFailStrict);
+        CPPUNIT_TEST(testEsdlTransformScriptVarParam);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1A);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1B);
+        CPPUNIT_TEST(testEsdlTransformFailLevel1C);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2A);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2B);
+        CPPUNIT_TEST(testEsdlTransformFailLevel2C);
         CPPUNIT_TEST(testEsdlTransformAnyDescendentPath);
         CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
         CPPUNIT_TEST(testEsdlTransformRelativePath);
@@ -349,7 +349,7 @@ public:
         <config strictParams='true'>
           <Transform>
             <Param name='testcase' value="select-path"/>
-            <Param name='selectPath' value="//First"/>
+            <Param name='selectPath' select="//First"/>
           </Transform>
         </config>
       )!!";
@@ -609,42 +609,42 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
     void testEsdlTransformForEach()
     {
         static constexpr const char * input = R"!!(<?xml version="1.0" encoding="UTF-8"?>
-        <root>
+        <root xmlns:xx1="urn:x1" xmlns:xx2="urn:x2">
         <extra>
           <Friends>
             <Name>
              <First>Joe</First>
-             <Alias>Moe</Alias>
-             <Alias>Poe</Alias>
-             <Alias>Doe</Alias>
+             <xx1:Alias>Moe</xx1:Alias>
+             <xx1:Alias>Poe</xx1:Alias>
+             <xx1:Alias>Doe</xx1:Alias>
             </Name>
             <Name>
              <First>Jane</First>
-             <Alias>Jan</Alias>
-             <Alias>Janie</Alias>
-             <Alias>Janet</Alias>
+             <xx1:Alias>Jan</xx1:Alias>
+             <xx1:Alias>Janie</xx1:Alias>
+             <xx1:Alias>Janet</xx1:Alias>
             </Name>
           </Friends>
           <Relatives>
             <Name>
              <First>Jonathon</First>
-             <Alias>John</Alias>
-             <Alias>Jon</Alias>
-             <Alias>Johnny</Alias>
-             <Alias>Johnnie</Alias>
+             <xx1:Alias>John</xx1:Alias>
+             <xx1:Alias>Jon</xx1:Alias>
+             <xx1:Alias>Johnny</xx1:Alias>
+             <xx1:Alias>Johnnie</xx1:Alias>
             </Name>
             <Name>
              <First>Jennifer</First>
-             <Alias>Jen</Alias>
-             <Alias>Jenny</Alias>
-             <Alias>Jenna</Alias>
+             <xx1:Alias>Jen</xx1:Alias>
+             <xx1:Alias>Jenny</xx1:Alias>
+             <xx1:Alias>Jenna</xx1:Alias>
             </Name>
           </Relatives>
         </extra>
         </root>
         )!!";
 
-        static constexpr const char * forEachScript = R"!!(<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="extra">
+        static constexpr const char * forEachScript = R"!!(<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" xmlns:x1="urn:x1"  xmlns:x2="urn:x2" target="extra">
            <es:param name="ForBuildListPath"/>
            <es:param name="ForIdPath"/>
            <es:param name="section"/>
@@ -652,7 +652,7 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
            <es:for-each select="$ForBuildListPath">
                <es:variable name="q" select="str:decode-uri('%27')"/>
                <es:variable name="path" select="concat($section, '/Name[First=', $q, First, $q, ']/Aliases', $garbage)"/>
-               <es:for-each select="Alias">
+               <es:for-each select="x1:Alias">
                  <es:choose>
                    <es:when test="position()=1">
                      <es:append-to-value xpath_target="$path" select="."/>
@@ -670,21 +670,21 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
         </es:CustomRequestTransform>
         )!!";
 
-        constexpr const char * resultFriends = R"!!(<root>
+        constexpr const char * resultFriends = R"!!(<root xmlns:xx1="urn:x1" xmlns:xx2="urn:x2">
  <extra>
   <Relatives>
    <Name>
-    <Alias>John</Alias>
-    <Alias>Jon</Alias>
-    <Alias>Johnny</Alias>
-    <Alias>Johnnie</Alias>
     <First>Jonathon</First>
+    <xx1:Alias>John</xx1:Alias>
+    <xx1:Alias>Jon</xx1:Alias>
+    <xx1:Alias>Johnny</xx1:Alias>
+    <xx1:Alias>Johnnie</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jen</Alias>
-    <Alias>Jenny</Alias>
-    <Alias>Jenna</Alias>
     <First>Jennifer</First>
+    <xx1:Alias>Jen</xx1:Alias>
+    <xx1:Alias>Jenny</xx1:Alias>
+    <xx1:Alias>Jenna</xx1:Alias>
    </Name>
   </Relatives>
   <People>
@@ -695,18 +695,18 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
   </People>
   <Friends>
    <Name>
-    <Alias>Moe</Alias>
-    <Alias>Poe</Alias>
-    <Alias>Doe</Alias>
     <Aliases>Moe,Poe,Doe</Aliases>
     <First>Joe</First>
+    <xx1:Alias>Moe</xx1:Alias>
+    <xx1:Alias>Poe</xx1:Alias>
+    <xx1:Alias>Doe</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jan</Alias>
-    <Alias>Janie</Alias>
-    <Alias>Janet</Alias>
     <Aliases>Jan,Janie,Janet</Aliases>
     <First>Jane</First>
+    <xx1:Alias>Jan</xx1:Alias>
+    <xx1:Alias>Janie</xx1:Alias>
+    <xx1:Alias>Janet</xx1:Alias>
    </Name>
   </Friends>
  </extra>
@@ -725,23 +725,23 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
 
         runTest(forEachScript, input, configFriends, resultFriends, 0);
 
-        constexpr const char * resultRelatives = R"!!(<root>
+        constexpr const char * resultRelatives = R"!!(<root xmlns:xx1="urn:x1" xmlns:xx2="urn:x2">
  <extra>
   <Relatives>
    <Name>
-    <Alias>John</Alias>
-    <Alias>Jon</Alias>
-    <Alias>Johnny</Alias>
-    <Alias>Johnnie</Alias>
     <Aliases>John,Jon,Johnny,Johnnie</Aliases>
     <First>Jonathon</First>
+    <xx1:Alias>John</xx1:Alias>
+    <xx1:Alias>Jon</xx1:Alias>
+    <xx1:Alias>Johnny</xx1:Alias>
+    <xx1:Alias>Johnnie</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jen</Alias>
-    <Alias>Jenny</Alias>
-    <Alias>Jenna</Alias>
     <Aliases>Jen,Jenny,Jenna</Aliases>
     <First>Jennifer</First>
+    <xx1:Alias>Jen</xx1:Alias>
+    <xx1:Alias>Jenny</xx1:Alias>
+    <xx1:Alias>Jenna</xx1:Alias>
    </Name>
   </Relatives>
   <People>
@@ -752,16 +752,16 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
   </People>
   <Friends>
    <Name>
-    <Alias>Moe</Alias>
-    <Alias>Poe</Alias>
-    <Alias>Doe</Alias>
     <First>Joe</First>
+    <xx1:Alias>Moe</xx1:Alias>
+    <xx1:Alias>Poe</xx1:Alias>
+    <xx1:Alias>Doe</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jan</Alias>
-    <Alias>Janie</Alias>
-    <Alias>Janet</Alias>
     <First>Jane</First>
+    <xx1:Alias>Jan</xx1:Alias>
+    <xx1:Alias>Janie</xx1:Alias>
+    <xx1:Alias>Janet</xx1:Alias>
    </Name>
   </Friends>
  </extra>
@@ -792,35 +792,35 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
 
         runTest(forEachScript, input, configGarbagePathError, nullptr, -1);
 
-        constexpr const char * resultNada = R"!!(<root>
+        constexpr const char * resultNada = R"!!(<root xmlns:xx1="urn:x1" xmlns:xx2="urn:x2">
  <extra>
   <Relatives>
    <Name>
-    <Alias>John</Alias>
-    <Alias>Jon</Alias>
-    <Alias>Johnny</Alias>
-    <Alias>Johnnie</Alias>
     <First>Jonathon</First>
+    <xx1:Alias>John</xx1:Alias>
+    <xx1:Alias>Jon</xx1:Alias>
+    <xx1:Alias>Johnny</xx1:Alias>
+    <xx1:Alias>Johnnie</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jen</Alias>
-    <Alias>Jenny</Alias>
-    <Alias>Jenna</Alias>
     <First>Jennifer</First>
+    <xx1:Alias>Jen</xx1:Alias>
+    <xx1:Alias>Jenny</xx1:Alias>
+    <xx1:Alias>Jenna</xx1:Alias>
    </Name>
   </Relatives>
   <Friends>
    <Name>
-    <Alias>Moe</Alias>
-    <Alias>Poe</Alias>
-    <Alias>Doe</Alias>
     <First>Joe</First>
+    <xx1:Alias>Moe</xx1:Alias>
+    <xx1:Alias>Poe</xx1:Alias>
+    <xx1:Alias>Doe</xx1:Alias>
    </Name>
    <Name>
-    <Alias>Jan</Alias>
-    <Alias>Janie</Alias>
-    <Alias>Janet</Alias>
     <First>Jane</First>
+    <xx1:Alias>Jan</xx1:Alias>
+    <xx1:Alias>Janie</xx1:Alias>
+    <xx1:Alias>Janet</xx1:Alias>
    </Name>
   </Friends>
  </extra>
