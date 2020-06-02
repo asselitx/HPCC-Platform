@@ -210,30 +210,6 @@ static constexpr const char * esdlScriptSelectPath = R"!!(
 </es:CustomRequestTransform>
 )!!";
 
-static constexpr const char * esdlScriptAbsoluteSelectPath = R"!!(
-<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
-  <es:param name="selectPath" select="'unused'"/>
-
-  <es:set-value target="_OUTPUT_" select="/soap:Envelope/soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
-</es:CustomRequestTransform>
-)!!";
-
-static constexpr const char * esdlScriptRelativeSelectPath = R"!!(
-<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
-  <es:param name="selectPath" select="'unused'"/>
-
-  <es:set-value target="_OUTPUT_" select="soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
-</es:CustomRequestTransform>
-)!!";
-
-static constexpr const char * esdlScriptAnyDescendentSelectPath = R"!!(
-<es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script" target="soap:Body/extra/{$query}/{$request}">
-  <es:param name="selectPath" select="'unused'"/>
-
-  <es:set-value target="_OUTPUT_" select="//First"/>
-</es:CustomRequestTransform>
-)!!";
-
 static constexpr const char* selectPathResult = R"!!(<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
  <soap:Body>
   <extra>
@@ -296,6 +272,7 @@ class ESDLTests : public CppUnit::TestFixture
         CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
         CPPUNIT_TEST(testEsdlTransformRelativePath);
         CPPUNIT_TEST(testEsdlTransformSelectPath);
+        CPPUNIT_TEST(testEsdlTransformImplicitPrefix);
     CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -326,7 +303,7 @@ public:
                 throw MakeStringException(99, "Test failed(%s): expected an explicit exception %d", testname, code);
             if (result && !streq(result, request.str()))
             {
-                fputs(request.str(), stdout);
+                fprintf(stdout, "Transformed request:\n%s\nExpected:\n%s", request.str(), result);
                 throw MakeStringException(100, "Test failed(%s)", testname);
             }
         }
@@ -341,62 +318,6 @@ public:
             }
             E->Release();
         }
-    }
-
-    void testEsdlTransformSelectPath()
-    {
-      constexpr const char* config = R"!!(
-        <config strictParams='true'>
-          <Transform>
-            <Param name='testcase' value="select-path"/>
-            <Param name='selectPath' select="//First"/>
-          </Transform>
-        </config>
-      )!!";
-
-      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
-    }
-
-    void testEsdlTransformAbsoluteSoapPath()
-    {
-      constexpr const char* config = R"!!(
-        <config strictParams='true'>
-          <Transform>
-            <Param name='testcase' value="absolute-soap-path"/>
-            <Param name='selectPath' value="unused"/>
-          </Transform>
-        </config>
-      )!!";
-
-      runTest(esdlScriptAbsoluteSelectPath, soapRequest, config, selectPathResult, 0);
-    }
-
-    void testEsdlTransformRelativePath()
-    {
-      constexpr const char* config = R"!!(
-        <config strictParams='true'>
-          <Transform>
-            <Param name='testcase' value="relative-path"/>
-            <Param name='selectPath' value="unused"/>
-          </Transform>
-        </config>
-      )!!";
-
-      runTest(esdlScriptRelativeSelectPath, soapRequest, config, selectPathResult, 0);
-    }
-
-    void testEsdlTransformAnyDescendentPath()
-    {
-      constexpr const char* config = R"!!(
-        <config strictParams='true'>
-          <Transform>
-            <Param name='testcase' value="any-descendent-path"/>
-            <Param name='selectPath' value="unused"/>
-          </Transform>
-        </config>
-      )!!";
-
-      runTest(esdlScriptAnyDescendentSelectPath, soapRequest, config, selectPathResult, 0);
     }
 
     void testEsdlTransformScript()
@@ -1144,6 +1065,163 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
 
         runTest(esdlScript, soapRequest, config, nullptr, 23);
     }
+
+    void testEsdlTransformSelectPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="select-path"/>
+            <Param name='selectPath' select="//First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformAbsoluteSoapPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="absolute-soap-path"/>
+            <Param name='selectPath' select="/soap:Envelope/soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformRelativePath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="relative-path"/>
+            <Param name='selectPath' select="soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformAnyDescendentPath()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="any-descendent-path"/>
+            <Param name='selectPath' select="//First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequest, config, selectPathResult, 0);
+    }
+
+    void testEsdlTransformImplicitPrefix()
+    {
+      static constexpr const char * soapRequestImplicitPrefix = R"!!(<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://webservices.example.com/WsFooBar">
+<soap:Body>
+<extra>
+<EchoPersonInfo>
+  <_TransactionId>1736623372_3126765312_1333296170</_TransactionId>
+  <Context>
+   <Row>
+    <Common>
+     <TransactionId>1736623372_3126765312_1333296170</TransactionId>
+    </Common>
+   </Row>
+  </Context>
+  <EchoPersonInfoRequest>
+   <Row>
+    <Name>
+     <First>Joe</First>
+     <Last>Doe</Last>
+    </Name>
+    <Addresses>
+     <Address>
+      <type>Home</type>
+      <Line1>101 Main street</Line1>
+      <Line2>Apt 202</Line2>
+      <City>Hometown</City>
+      <State>HI</State>
+      <Zip>96703</Zip>
+     </Address>
+    </Addresses>
+   </Row>
+  </EchoPersonInfoRequest>
+</EchoPersonInfo>
+</extra>
+</soap:Body>
+</soap:Envelope>
+)!!";
+      constexpr const char* implicitPrefixResult = R"!!(<soap:Envelope xmlns="http://webservices.example.com/WsFooBar" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+ <soap:Body>
+  <extra>
+   <EchoPersonInfo>
+    <Context>
+     <Row>
+      <Common>
+       <TransactionId>1736623372_3126765312_1333296170</TransactionId>
+      </Common>
+     </Row>
+    </Context>
+    <_TransactionId>1736623372_3126765312_1333296170</_TransactionId>
+    <EchoPersonInfoRequest>
+     <Row>
+      <Addresses>
+       <Address>
+        <type>Home</type>
+        <Line2>Apt 202</Line2>
+        <Line1>101 Main street</Line1>
+        <City>Hometown</City>
+        <Zip>96703</Zip>
+        <State>HI</State>
+       </Address>
+      </Addresses>
+      <Name>
+       <Last>Doe</Last>
+       <First>Joe</First>
+      </Name>
+     </Row>
+     <_OUTPUT_>Joe</_OUTPUT_>
+    </EchoPersonInfoRequest>
+   </EchoPersonInfo>
+  </extra>
+ </soap:Body>
+</soap:Envelope>
+)!!";
+
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="implicit-prefix"/>
+            <Param name='selectPath' select="soap:Body/n:extra/n:EchoPersonInfo/n:EchoPersonInfoRequest/n:Row/n:Name/n:First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      constexpr const char* configNoPrefix = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="implicit-prefix-not-used"/>
+            <Param name='selectPath' select="soap:Body/extra/EchoPersonInfo/EchoPersonInfoRequest/Row/Name/First"/>
+          </Transform>
+        </config>
+      )!!";
+
+      runTest(esdlScriptSelectPath, soapRequestImplicitPrefix, config, implicitPrefixResult, 0);
+
+      // The implicit 'n' prefix is required if the content has a namespace defined
+      // with no prefix. This test is expected to throw an exception.
+      runTest(esdlScriptSelectPath, soapRequestImplicitPrefix, configNoPrefix, implicitPrefixResult, 99);
+    }
+
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( ESDLTests );

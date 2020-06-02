@@ -654,7 +654,7 @@ private:
             case XPATH_NODESET:
             {
                 xmlNodeSetPtr nodes = evaluatedXpathObj->nodesetval;
-                for (int i = 0; i < nodes->nodeNr; i++)
+                for (int i = 0; nodes!=nullptr && i < nodes->nodeNr; i++)
                 {
                     xmlNodePtr nodeTab = nodes->nodeTab[i];
                     auto nodeContent = xmlNodeGetContent(nodeTab);
