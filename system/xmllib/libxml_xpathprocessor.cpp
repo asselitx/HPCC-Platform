@@ -282,6 +282,14 @@ public:
         }
     }
 
+    virtual const char *queryNamespace(const char *prefix) override
+    {
+        if (!m_xpathContext)
+            return nullptr;
+        WriteLockBlock wblock(m_rwlock);
+        return (const char *) xmlXPathNsLookup(m_xpathContext, (const xmlChar *)prefix);
+    }
+
     virtual void registerFunction(const char *xmlns, const char * name, void *f) override
     {
         if (m_xpathContext)
