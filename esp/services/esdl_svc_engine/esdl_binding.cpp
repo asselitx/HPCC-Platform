@@ -975,12 +975,23 @@ bool EsdlServiceImpl::handleResultLogging(IEspContext &espcontext, IEsdlScriptCo
         IEsdlTransformSet *servicePLTs = m_transforms->queryMethodEntryPoint("", ESDLScriptEntryPoint_PreLogging);
         IEsdlTransformSet *methodPLTs = m_transforms->queryMethodEntryPoint(mthdef.queryName(), ESDLScriptEntryPoint_PreLogging);
 
-        scriptContext->appendContent(ESDLScriptCtxSection_LogData, "LogDataset", logdata);
+        scriptContext->appendContent(ESDLScriptCtxSection_LogData, "LogDatasets", logdata);
+
+        #if defined(_DEBUG)
+        LogLevel level;
+        scriptContext->getXPathInt64("target/*/@traceLevel", level);
+        if (level >= LogMax)
+        {
+            StringBuffer content;
+            scriptContext->toXML(content);
+            DBGLOG(1,"ESDLScriptEntryPoint_PreLogging before transforms: %s", content.str());
+        }
+        #endif
 
         if (servicePLTs || methodPLTs)
         {
             processServiceAndMethodTransforms(scriptContext, {servicePLTs, methodPLTs}, ESDLScriptCtxSection_LogData, nullptr);
-            scriptContext->toXML(temp, ESDLScriptCtxSection_PreESDLResponse);
+            scriptContext->toXML(temp, ESDLScriptCtxSection_LogData);
             logdata = temp.str();
         }
     }
@@ -1544,8 +1555,10 @@ void EsdlServiceImpl::prepareFinalRequest(IEspContext &context,
         context.addTraceSummaryTimeStamp(LogNormal, "srt-custreqtrans");
         scriptContext->setContent(ESDLScriptCtxSection_ESDLRequest, reqProcessed.str());
         if (serviceCRTs || serviceRTs || methodCRTs || methodRTs)
+        {
             processServiceAndMethodTransforms(scriptContext, {serviceCRTs, serviceRTs, methodCRTs, methodRTs}, ESDLScriptCtxSection_ESDLRequest, ESDLScriptCtxSection_FinalRequest);
-        scriptContext->toXML(reqProcessed.clear(), ESDLScriptCtxSection_FinalRequest);
+            scriptContext->toXML(reqProcessed.clear(), ESDLScriptCtxSection_FinalRequest);
+        }
 
         context.addTraceSummaryTimeStamp(LogNormal, "end-custreqtrans");
     }

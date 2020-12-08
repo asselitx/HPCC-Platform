@@ -303,6 +303,9 @@ public:
         {
             WriteLockBlock wblock(m_rwlock);
             xmlXPathRegisterNs(m_xpathContext, (const xmlChar *) prefix, (const xmlChar *) uri);
+            #if defined(_DEBUG)
+            DBGLOG("registerNamespace ctx doc(%s) ctx node(%s) prefix(%s) uri(%s)", m_xpathContext->doc->name, m_xpathContext->node->name, prefix, uri);
+            #endif
         }
     }
 

@@ -23,6 +23,8 @@
 #include <xpp/XmlPullParser.h>
 using namespace xpp;
 
+#define _DEBUG
+
 interface IEsdlTransformOperation : public IInterface
 {
     virtual const char *queryMergedTarget() = 0;
@@ -1568,6 +1570,9 @@ public:
             savedNamespaces->setProp(prefix, isEmptyString(existing) ? "" : existing);
             xpathContext->registerNamespace(prefix, namespaces->queryProp(prefix));
             targetXpath->registerNamespace(prefix, namespaces->queryProp(prefix));
+            #if defined(_DEBUG)
+            DBGLOG("ProcessTransform %s->%s prefix(%s) uri(%s) existing(%s)", srcSection?srcSection:"null", tgtSection?tgtSection:"null", prefix, namespaces->queryProp(prefix), isEmptyString(existing)?"":existing);
+            #endif
         }
         CXpathContextScope scope(xpathContext, "transform", savedNamespaces);
         if (!isEmptyString(target) && !streq(target, "."))

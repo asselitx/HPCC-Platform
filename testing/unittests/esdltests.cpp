@@ -269,30 +269,31 @@ static const char *target_config = "<method queryname='EchoPersonInfo'/>";
 class ESDLTests : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE( ESDLTests );
-        CPPUNIT_TEST(testEsdlTransformScript);
-        CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
-        CPPUNIT_TEST(testEsdlTransformForEach);
-        CPPUNIT_TEST(testEsdlTransformVarScope);
-        CPPUNIT_TEST(testEsdlTransformLegacy);
-        CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
-        CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
-        CPPUNIT_TEST(testEsdlTransformFailStrict);
-        CPPUNIT_TEST(testEsdlTransformScriptVarParam);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1A);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1B);
-        CPPUNIT_TEST(testEsdlTransformFailLevel1C);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2A);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2B);
-        CPPUNIT_TEST(testEsdlTransformFailLevel2C);
-        CPPUNIT_TEST(testEsdlTransformAnyDescendentPath);
-        CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
-        CPPUNIT_TEST(testEsdlTransformRelativePath);
-        CPPUNIT_TEST(testEsdlTransformSelectPath);
-        CPPUNIT_TEST(testEsdlTransformImplicitPrefix);
-        CPPUNIT_TEST(testEsdlTransformRequestNamespaces);
-        CPPUNIT_TEST(testScriptContext);
-        CPPUNIT_TEST(testScriptMap);
-        CPPUNIT_TEST(testTargetElement);
+        // CPPUNIT_TEST(testEsdlTransformScript);
+        // CPPUNIT_TEST(testEsdlTransformScriptNoPrefix);
+        // CPPUNIT_TEST(testEsdlTransformForEach);
+        // CPPUNIT_TEST(testEsdlTransformVarScope);
+        // CPPUNIT_TEST(testEsdlTransformLegacy);
+        // CPPUNIT_TEST(testEsdlTransformIgnoreScriptErrors);
+        // CPPUNIT_TEST(testEsdlTransformTargetXpathErrors);
+        // CPPUNIT_TEST(testEsdlTransformFailStrict);
+        // CPPUNIT_TEST(testEsdlTransformScriptVarParam);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1A);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1B);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel1C);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2A);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2B);
+        // CPPUNIT_TEST(testEsdlTransformFailLevel2C);
+        // CPPUNIT_TEST(testEsdlTransformAnyDescendentPath);
+        // CPPUNIT_TEST(testEsdlTransformAbsoluteSoapPath);
+        // CPPUNIT_TEST(testEsdlTransformRelativePath);
+        // CPPUNIT_TEST(testEsdlTransformSelectPath);
+        // CPPUNIT_TEST(testEsdlTransformImplicitPrefix);
+        // CPPUNIT_TEST(testEsdlTransformRequestNamespaces);
+        // CPPUNIT_TEST(testScriptContext);
+        // CPPUNIT_TEST(testScriptMap);
+        // CPPUNIT_TEST(testTargetElement);
+        CPPUNIT_TEST(testSiblingSectionSrcWithNewNamespace);
       //CPPUNIT_TEST(testHTTPPostXml); //requires a particular roxie query
     CPPUNIT_TEST_SUITE_END();
 
@@ -2085,6 +2086,164 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
           throw MakeStringException(100, "Test failed(%s)", "transform map");
       }
     }
+
+    IEsdlScriptContext *createTestScriptContextCustom(IEspContext *ctx, const char *xml, const char *config, const char* sourceSection)
+    {
+        Owned<IEsdlScriptContext> scriptContext = createEsdlScriptContext(ctx);
+        scriptContext->setAttribute(ESDLScriptCtxSection_ESDLInfo, "service", "EsdlExample2");
+        scriptContext->setAttribute(ESDLScriptCtxSection_ESDLInfo, "method", "EchoPersonInfo2");
+        scriptContext->setAttribute(ESDLScriptCtxSection_ESDLInfo, "request_type", "EchoPersonInfoRequest2");
+        scriptContext->setAttribute(ESDLScriptCtxSection_ESDLInfo, "request", "EchoPersonInfoRequest2");
+
+        scriptContext->setContent(ESDLScriptCtxSection_BindingConfig, config);
+        scriptContext->setContent(ESDLScriptCtxSection_TargetConfig, "<method queryname='EchoPersonInfo2'/>");
+        scriptContext->setContent(sourceSection, xml);
+        return scriptContext.getClear();
+    }
+
+    void runTestCustom(IEsdlScriptContext* scriptContext, const char *testname, const char *scriptXml, const char *srcSection, const char *tgtSection, const char *result, int code)
+    {
+        try
+        {
+            //printf("starting %s:\n", testname);  //uncomment to help debug
+            //Owned<IEspContext> ctx = createEspContext(nullptr);
+            //Owned<IEsdlScriptContext> scriptContext = createTestScriptContext(ctx, xml, config);
+            runTransform(scriptContext, scriptXml, srcSection, tgtSection, testname, code);
+
+            StringBuffer output;
+            scriptContext->toXML(output.clear(), tgtSection);
+
+
+            if (result && !areEquivalentTestXMLStrings(result, output.str()))
+            {
+                fputs(output.str(), stdout);
+                fflush(stdout);
+                fprintf(stdout, "\nTest failed(%s)\n", testname);
+                CPPUNIT_ASSERT(false);
+            }
+        }
+        catch (IException *E)
+        {
+            StringBuffer m;
+            if (code!=E->errorCode())
+            {
+                StringBuffer m;
+                fprintf(stdout, "\nTest(%s) Expected %d Exception %d - %s\n", testname, code, E->errorCode(), E->errorMessage(m).str());
+                E->Release();
+                CPPUNIT_ASSERT(false);
+            }
+            E->Release();
+        }
+    }
+
+    void testSiblingSectionSrcWithNewNamespace()
+    {
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="testSiblingSectionSrcWithNewNamespace"/>
+          </Transform>
+        </config>
+      )!!";
+
+      constexpr const char* input = R"!!(
+        <Request>
+          <SearchBy>
+            <Name>
+              <First>Mister</First>
+            </Name>
+          </SearchBy>
+        </Request>
+      )!!";
+
+      constexpr const char* actuallyPullValueFromHere = R"!!(
+        <datasource>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <result>
+                <Name>
+                  <Last>Robot</Last>
+                </Name>
+              </result>
+            </soap:Body>
+          </soap:Envelope>
+        </datasource>
+      )!!";
+
+      constexpr const char* script = R"!!(
+        <es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script">
+          <es:set-value target="SearchBy/Name/Last" value="/esdl_script_context/sibling_section/soap:Envelope/soap:Body/result/Name/Last"/>
+        </es:CustomRequestTransform>
+      )!!";
+
+      constexpr const char* scriptNoPrefix = R"!!(
+        <es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script">
+          <es:set-value target="SearchBy/Name/Last" value="/esdl_script_context/sibling_section/*/*/result/Name/Last"/>
+        </es:CustomRequestTransform>
+      )!!";
+
+      constexpr const char* scriptSrc = R"!!(
+        <es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script">
+          <es:set-value target="SearchBy/Name/Last" value="/esdl_script_context/ns1_src_section/soap:Envelope/soap:Body/result/Name/Last"/>
+        </es:CustomRequestTransform>
+      )!!";
+
+      constexpr const char* result = R"!!(
+        <Request>
+          <SearchBy>
+            <Name>
+              <First>Mister</First>
+              <Last>Robot</Last>
+            </Name>
+          </SearchBy>
+        </Request>
+      )!!";
+
+      constexpr const char* input_ns1 = R"!!(
+        <soap:Request xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+          <SearchBy>
+            <Name>
+              <First>Mister</First>
+            </Name>
+          </SearchBy>
+        </soap:Request>
+      )!!";
+
+      constexpr const char* result_ns1 = R"!!(
+        <soap:Request xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+          <SearchBy>
+            <Name>
+              <First>Mister</First>
+              <Last>Robot</Last>
+            </Name>
+          </SearchBy>
+        </soap:Request>
+      )!!";
+
+      const char* name1 = "pull from sibling src section without using namespace prefix";
+      const char* name2 = "pull from sibling src section using namespace prefix";
+      Owned<IEspContext> ctx = createEspContext(nullptr);
+      // 'input' XML gets placed into the ESDLScriptCtxSection_ESDLRequest section, named 'esdl_request'
+      // create our own context, not starting in ESDLRequest, to avoid the default target logic in
+      // esdl_script.cpp processServiceAndMethodTransforms() which sets it to the soap method defined
+      // by the configuration set.
+      Owned<IEsdlScriptContext> scriptContext = createTestScriptContextCustom(ctx, input, config, "no_ns_src_section");
+      scriptContext->setContent("sibling_section", actuallyPullValueFromHere);
+
+      runTestCustom(scriptContext, name1, scriptNoPrefix, "no_ns_src_section", "test_result1", result, 0);
+
+      // This fails, but I believe should succeed
+      //runTestCustom(scriptContext, name2, script, "no_ns_src_section", "test_result2", result, 0);
+
+      // Tests to see if having a ns defined in the src is sufficient to recognize that same ns used in the
+      // sibling where we pull values from.
+      // This also fails
+      scriptContext->setContent("ns1_src_section", input_ns1);
+      runTestCustom(scriptContext, "sibling pull, ns1 source section", scriptSrc, "ns1_src_section", "ns1_result", result_ns1, 0);
+
+    }
+
+
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( ESDLTests );
