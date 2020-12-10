@@ -294,6 +294,7 @@ class ESDLTests : public CppUnit::TestFixture
         // CPPUNIT_TEST(testScriptMap);
         // CPPUNIT_TEST(testTargetElement);
         CPPUNIT_TEST(testSiblingSectionSrcWithNewNamespace);
+        CPPUNIT_TEST(testPostAppendTo);
       //CPPUNIT_TEST(testHTTPPostXml); //requires a particular roxie query
     CPPUNIT_TEST_SUITE_END();
 
@@ -2163,6 +2164,8 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
               <result>
                 <Name>
                   <Last>Robot</Last>
+                  <Middle>Alfred</Middle>
+                  <Suffix>Jr</Suffix>
                 </Name>
               </result>
             </soap:Body>
@@ -2179,6 +2182,8 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
       constexpr const char* scriptNoPrefix = R"!!(
         <es:CustomRequestTransform xmlns:es="urn:hpcc:esdl:script">
           <es:set-value target="SearchBy/Name/Last" value="/esdl_script_context/sibling_section/*/*/result/Name/Last"/>
+          <es:append-to-value target="SearchBy/Name/Last" value="/esdl_script_context/sibling_section/*/*/result/Name/Middle"/>
+          <es:append-to-value target="SearchBy/Name/Last" value="/esdl_script_context/sibling_section/*/*/result/Name/Suffix"/>
         </es:CustomRequestTransform>
       )!!";
 
@@ -2194,6 +2199,17 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
             <Name>
               <First>Mister</First>
               <Last>Robot</Last>
+            </Name>
+          </SearchBy>
+        </Request>
+      )!!";
+
+      constexpr const char* resultNoPrefix = R"!!(
+        <Request>
+          <SearchBy>
+            <Name>
+              <First>Mister</First>
+              <Last>RobotAlfredJr</Last>
             </Name>
           </SearchBy>
         </Request>
@@ -2223,23 +2239,172 @@ constexpr const char * result = R"!!(<soap:Envelope xmlns:soap="http://schemas.x
       const char* name1 = "pull from sibling src section without using namespace prefix";
       const char* name2 = "pull from sibling src section using namespace prefix";
       Owned<IEspContext> ctx = createEspContext(nullptr);
-      // 'input' XML gets placed into the ESDLScriptCtxSection_ESDLRequest section, named 'esdl_request'
       // create our own context, not starting in ESDLRequest, to avoid the default target logic in
       // esdl_script.cpp processServiceAndMethodTransforms() which sets it to the soap method defined
       // by the configuration set.
       Owned<IEsdlScriptContext> scriptContext = createTestScriptContextCustom(ctx, input, config, "no_ns_src_section");
       scriptContext->setContent("sibling_section", actuallyPullValueFromHere);
-
-      runTestCustom(scriptContext, name1, scriptNoPrefix, "no_ns_src_section", "test_result1", result, 0);
+      // This test shows two things (1) a script can pull values from another section if the
+      // xpath doesn't contain any namepace prefixes and (2) the append-to-value command
+      // works in a context where we're pulling from another section other than our source
+      // section
+      runTestCustom(scriptContext, name1, scriptNoPrefix, "no_ns_src_section", "test_result1", resultNoPrefix, 0);
 
       // This fails, but I believe should succeed
-      //runTestCustom(scriptContext, name2, script, "no_ns_src_section", "test_result2", result, 0);
+      // It shows there is a problem when referencing nodes outside our source section and the
+      // referring xpath uses namespace prefixes that are present in the outside section.
+      runTestCustom(scriptContext, name2, script, "no_ns_src_section", "test_result2", result, 0);
 
       // Tests to see if having a ns defined in the src is sufficient to recognize that same ns used in the
       // sibling where we pull values from.
       // This also fails
       scriptContext->setContent("ns1_src_section", input_ns1);
       runTestCustom(scriptContext, "sibling pull, ns1 source section", scriptSrc, "ns1_src_section", "ns1_result", result_ns1, 0);
+
+    }
+
+    // Tests use of the <append-value-to> command in the scope of the <http-post-xml> command
+    // Requires the use of a soapplus server to echo back a canned response for the http-post-xml
+    // request. The contents of the canned response are below- cannedFakeRoxieResponse.
+    // That can be saved to a file named 'cannedFakeRoxieResponse.xml' and used with soapplus:
+    //
+    //    soapplus -s -p 9876 -i cannedFakeRoxieResponse.xml
+    //
+    void testPostAppendTo()
+    {
+      constexpr const char* cannedFakeRoxieResponse = R"!!(
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+          <soap:Body>
+            <Inquiry_Services.Log_ServiceResponse xmlns="urn:hpccsystems:ecl:inquiry_services.log_service" sequence="0">
+              <Results>
+                <Result>
+                  <Dataset xmlns='urn:hpccsystems:ecl:inquiry_services.log_service:result:results' name='Results'>
+                    <Row>
+                      <description>LN SMALL BUSINESS SCORE</description>
+                      <industry>CREDIT UNION</industry>
+                    </Row>
+                  </Dataset>
+                </Result>
+              </Results>
+            </Inquiry_Services.Log_ServiceResponse>
+          </soap:Body>
+        </soap:Envelope>
+      )!!";
+
+      constexpr const char* config = R"!!(
+        <config strictParams='true'>
+          <Transform>
+            <Param name='testcase' value="testPostAppendTo"/>
+          </Transform>
+        </config>
+      )!!";
+
+      constexpr const char* script = R"!!(
+        <Transforms>
+          <es:CustomRequestTransform name="InquiryLoggingScriptacular" trace="true" xmlns:es="urn:hpcc:esdl:script">
+            <es:http-post-xml url="&apos;http://certstagingvip.hpcc.risk.regn.net:9876&apos;" section="logdata" name="inquiry-log-service">
+              <es:content>
+                <es:element name="Envelope">
+                  <es:namespace prefix="soap" uri="http://schemas.xmlsoap.org/soap/envelope/" current="true" />
+                  <es:element name="Body">
+                    <es:element name="inquiry_services.log_service">
+                      <es:namespace uri="urn:hpccsystems:ecl:inquiry_services.log_service" current="true" />
+                        <es:set-value target="dob" value="&apos;1973&apos;"/>
+                        <es:append-to-value target="dob" value="&apos;07&apos;"/>
+                    </es:element>
+                  </es:element>
+                </es:element>
+              </es:content>
+            </es:http-post-xml>
+          </es:CustomRequestTransform>
+        </Transforms>
+      )!!";
+
+      constexpr const char* input = R"!!(
+        <root>
+          <Unused>
+              <Content>yabbadabba</Content>
+          </Unused>
+        </root>
+      )!!";
+
+      constexpr const char* result = R"!!(
+        <inquiry-log-service>
+          <response status="200 OK">
+            <content>
+              <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                  <Inquiry_Services.Log_ServiceResponse xmlns="urn:hpccsystems:ecl:inquiry_services.log_service" sequence="0">
+                    <Results>
+                      <Result>
+                        <Dataset xmlns='urn:hpccsystems:ecl:inquiry_services.log_service:result:results' name='Results'>
+                          <Row>
+                            <description>LN SMALL BUSINESS SCORE</description>
+                            <industry>CREDIT UNION</industry>
+                          </Row>
+                        </Dataset>
+                      </Result>
+                    </Results>
+                  </Inquiry_Services.Log_ServiceResponse>
+                </soap:Body>
+              </soap:Envelope>
+            </content>
+          </response>
+          <request url="http://certstagingvip.hpcc.risk.regn.net:9876">
+            <content>
+            <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+              <soap:Body>
+              <inquiry_services.log_service xmlns="urn:hpccsystems:ecl:inquiry_services.log_service">
+                <dob>197307</dob>
+              </inquiry_services.log_service>
+              </soap:Body>
+            </soap:Envelope>
+            </content>
+          </request>
+        </inquiry-log-service>
+      )!!";
+
+      Owned<IEspContext> ctx = createEspContext(nullptr);
+      // create our own context, not starting in ESDLRequest, to avoid the default target logic in
+      // esdl_script.cpp processServiceAndMethodTransforms() which sets it to the soap method defined
+      // by the configuration set.
+      Owned<IEsdlScriptContext> scriptContext = createTestScriptContextCustom(ctx, input, config, "my_source_section");
+      //scriptContext->setContent("sibling_section", actuallyPullValueFromHere);
+
+      //runTestCustom(scriptContext, "http post append-to-value", script, "my_source_section", "ignored_result", result, 0);
+      const char* testname = "http post append-to-value";
+      int code = 0;
+      try
+        {
+            runTransform(scriptContext, script, "my_source_section", "ignored_result", testname, code);
+
+            StringBuffer output;
+            // The script doesn't modify the input, that isn't what we're testing.
+            // We're testing if the script properly constructs the hptt-post-xml request.
+            // For that reson we want to compare the http-post-xml result blob that is
+            // placed in the section 'logdata/inquiry-log-data' to our known result.
+            scriptContext->toXML(output.clear(), "logdata");
+
+            if (result && !areEquivalentTestXMLStrings(result, output.str()))
+            {
+                fputs(output.str(), stdout);
+                fflush(stdout);
+                fprintf(stdout, "\nTest failed(%s)\n", testname);
+                CPPUNIT_ASSERT(false);
+            }
+        }
+        catch (IException *E)
+        {
+            StringBuffer m;
+            if (code!=E->errorCode())
+            {
+                StringBuffer m;
+                fprintf(stdout, "\nTest(%s) Expected %d Exception %d - %s\n", testname, code, E->errorCode(), E->errorMessage(m).str());
+                E->Release();
+                CPPUNIT_ASSERT(false);
+            }
+            E->Release();
+        }
 
     }
 

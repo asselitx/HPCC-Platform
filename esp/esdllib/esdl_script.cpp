@@ -23,7 +23,6 @@
 #include <xpp/XmlPullParser.h>
 using namespace xpp;
 
-#define _DEBUG
 
 interface IEsdlTransformOperation : public IInterface
 {
