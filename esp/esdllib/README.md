@@ -289,17 +289,81 @@ Additional details about the entry points and script configuration is found in t
 
 #### name
 
+Assumed to be a scalar value, not an xpath, so quoting is not required.
+
 #### target
+
+As an attribute of the endpoint element this has some additional characteristics:
+
+ * Special macros for the configured back end query `{$query}` and the ESP SOAP request `{$request}` are available to use.
+ * In the 8.0 release and earlier, the xpath must exist at runtime or an exception will be thrown. A future release will ensure the path exists without throwing an exception.
 
 #### value
 
 #### source
 
+As an attribute of the endpoint element this has some additional characteristics:
+
+ * Special macros for the configured back end query `{$query}` and the ESP SOAP request `{$request}` are available to use.
+
 #### select
 
 ### Conventions
 
+#### Namespaces
+
+Namespaces referenced in any of your xpaths must be defined in your scripts to match the XML being processed. One exception is that the BackendRequest entry point will automatically detect and define the standard soap namespace (xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/") if it is used in your source XML.
+
+When your source XML uses a namespace prefix as part of the tag name, you must also use it in your xpath referencing that node.
+
+If a node defines a namespace without a prefix, you must define that namespace with a prefix in the root of your script. Then you must use the prefix in any xpaths referencing that node. Any children of that node in the source XML must not be referred to with the prefix you defined in your script:
+
+*source XML:*
+```xml
+<script_context_section>
+    <request url="http://certstagingvip.hpcc.risk.regn.net:9876">
+      <content>
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+          <soap:Body>
+            <inquiry_services.log_service xmlns="urn:hpccsystems:ecl:inquiry_services.log_service">
+              <city>minneapolis</city>
+              <state>mn</state>
+              <zip>55419</zip>
+            </inquiry_services.log_service>
+          </soap:Body>
+        </soap:Envelope>
+      </content>
+    </request>
+</script_context_section>
+```
+If I want to refer to the the `city` node above, my script would look like this:
+
+```xml
+<BackendRequest name="TestScript" xmlns:es="urn:hpcc:esdl:script" source="script_context_section" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:insvc="urn:hpccsystems:ecl:inquiry_services.log_service">
+    <es:set-value target="city-value" select="request/soap:Envelope/soap:Body/insvc:inquiry_services.log_service/city"/>
+</BackendRequest>
+```
+
+*Provide some examples*
+
 #### Quoting Strings
+
+String tokens must be quoted in xpath expressions. Our xpath expressions occur in XML attributes, which also must be quoted. However, the quotes used to delimit the attribute cannot be contained inside the xpath expression. Usually this is handled by using double-quotes for attributes and  apostrophes (single quotes), for quoting inside the attribute. For example:
+
+```xml
+<es:set-value target="name" value="'foobar'"/>
+```
+
+In some cases you may see XML or xpath parsing errors when using the single quotes depending on your workflow (_establish precisely when this occurs_). This may be caused by unescaped apostrophes, which you can remedy like this:
+
+```xml
+<es:set-value target="name" value="&apos;foobar&apos;"/>
+```
+
+So far we've concluded that escaping is not required in these attributes:
+
+* `getDataSection()` function inside entry point `@source`
+* `set-value` `@value`
 
 #### Variable Resolution
 Explain how variables don't resolve in select xpaths as might be expected, and show the local-name() workaround.
@@ -336,9 +400,15 @@ Mention the static and dynamic configuration required to set these up.
 ### Namespaces
 
 ## Entry Points
-Outline what the default source/target context is for each entry point.
+
+Generally, each entry point has default source and target nodes, which are the root nodes for read and write commands respectively. These defaults can be overridden with `@source` and `@target` attributes in the entry point, which we'll discuss here, and also using [source](#source) and [target](#target) [commands](#commands).
+
+At the end of each script
 
 ### BackendRequest
+
+**default source** : esdl_request
+**default target** : final_request
 
 ### BackendResponse
 
@@ -346,17 +416,76 @@ Outline what the default source/target context is for each entry point.
 
 ### EsdlResponse
 
+**default source** : initial_esdl_response
+**default target** : modified_esdl_response
+
 ### PreLogging
+
+**default source** : logdata
+**default target** : logdata
 
 ## XPath
 
 ### Custom Functions
 
+Several custom xpath functions are defined to aid in scripting. They can be used in any attribute that accepts an xpath.
+
 #### ensureDataSection
+
+```javascript
+ensureDataSection([section_name])
+```
+
+section_name : Optional xpath
+
+Ensures the script context section named *section_name* exists and returns it. If no section name is provided, it returns the section for temporary values that stays valid through the lifetime of the transaction.
+
+Will return an empty node set if the xpath evaluation of *section_name* fails.
+
+##### Example
+
+```xml
+<es:BackendRequest xmlns:es="urn:hpcc:esdl:script">
+    <es:set-value target="ensureDataSection(&apos;mySection&apos;)/firstValue" value="&apos;23&apos;"/>
+</es:BackendRequest>
+```
+Results in this change to the ScriptContext:
+
+*Question: Do we want to expose the actual root and section names, or abstract them to promote better coding practice?*
+
+```xml
+<ScriptContext>
+    <BackendRequest>...</BackendRequest>
+    <BackendResponse>...</BackendResponse>
+    <mySection>
+        <firstValue>23</firstValue>
+    </mySection>
+</ScriptContext>
+```
 
 #### getDataSection
 
+```javascript
+getDataSection([section_name])
+```
+
+section_name : Optional xpath
+
+Returns the xml node named *section_name* of the script context. If no section name is provided, it returns the section for temporary values that stays valid through the lifetime of the transaction.
+
+Will return an empty node set if the xpath evaluation of *section_name* fails.
+
+##### Example
+
+Assume we have the ScriptContext from the `ensureDataSection()` example above.
+
+```xml
+
+```
+
 #### getFeatureSecAccessFlags
+
+
 
 #### getLogOption
 
@@ -389,9 +518,9 @@ Mention briefly what they are and point to existing online documentation for det
 
 ### copy-of
 
-### element
+Designed to copy a whole node. More complex xpaths in the select attribute that yield a transformation of the source node will result in undefined behavior.
 
-### ensure-target
+### element
 
 ### ensure-target
 
@@ -409,17 +538,51 @@ Mention briefly what they are and point to existing online documentation for det
 
 ### mysql
 
-### mysql
-
 ### namespace
 
 ### param
+
+Define a parameter for use by the script. Parameters are immutable. They are in scope for any sibling or descendent elements of the variable definition. The param command can only be a child of the following elements:
+
+* Any endpoint
+* `element`
+* `ensure-target`
+* `for-each`
+* `if`
+* `if-target`
+* `otherwise`
+* `parameter`
+* `target`
+* `variable`
+* `when`
+* `xml-http-post`
+
+It is disallowed as a child of these elements:
+
+* `choose`
+* `if-source`
+* `source`
+
+If a parameter is defined inside one of the disallowed elements, the script will be valid but incorrect. In that situation, if the parameter is referenced inside an xpath an error "Could not evaluate XPATH '*xpath containing parameter reference*'". A future update will handle this error condition more robustly.
+
 
 ### remove-node
 
 ### rename-node
 
 ### set-log-option
+
+```xml
+<es:set-log-option name="option-name" value="option-value"/>
+```
+set-log-option is a method to transfer state from the transaction processing to the logging. It creates a data element named *option-name* containing *option-value* that is made available in the UpdateLogRequest XML provided to loggingagents. For the example above the UpdateLogRequest would be:
+
+```xml
+<UpdateLogRequest>
+    <logging option-name="option-value"/>
+</UpdateLogRequest>
+```
+It can be referenced from a loggingagent configuration with the xpath `logging[@option-name]`
 
 ### set-log-profile
 
@@ -429,12 +592,64 @@ Mention briefly what they are and point to existing online documentation for det
 
 ### store-value
 
+```xml
+<es:store-value name="value_name" select="value_to_store"/>
+<es:store-value xpath_name="value_name_xpath" select="value_to_store"/>
+```
+
 ### target
 
 ### variable
 
+Define a variable for use by the script. Variables are immutable. Variables are in scope for any sibling or descendent elements of the variable definition. The variable command can only be a child of the following elements:
+
+* Any endpoint
+* `element`
+* `ensure-target`
+* `for-each`
+* `if`
+* `if-target`
+* `otherwise`
+* `parameter`
+* `target`
+* `variable`
+* `when`
+* `xml-http-post`
+
+It is disallowed as a child of these elements:
+
+* `choose`
+* `if-source`
+* `source`
+
+If a variable is defined inside one of the disallowed elements, the script will be valid but incorrect. In that situation, if the variable is referenced inside an xpath an error "Could not evaluate XPATH '*xpath containing variable reference*'". A future update will handle this error condition more robustly.
+
+
 ## Scripting Context
-Describe layout and contents of different sections. Does this need to be higher up to help readers understand? Let's see how it flows.
+*Describe layout and contents of different sections. Does this need to be higher up to help readers understand? Let's see how it flows.*
+
+When the esp logLevel >= LogMax, then after executing each entry point's scripts the ESP prints out the contents of the context with the label *Entire script context after transforms:*
+
+```xml
+<esdl_script_context>
+    <esdl></esdl>
+    <original_request></original_request>
+    <target></target>
+    <config></config>
+    <esdl_request></esdl_request>
+    <final_request></final_request>
+    <initial_response></initial_response>
+    <pre_esdl_response></pre_esdl_response>
+    <logdata>
+        Never actually added to the context, but passed direclty
+        on to the LoggingManager to queue up for the LogAgents.
+    </logdata>
+    <logging></logging>
+    <store></store>
+</esdl_script_context>
+```
 
 ## Configuration
-Explain how the scripts are configured in the dynamic binding. Mention, perhaps, the upcoming manifest tool to generate bindings, including scripts, from a collection of source files.
+*Explain how the scripts are configured in the dynamic binding. Mention, perhaps, the upcoming manifest tool to generate bindings, including scripts, from a collection of source files.*
+
+You can adjust how much debugging information is sent to the trace file by adding a `traceLevel` attribute to any `<Method>` configuration. Valid values are 1-10 with 10 being the most verbose and the default being 1. Additionally, adding the attribute `trace="<name>"` to any script's root entry-point named tag will use that name for error-level trace output related to that script.
