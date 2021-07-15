@@ -1,22 +1,24 @@
-# DESDL Scripting
+# ESDL Scripting
 
-Using DESDL to implement services gives the benefit of robust interfaces isolated from the compiled code of the HPCC Platform itself. You can easily update an interface or service binding without building or deploying any new C++ code. It also provides integration with plugins to support robust logging and authentication.
+Using ESDL to implement services gives the benefit of robust interfaces isolated from the compiled code of the HPCC Platform itself. You can easily update an interface or service binding without building or deploying any new C++ code. It also provides integration with plugins to support robust logging and authentication.
 
 However, anything beyond the most basic service will have some need for customization and logic beyond the standard steps of authenticate, call back-end service and log. To support this customization and logic we've implemented a scripting engine with hooks into various steps of the transaction.
 
-This document is an overview and reference of the DESDL scripting language.
+This document is an overview and reference of the ESDL scripting language.
 
 ## Table of Contents
 
 <!-- TOC -->
 
-- [DESDL Scripting](#desdl-scripting)
+- [ESDL Scripting](#esdl-scripting)
     - [Table of Contents](#table-of-contents)
 - [Language Overview](#language-overview)
     - [Basic Example](#basic-example)
     - [Transaction Flow and Entry Points](#transaction-flow-and-entry-points)
         - [Illustrated by Table](#illustrated-by-table)
         - [Illustrated by Flowchart](#illustrated-by-flowchart)
+    - [Scripting Context](#scripting-context)
+    - [Configuration](#configuration)
 - [Reference](#reference)
     - [Common Attributes and Conventions](#common-attributes-and-conventions)
         - [Attributes](#attributes)
@@ -26,6 +28,7 @@ This document is an overview and reference of the DESDL scripting language.
             - [source](#source)
             - [select](#select)
         - [Conventions](#conventions)
+            - [Namespaces](#namespaces)
             - [Quoting Strings](#quoting-strings)
             - [Variable Resolution](#variable-resolution)
         - [Implicit Variables](#implicit-variables)
@@ -52,7 +55,9 @@ This document is an overview and reference of the DESDL scripting language.
     - [XPath](#xpath)
         - [Custom Functions](#custom-functions)
             - [ensureDataSection](#ensuredatasection)
+                - [Example](#example)
             - [getDataSection](#getdatasection)
+                - [Example](#example)
             - [getFeatureSecAccessFlags](#getfeaturesecaccessflags)
             - [getLogOption](#getlogoption)
             - [getLogProfile](#getlogprofile)
@@ -71,14 +76,12 @@ This document is an overview and reference of the DESDL scripting language.
         - [copy-of](#copy-of)
         - [element](#element)
         - [ensure-target](#ensure-target)
-        - [ensure-target](#ensure-target)
         - [fail](#fail)
         - [for-each](#for-each)
         - [http-post-xml](#http-post-xml)
         - [if](#if)
         - [if-source](#if-source)
         - [if-target](#if-target)
-        - [mysql](#mysql)
         - [mysql](#mysql)
         - [namespace](#namespace)
         - [param](#param)
@@ -91,8 +94,6 @@ This document is an overview and reference of the DESDL scripting language.
         - [store-value](#store-value)
         - [target](#target)
         - [variable](#variable)
-    - [Scripting Context](#scripting-context)
-    - [Configuration](#configuration)
 
 <!-- /TOC -->
 
@@ -280,6 +281,37 @@ The lifecycle of an ESP transaction is shown below in the flowchart's blue boxes
 A script is inserted to an entry point by naming its root node after the name of the entry point. A script can replace a backend service call by configuring it as a **Service** entry point.
 
 Additional details about the entry points and script configuration is found in the reference section.
+
+## Scripting Context
+*Describe layout and contents of different sections. Does this need to be higher up to help readers understand? Let's see how it flows.*
+
+The scripting engine maintains a context during the lifetime of each transaction. This context holds state for the scripts, and the results of executing the commands at each entry point. operation
+
+When the esp logLevel >= LogMax, after executing each entry point's scripts the ESP prints out the contents of the context with the label *Entire script context after transforms:*
+
+```xml
+<esdl_script_context>
+    <esdl></esdl>
+    <original_request></original_request>
+    <target></target>
+    <config></config>
+    <esdl_request></esdl_request>
+    <final_request></final_request>
+    <initial_response></initial_response>
+    <pre_esdl_response></pre_esdl_response>
+    <logdata>
+        Never actually added to the context, but passed direclty
+        on to the LoggingManager to queue up for the LogAgents.
+    </logdata>
+    <logging></logging>
+    <store></store>
+</esdl_script_context>
+```
+
+## Configuration
+*Explain how the scripts are configured in the dynamic binding. Mention, perhaps, the upcoming manifest tool to generate bindings, including scripts, from a collection of source files.*
+
+You can adjust how much debugging information is sent to the trace file by adding a `traceLevel` attribute to any `<Method>` configuration. Valid values are 1-10 with 10 being the most verbose and the default being 1. Additionally, adding the attribute `trace="traceName"` to any script's root entry-point tag will use that name for error-level trace output related to that script.
 
 # Reference
 
@@ -623,33 +655,3 @@ It is disallowed as a child of these elements:
 * `source`
 
 If a variable is defined inside one of the disallowed elements, the script will be valid but incorrect. In that situation, if the variable is referenced inside an xpath an error "Could not evaluate XPATH '*xpath containing variable reference*'". A future update will handle this error condition more robustly.
-
-
-## Scripting Context
-*Describe layout and contents of different sections. Does this need to be higher up to help readers understand? Let's see how it flows.*
-
-When the esp logLevel >= LogMax, then after executing each entry point's scripts the ESP prints out the contents of the context with the label *Entire script context after transforms:*
-
-```xml
-<esdl_script_context>
-    <esdl></esdl>
-    <original_request></original_request>
-    <target></target>
-    <config></config>
-    <esdl_request></esdl_request>
-    <final_request></final_request>
-    <initial_response></initial_response>
-    <pre_esdl_response></pre_esdl_response>
-    <logdata>
-        Never actually added to the context, but passed direclty
-        on to the LoggingManager to queue up for the LogAgents.
-    </logdata>
-    <logging></logging>
-    <store></store>
-</esdl_script_context>
-```
-
-## Configuration
-*Explain how the scripts are configured in the dynamic binding. Mention, perhaps, the upcoming manifest tool to generate bindings, including scripts, from a collection of source files.*
-
-You can adjust how much debugging information is sent to the trace file by adding a `traceLevel` attribute to any `<Method>` configuration. Valid values are 1-10 with 10 being the most verbose and the default being 1. Additionally, adding the attribute `trace="<name>"` to any script's root entry-point named tag will use that name for error-level trace output related to that script.
