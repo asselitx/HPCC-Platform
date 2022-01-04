@@ -40,6 +40,8 @@ using namespace xpp;
 #define TEMPLATE_TAG_PRELOG         "PreLogging"
 #define TEMPLATE_TAG_BACKEND_REQ    "BackendRequest"
 #define TEMPLATE_TAG_BACKEND_RESP   "BackendResponse"
+#define TEMPLATE_TAG_ESDL_RESP      "EsdlResponse"
+#define TEMPLATE_TAG_SCRIPT         "Script"
 #define TEMPLATE_TAG_ESDL_DEFNS     "Definitions"
 
 class EsdlBuildBindingCmd : public EsdlCmdCommon
@@ -67,7 +69,15 @@ class EsdlBuildBindingCmd : public EsdlCmdCommon
         StringAttr bindTemplatePath;
 
         // List of allowed tag names for Transform elements
-        std::unordered_set<std::string> transformTags{TEMPLATE_TAG_TRANSFORM, TEMPLATE_TAG_CRT, TEMPLATE_TAG_PRELOG, TEMPLATE_TAG_BACKEND_REQ, TEMPLATE_TAG_BACKEND_RESP};
+        std::unordered_set<std::string> transformTags {
+            TEMPLATE_TAG_TRANSFORM,
+            TEMPLATE_TAG_CRT,
+            TEMPLATE_TAG_PRELOG,
+            TEMPLATE_TAG_BACKEND_REQ,
+            TEMPLATE_TAG_BACKEND_RESP,
+            TEMPLATE_TAG_ESDL_RESP,
+            TEMPLATE_TAG_SCRIPT
+        };
 
         EsdlCmdHelper cmdHelper;
 
