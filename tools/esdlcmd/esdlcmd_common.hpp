@@ -146,8 +146,10 @@ typedef IEsdlCommand *(*EsdlCommandFactory)(const char *cmdname);
 #define ESDLOPT_RECURSIVE_S             "--r"
 
 
-#define ESDLOPT_MANIFEST_PATH           "--manifest"
+#define ESDLOPT_SCRIPT_INCLUDE_PATH     "--script-include-path"
+#define ESDLOPT_SCRIPT_INCLUDE_PATH_S   "-i"
 #define ESDLOPT_MANIFEST_NOCDATA        "--no-cdata"
+#define ESDLOPT_MANIFEST_OUTFILE        "--outfile"
 
 
 bool matchVariableOption(ArgvIterator &iter, const char prefix, IArrayOf<IEspNamedValue> &values);

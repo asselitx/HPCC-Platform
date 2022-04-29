@@ -40,6 +40,8 @@ set ( SRCS
          ${CMAKE_CURRENT_SOURCE_DIR}/esdlcmdutils.cpp
          ${CMAKE_CURRENT_SOURCE_DIR}/esdlcmd_buildbind.cpp
          ${ESPSCM_GENERATED_DIR}/ws_esdlconfig_esp.cpp
+         ${HPCC_SOURCE_DIR}/esp/bindings/SOAP/xpp/fxpp/FragmentedXmlPullParser.cpp;
+         ${HPCC_SOURCE_DIR}/esp/bindings/SOAP/xpp/fxpp/FragmentedXmlAssistant.cpp;
     )
 
 include_directories (
