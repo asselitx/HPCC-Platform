@@ -18,6 +18,7 @@
 #include "platform.h"
 #include "esphttp.hpp"
 #include "persistent.hpp"
+#include "cumulativetimer.hpp"
 
 #ifdef _WIN32
   #include <algorithm>
@@ -2226,9 +2227,16 @@ void CHttpRequest::readUploadFileContent(StringArray& fileNames, StringArray& fi
 int CHttpRequest::readContentToFiles(const char * netAddress, const char * path, StringArray& fileNames)
 {
     const char* contentType = m_content_type.get();
+    IEspContext* ctx = this->queryContext();
+    CumulativeTimer* readTimer = ctx->queryTraceSummaryCumulativeTimer(LogMin, "uploadRead", TXSUMMARY_GRP_CORE);
+    CumulativeTimer* writeTimer = ctx->queryTraceSummaryCumulativeTimer(LogMin, "uploadWrite", TXSUMMARY_GRP_CORE);
+    CumulativeTimer* uploadCreateTimer = ctx->queryTraceSummaryCumulativeTimer(LogMin, "uploadfileCreateMs", TXSUMMARY_GRP_CORE);
+    CumulativeTimer* uploadOpenTimer = ctx->queryTraceSummaryCumulativeTimer(LogMin, "uploadfileIOOpenMs", TXSUMMARY_GRP_CORE);
+
     if (!contentType || !*contentType)
         throw MakeStringException(-1, "Content Type not found.");
     Owned<CMimeMultiPart> multipart = new CMimeMultiPart("1.0", contentType, "", "", "");
+    unsigned __int64 start;
     multipart->parseContentType(contentType);
 
     MemoryBuffer fileContent, moreContent;
@@ -2236,21 +2244,28 @@ int CHttpRequest::readContentToFiles(const char * netAddress, const char * path,
     while (1)
     {
         StringBuffer fileName;
-        if (!readUploadFileName(multipart, fileName, fileContent, bytesNotRead))
         {
-            UERRLOG("No file name found for upload");
-            break;
+            CumulativeTimer::Scope readScope(readTimer);
+            if (!readUploadFileName(multipart, fileName, fileContent, bytesNotRead))
+            {
+                UERRLOG("No file name found for upload");
+                break;
+            }
         }
 
         fileNames.append(fileName);
         StringBuffer fileNameWithPath;
+        start = msTick();
         Owned<IFile> file = createUploadFile(netAddress, path, fileName, fileNameWithPath);
+        uploadCreateTimer->add(msTick() - start);
         if (!file)
         {
             UERRLOG("Uploaded file %s cannot be created", fileName.str());
             break;
         }
+        start = msTick();
         Owned<IFileIO> fileio = file->open(IFOcreate);
+        uploadOpenTimer->add(msTick() - start);
         if (!fileio)
         {
             UERRLOG("Uploaded file %s cannot be opened", fileName.str());
@@ -2265,6 +2280,7 @@ int CHttpRequest::readContentToFiles(const char * netAddress, const char * path,
             foundAnotherFile = multipart->separateMultiParts(fileContent, moreContent, bytesNotRead);
             if (fileContent.length() > 0)
             {
+                CumulativeTimer::Scope writeScope(writeTimer);
                 if (fileio->write(writeOffset, fileContent.length(), fileContent.toByteArray()) != fileContent.length())
                 {
                     UERRLOG("Failed to write Uploaded file %s", fileName.str());
@@ -2281,8 +2297,11 @@ int CHttpRequest::readContentToFiles(const char * netAddress, const char * path,
                 moreContent.clear();
             }
 
-            if(foundAnotherFile || (bytesNotRead <= 0) || !readContentToBuffer(fileContent, bytesNotRead))
-                break;
+            {
+                CumulativeTimer::Scope readScope(readTimer);
+                if(foundAnotherFile || (bytesNotRead <= 0) || !readContentToBuffer(fileContent, bytesNotRead))
+                    break;
+            }
         }
 
         if (writeError)
