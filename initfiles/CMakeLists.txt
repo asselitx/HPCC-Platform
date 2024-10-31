@@ -28,7 +28,7 @@ if ( PLATFORM AND UNIX )
         MESSAGE(STATUS "Output file: ${outfile}")
         SET(infile "${CMAKE_CURRENT_SOURCE_DIR}/${in}")
         ADD_CUSTOM_COMMAND(OUTPUT "${outfile}"
-            COMMAND $<TARGET_FILE:processor>
+            COMMAND  setarch x86_64 -R $<TARGET_FILE:processor>
             "${bash-vars}" "${infile}" "${outfile}"
             COMMAND chmod 0755 ${outfile}
             DEPENDS "${infile}" processor # depends on the 'processor'
