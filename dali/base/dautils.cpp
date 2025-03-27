@@ -2155,6 +2155,7 @@ public:
         StringBuffer sk;
         const char *s = sortorder;
         int mod = 0;
+        unsigned startprep = msTick();
         for (;;) {
             if (!*s||(*s==',')) {
                 if (sk.length()) {
@@ -2181,20 +2182,34 @@ public:
                 sk.append(*s);
             s++;
         }
+        unsigned sktime = msTick();
+        unsigned querytotal = 0;
         ForEach(iter)
-            filteredAdd(sortvalues,namefilterlo,namefilterhi,unknownAttributes,&iter.query());
+        {
+            unsigned querystart = msTick();
+            IPropertyTree &item = iter.query();
+            querytotal += msTick() - querystart;
+            filteredAdd(sortvalues,namefilterlo,namefilterhi,unknownAttributes,&item);
+            // filteredAdd(sortvalues,namefilterlo,namefilterhi,unknownAttributes,&iter.query());
+        }
+        unsigned filtertime = msTick();
         nv = sortvalues.ordinality();
         nk = sortKeys.ordinality();
         vals = (char **)calloc(sizeof(char *),nv*nk);
         unsigned *idx=(unsigned *)malloc(sizeof(unsigned)*nv);
         unsigned i;
+        unsigned totalblock = 0;
+        unsigned endprep = msTick() - startprep;
         for (i=0;i<nv;i++)
             idx[i] = i;
         {
+            unsigned start = msTick();
             CriticalBlock block(sortsect);
+            totalblock += msTick()-start;
             sortthis = this;
             qsort(idx,nv,sizeof(unsigned),compare);
         }
+        PROGLOG("cSort::dosort: all prep: %d, sk:%d, filteredAdd: %d, querytotal: %d, total blocked %d", endprep, sktime-startprep, filtertime-sktime, querytotal, totalblock);
         for (i=0;i<nv;i++) {
             IPropertyTree &item = sortvalues.item((unsigned)idx[i]);
             item.Link();
@@ -2501,8 +2516,17 @@ void sortElements(IPropertyTreeIterator* elementsIter,
         nameFilterHi = NULL;
     if (sortOrder && *sortOrder)
     {
+        PROGLOG("CPECacheElem::sortElements - dosort begin");
         cSort sort;
+        // ForEach(*elementsIter)
+        // {
+        //     IPropertyTree &item = elementsIter->query();
+        //     StringBuffer serialized;
+        //     toXML(&item, serialized);
+        //     PROGLOG("%s", serialized.str());
+        // }
         sort.dosort(*elementsIter,sortOrder,nameFilterLo,nameFilterHi,unknownAttributes, sortedElements);
+        PROGLOG("CPECacheElem::sortElements - dosort end");
     }
     else
         ForEach(*elementsIter)

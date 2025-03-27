@@ -46,6 +46,8 @@
 #include <algorithm>
 #include <time.h>
 
+#include <fstream>
+
 #ifdef _DEBUG
 //#define EXTRA_LOGGING
 //#define TRACE_LOCKS
@@ -3928,7 +3930,7 @@ public:
                 {
                     // NB: this is non-standard, for situations where the cluster name is not known,
                     // which happens where none has been provided/set to the file descriptor,
-                    // and the file descriptor has been built up of parts with ips. 
+                    // and the file descriptor has been built up of parts with ips.
                     // createClusterInfo will perform a reverse lookup to Dali to try to discover
                     // a group name.
                     cluster = createClusterInfo(
@@ -11092,7 +11094,7 @@ public:
         unsigned start = msTick();
         scanner.scan(sdsLock, iterateFileFilterContainer.getLink(), recursive);
         unsigned tookMs = msTick()-start;
-        if (tookMs>100)
+        //if (tookMs>100)
             PROGLOG("TIMING(filescan): %s: took %dms",trc.str(), tookMs);
         sdsLock.unlock(); // unlock to perform authentification
 
@@ -11139,7 +11141,7 @@ public:
             }
         }
         tookMs = msTick()-start;
-        if (tookMs>100)
+        //if (tookMs>100)
             PROGLOG("TIMING(filescan-serialization): %s: took %dms, %d files",trc.str(), tookMs, count);
 
         mb.writeDirect(0,sizeof(count),&count);
@@ -11271,7 +11273,7 @@ public:
         mb.read(lname);
         if (version >= 2)
         {
-            unsigned _opts;        
+            unsigned _opts;
             mb.read(_opts);
             opts = static_cast<GetFileTreeOpts>(_opts);
             bool hasUser;
@@ -13663,6 +13665,108 @@ IPropertyTreeIterator *CDistributedFileDirectory::getDFAttributesTreeIterator(co
     return deserializeFileAttrIterator(mb, numfiles, localFilters, localFilterBuf);
 }
 
+std::once_flag flag;
+
+constexpr const char* treebase = R"(<Attr accessCost="0"
+accessed="2025-03-19T17:53:22"
+atRestCost="0"
+cost="0"
+csvQuote="&quot;"
+csvSeparate="\,"
+csvTerminate="\n,\r\n"
+DFUSFcluster="mythor"
+DFUSFrecordCount="0"
+DFUSFsize="38"
+directory="/home/asselitx/runtime/var/lib/HPCCSystems/hpcc-data/thor/tatest/manfiles"
+fileCrc="-2107998768"
+format="csv"
+group="mythor"
+job="duck21"
+kind="csv"
+lfnHash="1142971180"
+maxRecordSize="8192"
+maxSkew="0"
+maxSkewPart="1"
+minSkew="0"
+minSkewPart="1"
+modified="2025-03-19T17:53:21"
+name=""
+numDiskWrites="1"
+numparts="1"
+owner=""
+partmask=""
+readCost="0"
+size="38"
+workunit="D20250319-125321"
+writeCost="0"/>)";
+
+class SingleAttrItr : public CInterface, implements IPropertyTreeIterator
+{
+    private:
+        unsigned m_idx = 0;
+        static IArrayOf<IPropertyTree> s_cache;
+
+    public:
+        unsigned m_count = 0;
+        IMPLEMENT_IINTERFACE;
+
+        static void initAttrArray(const char* filepath)
+        {
+            std::ifstream file(filepath);
+            int count = 0;
+
+            if (!file.is_open())
+            {
+                throw MakeStringException(0, "Could not open file %s", filepath);
+            }
+            std::string line;
+            while (std::getline(file, line))
+            { // Read one line at a time
+                Owned<IPropertyTree> attr = createPTreeFromXMLString(treebase);
+                attr->setProp("@name", line.c_str());
+                attr->setProp("@partmask", VStringBuffer("duck%d._$P$_of_$N$", count));
+                attr->setProp("@modified", VStringBuffer("%d-%02d-%02dT%02d:%02d:21", getRandom()%100 + 1925, getRandom()%12 + 1, getRandom()%30 + 1, getRandom()%24, getRandom()%60));
+                count++;
+                s_cache.append(*attr.getClear());
+            }
+            PROGLOG("=================INITIALIZED s_cache %d==================", count);
+        }
+
+        SingleAttrItr(const char* filepath)
+        {
+            std::call_once(flag, initAttrArray, filepath);
+        }
+
+        bool first() override
+        {
+            m_idx = 0;
+            return s_cache.length() > 0;
+        }
+
+        bool next() override
+        {
+            m_idx++;
+            return m_idx < s_cache.length();
+        }
+
+        bool isValid() override
+        {
+            return m_idx < s_cache.length();
+        }
+
+        IPropertyTree & query() override
+        {
+            return s_cache.item(m_idx);
+        }
+
+        unsigned count()
+        {
+            return m_count;
+        }
+};
+
+IArrayOf<IPropertyTree> SingleAttrItr::s_cache;
+
 IDFAttributesIterator* CDistributedFileDirectory::getLogicalFiles(
     IUserDescriptor* udesc,
     DFUQResultField *sortOrder, // list of fields to sort by (terminated by DFUSFterm)
@@ -13677,6 +13781,128 @@ IDFAttributesIterator* CDistributedFileDirectory::getLogicalFiles(
     bool recursive,
     bool sorted)
 {
+
+
+    class AddrItr : public CInterface, implements IPropertyTreeIterator
+    {
+        private:
+            StringAttr m_filepath;
+            std::ifstream m_file;
+            Owned<IPropertyTree> m_current;
+
+
+        public:
+            unsigned m_count = 0;
+            IMPLEMENT_IINTERFACE;
+            AddrItr(const char* filepath) : m_filepath(filepath)
+            {
+                m_file.open(filepath);
+                if (!m_file.is_open())
+                {
+                    throw MakeStringException(0, "Could not open file %s", filepath);
+                }
+            }
+
+            bool first() override
+            {
+                m_file.clear();
+                m_file.seekg(0, std::ios::beg);
+                m_count = 0;
+                return next();
+            }
+
+            bool next() override
+            {
+                m_current.clear();
+                if (m_file.eof() || !m_file.good())
+                    return false;
+                std::string line;
+                if (std::getline(m_file, line))
+                {
+                    m_count++;
+                    m_current.setown(createPTreeFromXMLString(treebase));
+                    m_current->setProp("name", line.c_str());
+                    m_current->setProp("partmask", VStringBuffer("duck%d._$P$_of_$N$", m_count));
+                    return true;
+                }
+                return false;
+            }
+
+            bool isValid() override
+            {
+                return m_current.get() != nullptr;
+            }
+
+            IPropertyTree & query() override
+            {
+                return *m_current;
+            }
+
+            unsigned count()
+            {
+                return m_count;
+            }
+    };
+
+    class MemAttrItr : public CInterface, implements IPropertyTreeIterator
+    {
+        private:
+            StringAttr m_filepath;
+            std::ifstream m_file;
+            //Owned<IPropertyTree> m_current;
+            unsigned m_idx = 0;
+            IArrayOf<IPropertyTree> m_cache;
+
+        public:
+            unsigned m_count = 0;
+            IMPLEMENT_IINTERFACE;
+            MemAttrItr(const char* filepath) : m_filepath(filepath)
+            {
+                m_file.open(filepath);
+                if (!m_file.is_open())
+                {
+                    throw MakeStringException(0, "Could not open file %s", filepath);
+                }
+                std::string line;
+                while (std::getline(m_file, line))
+                { // Read one line at a time
+                    Owned<IPropertyTree> attr = createPTreeFromXMLString(treebase);
+                    attr->setProp("@name", line.c_str());
+                    attr->setProp("@partmask", VStringBuffer("duck%d._$P$_of_$N$", m_count));
+                    attr->setProp("@modified", VStringBuffer("%d-%02d-%02dT%02d:%02d:21", getRandom()%100 + 1925, getRandom()%12 + 1, getRandom()%30 + 1, getRandom()%24, getRandom()%60));
+                    m_count++;
+                    m_cache.append(*attr.getClear());
+                }
+            }
+
+            bool first() override
+            {
+                m_idx = 0;
+                return m_cache.length() > 0;
+            }
+
+            bool next() override
+            {
+                m_idx++;
+                return m_idx < m_cache.length();
+            }
+
+            bool isValid() override
+            {
+                return m_idx < m_cache.length();
+            }
+
+            IPropertyTree & query() override
+            {
+                return m_cache.item(m_idx);
+            }
+
+            unsigned count()
+            {
+                return m_count;
+            }
+    };
+
     class CDFUPager : implements IElementsPager, public CSimpleInterface
     {
         IUserDescriptor* udesc;
@@ -13699,10 +13925,18 @@ IDFAttributesIterator* CDistributedFileDirectory::getLogicalFiles(
         }
         virtual IRemoteConnection* getElements(IArrayOf<IPropertyTree> &elements)
         {
-            Owned<IPropertyTreeIterator> fi = queryDistributedFileDirectory().getDFAttributesTreeIterator(filters.get(),
+            Owned<IPropertyTreeIterator> fi_original = queryDistributedFileDirectory().getDFAttributesTreeIterator(filters.get(),
                 localFilters, localFilterBuf.get(), udesc, recursive, allMatchingFilesReceived);
+            //Owned<IPropertyTreeIterator> fi = new AddrItr("/home/asselitx/src/testzone/hpcc-33600_slow_files/dfuplus-vault-116k");
+            unsigned start = msTick();
+            //Owned<IPropertyTreeIterator> fi = new MemAttrItr("/home/asselitx/src/testzone/hpcc-33600_slow_files/dfuplus-vault-116k");
+            Owned<IPropertyTreeIterator> fi = new SingleAttrItr("/home/asselitx/src/testzone/hpcc-33600_slow_files/dfuplus-vault-116k");
+            unsigned createTimer = msTick() - start;
             StringArray unknownAttributes;
+            start = msTick();
             sortElements(fi, sorted ? sortOrder.get() : NULL, NULL, NULL, unknownAttributes, elements);
+            unsigned took = msTick() - start;
+            LOG(MCdebugProgress, "sortElements took %dms creation: %d", took, createTimer);
             return NULL;
         }
         virtual bool allMatchingElementsReceived() { return allMatchingFilesReceived; }

@@ -58,7 +58,8 @@ interface IUserDescriptor;
 #define S_LINK_RELATIONSHIP_KIND "link"
 #define S_VIEW_RELATIONSHIP_KIND "view"
 
-#define ITERATE_FILTEREDFILES_LIMIT 100000
+// #define ITERATE_FILTEREDFILES_LIMIT 100000
+#define ITERATE_FILTEREDFILES_LIMIT 10
 
 interface IDistributedSuperFile;
 interface IDistributedFile;

@@ -1264,6 +1264,7 @@ int CDfuPlusHelper::list()
         req->setLogicalName(name);
 
     req->setPageSize(-1);
+    req->setMaxNumberOfFiles(globals->getPropInt("maxfiles", 10));
 
     Owned<IClientDFUQueryResponse> resp = dfuclient->DFUQuery(req);
     const IMultiException* excep = &resp->getExceptions();
@@ -1303,6 +1304,8 @@ int CDfuPlusHelper::list()
             }
         }
     }
+
+    info("Total files: %lld files in array: %d\n", resp->getNumFiles(), files.length());
 
     if (f)
         fclose(f);

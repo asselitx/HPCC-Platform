@@ -134,6 +134,7 @@ void handleSyntax()
     out.append("    list options:\n");
     out.append("        name=<logical-name-mask>\n");
     out.append("        saveto=<path and file name to save the result>\n");
+    out.append("        maxfiles=<max-num-of-files-to-return>\n");
     out.append("            (more to be defined)\n");
     out.append("    addsuper options:\n");
     out.append("        superfile=<logical-name>\n");

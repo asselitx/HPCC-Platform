@@ -3906,6 +3906,7 @@ bool CWsDfuEx::doLogicalFileSearch(IEspContext &context, IUserDescriptor* udesc,
         maxFiles = ITERATE_FILTEREDFILES_LIMIT;
     if (maxFiles != ITERATE_FILTEREDFILES_LIMIT)
         setFileIterateFilter(maxFiles, filterBuf);
+    PROGLOG("DFUQuery: maxFiles = %d", maxFiles);
 
     __int64 cacheHint = 0;
     if (!req.getCacheHint_isNull())
