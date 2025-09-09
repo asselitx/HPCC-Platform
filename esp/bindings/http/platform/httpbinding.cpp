@@ -1716,8 +1716,8 @@ int EspHttpBinding::onGetConfig(IEspContext &context, CHttpRequest* request, CHt
         IDataMaskingProfile* profile = dataMaskEngine->queryProfile("urn:hpcc:platform:configs", 1);
         if (nullptr == profile)
         {
-            return onGetNotFound(context, request, response, NULL);
             OERRLOG("Unable to select the configuration data masking profile");
+            return onGetNotFound(context, request, response, NULL);
         }
             
         if (container->queryApplicationConfig())
