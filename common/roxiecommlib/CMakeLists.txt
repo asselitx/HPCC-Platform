@@ -49,6 +49,7 @@ include_directories (
          ./../../esp/bindings/SOAP/xpp 
          ./../../system/jlib 
          ./../../rtl/eclrtl 
+         ${HPCC_SOURCE_DIR}/system/masking/include
     )
 
 ADD_DEFINITIONS( -D_USRDLL -DROXIECOMMLIB_EXPORTS )

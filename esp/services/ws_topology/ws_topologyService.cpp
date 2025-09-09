@@ -1822,6 +1822,22 @@ bool CWsTopologyEx::onTpGetComponentFile(IEspContext &context, IEspTpGetComponen
             if (nRead != fileSize)
                 throw MakeStringException(ECLWATCH_CANNOT_READ_FILE, "Failed to read file %s.", uncPath.str());
 
+            // Mask sensitive information before returning the file content
+            IEspContainer *container = getESPContainer();
+            if (nullptr == container)
+                throw MakeStringException(ECLWATCH_DATAMASKING_FAILURE, "Unable to mask the configuration file");
+            
+            IDataMaskingEngine *dataMaskEngine = container->queryDataMaskingEngine();
+            if (nullptr == dataMaskEngine)
+                throw MakeStringException(ECLWATCH_DATAMASKING_FAILURE, "Unable to get the data masking engine");
+
+            IDataMaskingProfile *profile = dataMaskEngine->queryProfile("urn:hpcc:platform:configs", 1);
+            if (nullptr == profile)
+                throw MakeStringException(ECLWATCH_DATAMASKING_FAILURE, "Unable to select the configuration data masking profile");
+
+            // Masking does not change the length of the content so we can use the cast to avoid a copy
+            profile->maskContent("xml", static_cast<char*>(buf.bufferBase()), 0, buf.length());
+            
             const char* pchBuf = buf.toByteArray();
             const char* pchExt = strrchr(fileName, '.');
             if (!pchExt || (pchBuf[0] != '<') || stricmp(++pchExt, "xml"))

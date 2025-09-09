@@ -46,6 +46,7 @@ include_directories (
     ${HPCC_SOURCE_DIR}/esp/esplib
     ${HPCC_SOURCE_DIR}/esp/logging/logginglib
     ${HPCC_SOURCE_DIR}/common/thorhelper
+    ${HPCC_SOURCE_DIR}/system/masking/include
     ./../..
     ./..
 )

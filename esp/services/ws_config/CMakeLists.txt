@@ -53,6 +53,7 @@ include_directories (
          ./../../bindings
          ./../../bindings/SOAP/xpp
          ${HPCC_SOURCE_DIR}/common/thorhelper
+         ${HPCC_SOURCE_DIR}/system/masking/include
     )
 
 ADD_DEFINITIONS( -D_USRDLL -Dws_config_API_LOCAL )

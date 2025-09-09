@@ -33,14 +33,14 @@ static const uint8_t DataMasking_MaskContent     = 0x02;
 static const uint8_t DataMasking_MaskMarkupValue = 0x04;
 
 /// Reserved set name to select members of all sets. Applies to value types and rules.
-static const char* DataMasking_AnySet = "*";
+[[maybe_unused]] static const char* DataMasking_AnySet = "*";
 /// Reserved value type name to test availability of unconditional masking.
-static const char* DataMasking_UnconditionalValueTypeName = "*";
+[[maybe_unused]] static const char* DataMasking_UnconditionalValueTypeName = "*";
 
 /// Custom context property name to select a value type set.
-static const char* DataMasking_ValueTypeSet = "valuetype-set";
+[[maybe_unused]] static const char* DataMasking_ValueTypeSet = "valuetype-set";
 /// Custom context property name to select a rule set.
-static const char* DataMasking_RuleSet = "rule-set";
+[[maybe_unused]] static const char* DataMasking_RuleSet = "rule-set";
 
 /**
  * @brief Iterator modeled after `IIteratorOf` but applied to unshared data, especially primitive

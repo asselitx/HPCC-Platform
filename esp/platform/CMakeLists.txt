@@ -47,6 +47,7 @@ include_directories (
          ./../../fs/dafsclient
          ${CMAKE_BINARY_DIR}
          ${CMAKE_BINARY_DIR}/oss
+         ${HPCC_SOURCE_DIR}/system/masking/include
     )
 
 ADD_DEFINITIONS( -D_CONSOLE -DESPCFG_EXPORTS)
@@ -63,6 +64,7 @@ target_link_libraries ( esp
          remote 
          dalibase 
          workunit
+         datamasker
     ) 
 
 if (NOT CONTAINERIZED)

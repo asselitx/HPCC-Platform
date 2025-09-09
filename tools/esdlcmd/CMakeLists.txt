@@ -64,6 +64,7 @@ include_directories (
          ${HPCC_SOURCE_DIR}/tools/esdlcmd-xml
          ${HPCC_SOURCE_DIR}/esp/esdllib
          ${HPCC_SOURCE_DIR}/common/thorhelper
+         ${HPCC_SOURCE_DIR}/system/masking/include
     )
 
 ADD_DEFINITIONS( -D_CONSOLE -DWsESDLConfig_API_LOCAL )

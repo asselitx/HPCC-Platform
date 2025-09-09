@@ -1699,14 +1699,38 @@ int EspHttpBinding::onGetConfig(IEspContext &context, CHttpRequest* request, CHt
     ISecUser* user = context.queryUser();
     if (m_viewConfig || (user && (user->getStatus()==SecUserStatus_Inhouse)))
     {
-        if (getESPContainer() && getESPContainer()->queryApplicationConfig())
+        IEspContainer * container = getESPContainer();
+        if (nullptr == container)
+        {
+            OERRLOG("Unable to mask the configuration file");
+            return onGetNotFound(context, request, response, NULL);
+        }
+
+        IDataMaskingEngine* dataMaskEngine = container->queryDataMaskingEngine();
+        if (nullptr == dataMaskEngine)
+        {
+            OERRLOG("Unable to get the data masking engine");
+            return onGetNotFound(context, request, response, NULL);
+        }
+
+        IDataMaskingProfile* profile = dataMaskEngine->queryProfile("urn:hpcc:platform:configs", 1);
+        if (nullptr == profile)
+        {
+            return onGetNotFound(context, request, response, NULL);
+            OERRLOG("Unable to select the configuration data masking profile");
+        }
+            
+        if (container->queryApplicationConfig())
         {
             ESPLOG(LogNormal, "Get config generated during application init");
             StringBuffer content("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             if (context.queryRequestParameters()->hasProp("display"))
                 content.append("<?xml-stylesheet type=\"text/xsl\" href=\"/esp/xslt/xmlformatter.xsl\"?>");
             toXML(getESPContainer()->queryApplicationConfig(), content);
-            response->setContent(content.str());
+            // Masking does not change the length of the content so we can use the const_cast to avoid a copy
+            char *maskedContent = const_cast<char*>(content.str());
+            profile->maskContent("xml", maskedContent, 0, content.length());
+            response->setContent(maskedContent);
             response->setContentType(HTTP_TYPE_APPLICATION_XML_UTF8);
             response->setStatus(HTTP_STATUS_OK);
             response->send();
@@ -1717,7 +1741,10 @@ int EspHttpBinding::onGetConfig(IEspContext &context, CHttpRequest* request, CHt
 
         StringBuffer content;
         xmlContentFromFile(m_configFile, "/esp/xslt/xmlformatter.xsl", content);
-        response->setContent(content.str());
+        // Masking does not change the length of the content so we can use the const_cast to avoid a copy
+        char *maskedContent = const_cast<char*>(content.str());
+        profile->maskContent("xml", maskedContent, 0, content.length());
+        response->setContent(maskedContent);
         response->setContentType(HTTP_TYPE_APPLICATION_XML_UTF8);
         response->setStatus(HTTP_STATUS_OK);
         response->send();
