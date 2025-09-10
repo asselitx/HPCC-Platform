@@ -20,7 +20,6 @@
 #include "seclib.hpp"
 #include "esplog.hpp"
 #include "mapinfo.hpp"
-#include "datamasking.h"
 
 interface IEspStringIntMap : extends IInterface
 {
@@ -284,7 +283,7 @@ interface IEspContainer : extends IInterface
     virtual void clearCacheByGroupID(const char* ids, StringArray& errorMsgs) = 0;
     virtual IPropertyTree *queryApplicationConfig() = 0;
     virtual void setApplicationConfig(IPropertyTree *config) = 0;
-    virtual IDataMaskingEngine *queryDataMaskingEngine() = 0;
+    virtual IInterface *queryDataMaskingEngine() = 0;
 };
 
 interface IEspRpcBinding;

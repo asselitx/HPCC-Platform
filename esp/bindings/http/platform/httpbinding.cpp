@@ -49,6 +49,7 @@
 #include <memory>
 
 #include "esdl_def_helper.hpp"
+#include "datamasking.h"
 
 
 #define FILE_UPLOAD     "FileUploadAccess"
@@ -1706,7 +1707,7 @@ int EspHttpBinding::onGetConfig(IEspContext &context, CHttpRequest* request, CHt
             return onGetNotFound(context, request, response, NULL);
         }
 
-        IDataMaskingEngine* dataMaskEngine = container->queryDataMaskingEngine();
+        IDataMaskingEngine* dataMaskEngine = QUERYINTERFACE(container->queryDataMaskingEngine(), IDataMaskingEngine);
         if (nullptr == dataMaskEngine)
         {
             OERRLOG("Unable to get the data masking engine");

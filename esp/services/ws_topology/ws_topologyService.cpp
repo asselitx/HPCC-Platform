@@ -34,6 +34,7 @@
 #endif
 #include "exception_util.hpp"
 #include "jwrapper.hpp"
+#include "datamasking.h"
 
 #define SDS_LOCK_TIMEOUT 30000
 
@@ -1827,7 +1828,7 @@ bool CWsTopologyEx::onTpGetComponentFile(IEspContext &context, IEspTpGetComponen
             if (nullptr == container)
                 throw MakeStringException(ECLWATCH_DATAMASKING_FAILURE, "Unable to mask the configuration file");
             
-            IDataMaskingEngine *dataMaskEngine = container->queryDataMaskingEngine();
+            IDataMaskingEngine *dataMaskEngine = QUERYINTERFACE(container->queryDataMaskingEngine(), IDataMaskingEngine);
             if (nullptr == dataMaskEngine)
                 throw MakeStringException(ECLWATCH_DATAMASKING_FAILURE, "Unable to get the data masking engine");
 
