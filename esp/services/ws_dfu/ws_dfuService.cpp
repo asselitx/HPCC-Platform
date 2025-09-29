@@ -2221,7 +2221,6 @@ void CWsDfuEx::doGetFileDetails(IEspContext &context, IUserDescriptor *udesc, co
 {
     if (!name || !*name)
         throw MakeStringException(ECLWATCH_MISSING_PARAMS, "File name required");
-    PROGLOG("doGetFileDetails: %s", name);
 
     double version = context.getClientVersion();
     if ((version >= 1.38) && !isEmptyString(querySet) && !isEmptyString(query))
@@ -2738,7 +2737,6 @@ void CWsDfuEx::doGetFileDetails(IEspContext &context, IUserDescriptor *udesc, co
             }
         }
     }
-    PROGLOG("doGetFileDetails: %s done", name);
 }
 
 bool CWsDfuEx::getQueryFile(const char *logicalName, const char *querySet, const char *queryID, IEspDFUFileDetail &fileDetails)
