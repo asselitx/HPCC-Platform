@@ -3966,9 +3966,7 @@ bool CWsDfuEx::doLogicalFileSearch(IEspContext &context, IUserDescriptor* udesc,
     if(!it)
         throw MakeStringException(ECLWATCH_CANNOT_GET_FILE_ITERATOR,"Cannot get information from file system.");
     
-    CTxSummary* txSummary = context.queryTxSummary();
-    if (txSummary)
-        txSummary->append("getLogicalFilesSorted.time", msTick() - start, LogMin, TXSUMMARY_GRP_CORE, " ms");
+    context.addTraceSummaryValue(LogMin, "custom_fields.getLogicalFilesSorted_ms", (__int64)(msTick() - start), TXSUMMARY_GRP_ENTERPRISE);
 
     IArrayOf<IEspDFULogicalFile> logicalFiles;
     ForEach(*it)
