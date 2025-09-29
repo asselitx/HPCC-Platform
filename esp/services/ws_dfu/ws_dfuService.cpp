@@ -3959,12 +3959,16 @@ bool CWsDfuEx::doLogicalFileSearch(IEspContext &context, IUserDescriptor* udesc,
 
     bool allMatchingFilesReceived = true;
     unsigned totalFiles = 0;
-    PROGLOG("DFUQuery: getLogicalFilesSorted");
+    
+    unsigned start = msTick();
     Owned<IPropertyTreeIterator> it = queryDistributedFileDirectory().getLogicalFilesSorted(udesc, sortOrder, filterBuf.str(),
         localFilterBuf, fields.data(), pageStart, pageSize, &cacheHint, &totalFiles, &allMatchingFilesReceived);
     if(!it)
         throw MakeStringException(ECLWATCH_CANNOT_GET_FILE_ITERATOR,"Cannot get information from file system.");
-    PROGLOG("DFUQuery: getLogicalFilesSorted done");
+    
+    CTxSummary* txSummary = context.queryTxSummary();
+    if (txSummary)
+        txSummary->append("getLogicalFilesSorted.time", msTick() - start, LogMin, TXSUMMARY_GRP_CORE, " ms");
 
     IArrayOf<IEspDFULogicalFile> logicalFiles;
     ForEach(*it)
