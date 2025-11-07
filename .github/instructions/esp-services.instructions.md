@@ -8,7 +8,7 @@ applyTo: 'esp/**'
 
 - ESP services consist of an interface description (ESDL) (`*.ecm`) file and a service implementation in c++.
 - The service interface description (ESDL) is compiled into c++ code placed in the `generated` subdirectory of the build output directory specified by the VSCode setting `cmake.buildDirectory` for this project.
-- In addition to these instructions, use the [esp service interface instructions](./esp-service-interface.instructions.md) for changes that affect the API or service interface.
+- In addition to these instructions, use the [esp service interface instructions](esp-service-interface.instructions.md) for changes that affect the API or service interface.
 
 ## Key Directories
 
