@@ -1,0 +1,14 @@
+ESP to getChildren Call Chain Analysis Summary
+================================================================================
+
+Total ESP Methods: 514
+  - Using SDS: 30
+  - Navigating Trees: 46
+
+Total Call Chains: 41
+Services: 10
+
+Key Path:
+  ESP Method → SDS Connect → Tree Navigation →
+  PTree::checkChildren() → CClientRemoteTree::_checkChildren() →
+  queryManager().getChildren() → CClientSDSManager::getChildren()

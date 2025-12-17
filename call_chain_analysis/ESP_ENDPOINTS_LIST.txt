@@ -1,0 +1,98 @@
+================================================================================
+All ESP Endpoints Leading to CClientSDSManager::getChildren
+================================================================================
+
+Total: 41 call chains
+
+
+espcontrol:
+  CWSESPControlEx::onSessionInfo                               esp/services/espcontrol/ws_espcontrolservice.cpp:302
+  CWSESPControlEx::onSessionQuery                              esp/services/espcontrol/ws_espcontrolservice.cpp:261
+                                                               → getElements()
+  CWSESPControlEx::onSetSessionTimeout                         esp/services/espcontrol/ws_espcontrolservice.cpp:381
+                                                               → getElements()
+
+ws_dali:
+  CWSDaliEx::onGetConnections                                  esp/services/ws_dali/ws_daliservice.cpp:529
+  CWSDaliEx::onGetSDSStats                                     esp/services/ws_dali/ws_daliservice.cpp:563
+  CWSDaliEx::onGetSDSSubscribers                               esp/services/ws_dali/ws_daliservice.cpp:580
+  CWSDaliEx::onListSDSLocks                                    esp/services/ws_dali/ws_daliservice.cpp:621
+
+ws_dfu:
+  CWsDfuEx::onEraseHistory                                     esp/services/ws_dfu/ws_dfuService.cpp:5206
+  CWsDfuEx::onListHistory                                      esp/services/ws_dfu/ws_dfuService.cpp:5169
+
+ws_esdlconfig:
+  CWsESDLConfigEx::onConfigureESDLBindingMethod                esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:722
+                                                               → getElements()
+  CWsESDLConfigEx::onConfigureESDLBindingMethod                esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:722
+                                                               → queryPropTree()
+  CWsESDLConfigEx::onGetESDLBinding                            esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1151
+                                                               → getElements()
+  CWsESDLConfigEx::onGetESDLBinding                            esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1151
+                                                               → queryPropTree()
+  CWsESDLConfigEx::onListDESDLEspBindings                      esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1707
+                                                               → getElements()
+  CWsESDLConfigEx::onListDESDLEspBindings                      esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1707
+                                                               → queryPropTree()
+  CWsESDLConfigEx::onPublishESDLBinding                        esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:455
+                                                               → getElements()
+  CWsESDLConfigEx::onPublishESDLBinding                        esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:455
+                                                               → queryPropTree()
+
+ws_logaccess:
+  Cws_logaccessEx::onGetLogAccessInfo                          esp/services/ws_logaccess/WsLogAccessService.cpp:10
+                                                               → getElements()
+
+ws_resources:
+  CWsResourcesEx::onWebLinksQuery                              esp/services/ws_resources/ws_resourcesService.cpp:108
+                                                               → getElements()
+  CWsResourcesEx::onWebLinksQuery                              esp/services/ws_resources/ws_resourcesService.cpp:108
+                                                               → queryPropTree()
+
+ws_smc:
+  CWsSMCEx::onLockQuery                                        esp/services/ws_smc/ws_smcService.cpp:2739
+  CWsSMCEx::onRoxieXrefCmd                                     esp/services/ws_smc/ws_smcService.cpp:2371
+                                                               → setPropTree()
+
+ws_store:
+  CwsstoreEx::onListStores                                     esp/services/ws_store/ws_storeService.cpp:140
+                                                               → getElements()
+
+ws_topology:
+  CWsTopologyEx::onSystemLog                                   esp/services/ws_topology/ws_topologyService.cpp:249
+  CWsTopologyEx::onTpClusterInfo                               esp/services/ws_topology/ws_topologyService.cpp:1408
+                                                               → getElements()
+  CWsTopologyEx::onTpGetComponentFile                          esp/services/ws_topology/ws_topologyService.cpp:1612
+                                                               → queryPropTree()
+  CWsTopologyEx::onTpThorStatus                                esp/services/ws_topology/ws_topologyService.cpp:1898
+
+ws_workunits:
+  CWsWorkunitsEx::onWUGetNumFileToCopy                         esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3921
+                                                               → getElements()
+  CWsWorkunitsEx::onWUQueryConfig                              esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2767
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUQueryFiles                               esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2001
+                                                               → getElements()
+  CWsWorkunitsEx::onWUQueryFiles                               esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2001
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUQuerysetAliasAction                      esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2918
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUQuerysetExport                           esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656
+                                                               → getElements()
+  CWsWorkunitsEx::onWUQuerysetExport                           esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656
+                                                               → addPropTree()
+  CWsWorkunitsEx::onWUQuerysetExport                           esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUQuerysetImport                           esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3567
+                                                               → removeProp()
+  CWsWorkunitsEx::onWUQuerysetImport                           esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3567
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUShowScheduled                            esp/services/ws_workunits/ws_workunitsService.cpp:3748
+                                                               → getElements()
+  CWsWorkunitsEx::onWUShowScheduled                            esp/services/ws_workunits/ws_workunitsService.cpp:3748
+                                                               → queryPropTree()
+  CWsWorkunitsEx::onWUUpdateQueryEntry                         esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3892
+                                                               → removeProp()
+  CWsWorkunitsEx::onWUUpdateQueryEntry                         esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3892
+                                                               → queryPropTree()

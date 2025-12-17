@@ -1,0 +1,432 @@
+================================================================================
+ESP Methods with Multiple IPropertyTree Trigger Calls
+================================================================================
+
+Minimum triggers threshold: 2
+Total methods found: 21
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+Total trigger calls across all methods: 63
+Average triggers per method: 3.0
+Maximum triggers in single method: 5
+
+Trigger Method Usage:
+  getElements            47 calls
+  queryPropTree          12 calls
+  addPropTree             2 calls
+  removeProp              2 calls
+
+================================================================================
+RESULTS BY SERVICE
+================================================================================
+
+
+### Service: espcontrol ###
+Methods: 2
+Total triggers: 4
+
+CWSESPControlEx::onSessionQuery
+   File: esp/services/espcontrol/ws_espcontrolservice.cpp:261
+   Total triggers: 2 (1 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = globalLock->queryRoot()->getEle...
+       Owned<IPropertyTreeIterator> iter1 = appSessionTree.getElements(xpa...
+
+CWSESPControlEx::onSetSessionTimeout
+   File: esp/services/espcontrol/ws_espcontrolservice.cpp:381
+   Total triggers: 2 (1 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = globalLock->queryRoot()->getEle...
+       Owned<IPropertyTreeIterator> iter1 = iter->query().getElements(sear...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_cloud ###
+Methods: 1
+Total triggers: 3
+
+CWsCloudEx::onGetPODs
+   File: esp/services/ws_cloud/ws_cloudService.cpp:52
+   Total triggers: 3 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 3x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> podsItr = podsTree->getElements("items");
+       Owned<IPropertyTreeIterator> statuses = podTree.getElements("status...
+       Owned<IPropertyTreeIterator> ports = podTree.getElements("//ports");
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_dfu ###
+Methods: 1
+Total triggers: 2
+
+CWsDfuEx::doGetFileDetails
+   File: esp/services/ws_dfu/ws_dfuService.cpp:2217
+   Total triggers: 2 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> itr= df->queryAttributes().getElements...
+       Owned<IPropertyTreeIterator> itr= df->queryAttributes().getElements...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_esdlconfig ###
+Methods: 4
+Total triggers: 16
+
+CWsESDLConfigEx::onPublishESDLBinding
+   File: esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:455
+   Total triggers: 5 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 4x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = methodstree->getElements("Metho...
+       Owned<IPropertyTreeIterator> iter = definitionTree->getElements("Es...
+       Owned<IPropertyTreeIterator> iter = esdlbindingtree->getElements("D...
+       ... and 1 more
+
+     queryPropTree() calls:
+       IPropertyTree * def = esdlbindingtree->queryPropTree("Definition[1]");
+
+CWsESDLConfigEx::onConfigureESDLBindingMethod
+   File: esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:722
+   Total triggers: 5 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 4x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = methodstree->getElements(method...
+       Owned<IPropertyTreeIterator> iter = definitionTree->getElements("Es...
+       Owned<IPropertyTreeIterator> iter = esdlbindingtree->getElements("D...
+       ... and 1 more
+
+     queryPropTree() calls:
+       IPropertyTree * def = esdlbindingtree->queryPropTree("Definition[1]");
+
+CWsESDLConfigEx::onGetESDLBinding
+   File: esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1151
+   Total triggers: 3 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = definitionTree->getElements("Es...
+       Owned<IPropertyTreeIterator> iter = esdlbindingtree->getElements("D...
+
+     queryPropTree() calls:
+       IPropertyTree * def = esdlbindingtree->queryPropTree("Definition[1]");
+
+CWsESDLConfigEx::onListDESDLEspBindings
+   File: esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1707
+   Total triggers: 3 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = esdlbindingtree->getElements("D...
+       Owned<IPropertyTreeIterator> serviceiter = definitionTree->getEleme...
+
+     queryPropTree() calls:
+       IPropertyTree * def = esdlbindingtree->queryPropTree("Definition[1]");
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_fs ###
+Methods: 2
+Total triggers: 7
+
+CFileSprayEx::onGetSprayTargets
+   File: esp/services/ws_fs/ws_fsService.cpp:3719
+   Total triggers: 4 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 4x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> dataPlanes = getGlobalConfigSP()->getE...
+       Owned<IPropertyTreeIterator> it = root->getElements("Software/ThorC...
+       it.setown(root->getElements("Software/EclAgentProcess"));
+       ... and 1 more
+
+CFileSprayEx::onGetDFUWorkunits
+   File: esp/services/ws_fs/ws_fsService.cpp:920
+   Total triggers: 3 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 3x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> clusters= root->getElements("Software/...
+       Owned<IPropertyTreeIterator> thorClusters= cluster.getElements(eqTh...
+       Owned<IPropertyTreeIterator> roxieClusters= cluster.getElements(eqR...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_logaccess ###
+Methods: 1
+Total triggers: 2
+
+Cws_logaccessEx::onGetLogAccessInfo
+   File: esp/services/ws_logaccess/WsLogAccessService.cpp:10
+   Total triggers: 2 (1 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> columnIter = logColumnDefinitions->get...
+       Owned<IPropertyTreeIterator> enumValues = column.getElements("enumV...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_machine ###
+Methods: 1
+Total triggers: 2
+
+Cws_machineEx::onGetMetrics
+   File: esp/services/ws_machine/ws_machineServiceMetrics.cpp:455
+   Total triggers: 2 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> endpoints = result->getElements("Endpo...
+       Owned<IPropertyTreeIterator> metrics = endpoint.getElements("Metric...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_packageprocess ###
+Methods: 1
+Total triggers: 3
+
+CWsPackageProcessEx::onGetQueryFileMapping
+   File: esp/services/ws_packageprocess/ws_packageprocessService.cpp:1416
+   Total triggers: 3 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 3x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> it = fileInfo->getElements("File");
+       it.setown(fileInfo->getElements("SuperFile"));
+       Owned<IPropertyTreeIterator> subfiles = superTree.getElements("SubF...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_resources ###
+Methods: 1
+Total triggers: 5
+
+CWsResourcesEx::onWebLinksQuery
+   File: esp/services/ws_resources/ws_resourcesService.cpp:108
+   Total triggers: 5 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 4x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> serviceLinkItr = getComponentConfig()-...
+       Owned<IPropertyTreeIterator> serviceLinkItr = testTree->getElements...
+       Owned<IPropertyTreeIterator> outputItemItr = outputTree->getElement...
+       ... and 1 more
+
+     queryPropTree() calls:
+       IPropertyTree* annotations = outputItemTree.queryPropTree("metadata...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_sql ###
+Methods: 1
+Total triggers: 2
+
+CwssqlEx::onGetDBMetaData
+   File: esp/services/ws_sql/ws_sqlService.cpp:42
+   Total triggers: 2 (1 unique)
+   Uses SDS: No
+   Triggers:
+     - getElements(): 2x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> iter = settree->getElements("Query");
+       Owned<IPropertyTreeIterator> aliasiter = settree->getElements("Alia...
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_workunits ###
+Methods: 6
+Total triggers: 17
+
+CWsWorkunitsEx::onWUQuerysetExport
+   File: esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656
+   Total triggers: 5 (3 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+     - addPropTree(): 2x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> aliases = queryRegistry->getElements("...
+       Owned<IPropertyTreeIterator> queries = queryRegistry->getElements("...
+
+     queryPropTree() calls:
+       IPropertyTree *query = queryRegistry->queryPropTree(xpath);
+
+     addPropTree() calls:
+       activeOnly->addPropTree("Query", LINK(query));
+       activeOnly->addPropTree("Alias", LINK(&alias));
+
+CWsWorkunitsEx::onWUShowScheduled
+   File: esp/services/ws_workunits/ws_workunitsService.cpp:3748
+   Total triggers: 3 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 2x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> ic = root->getElements("Software/Topol...
+       Owned<IPropertyTreeIterator> it = root->getElements("Software/Topol...
+
+     queryPropTree() calls:
+       toXML(xgmml->queryPropTree(xpath.str()), xml);
+
+CWsWorkunitsEx::onWUQueryGetSummaryStats
+   File: esp/services/ws_workunits/ws_workunitsQuerySets.cpp:4041
+   Total triggers: 3 (2 unique)
+   Uses SDS: No
+   Triggers:
+     - queryPropTree(): 2x
+     - getElements(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> queryStatsOnEndpointItr = queryAggrega...
+
+     queryPropTree() calls:
+       readQueryAggregateStats(queryStatsOnEndpoint.queryPropTree("Query")...
+       readQueryAggregateStats(queryStatsOnEndpoint.queryPropTree("Query")...
+
+CWsWorkunitsEx::onWUQueryFiles
+   File: esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2001
+   Total triggers: 2 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - getElements(): 1x
+     - queryPropTree(): 1x
+
+   Code snippets:
+
+     getElements() calls:
+       Owned<IPropertyTreeIterator> queryTrees = tree->getElements(xpath);
+
+     queryPropTree() calls:
+       IPropertyTree *queryTree = tree->queryPropTree(xpath);
+
+CWsWorkunitsEx::onWUQuerysetImport
+   File: esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3567
+   Total triggers: 2 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - queryPropTree(): 1x
+     - removeProp(): 1x
+
+   Code snippets:
+
+     queryPropTree() calls:
+       IPropertyTree *qsTree = srcTree->queryPropTree(xpath);
+
+     removeProp() calls:
+       queryRegistry->removeProp("*");
+
+CWsWorkunitsEx::onWUUpdateQueryEntry
+   File: esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3892
+   Total triggers: 2 (2 unique)
+   Uses SDS: Yes
+   Triggers:
+     - queryPropTree(): 1x
+     - removeProp(): 1x
+
+   Code snippets:
+
+     queryPropTree() calls:
+       IPropertyTree *tree = querySet->queryPropTree(xpath);
+
+     removeProp() calls:
+       tree->removeProp("@comment");
+
+
+--------------------------------------------------------------------------------

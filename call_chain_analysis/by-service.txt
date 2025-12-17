@@ -1,0 +1,52 @@
+================================================================================
+ESP Multi-Trigger Analysis
+================================================================================
+Loaded 514 ESP methods from cache
+
+Analyzing ESP methods with 2+ trigger calls...
+Found 21 methods with 2+ triggers
+
+Generating report...
+Report written to: /home/asselitx/src/hpcc/call_chain_analysis/multi_trigger_analysis.txt
+
+================================================================================
+ANALYSIS SUMMARY
+================================================================================
+
+Total methods: 21
+Total trigger calls: 63
+
+Top 10 methods by trigger count:
+   1. CWsResourcesEx::onWebLinksQuery                    5 triggers
+   2. CWsESDLConfigEx::onPublishESDLBinding              5 triggers
+   3. CWsESDLConfigEx::onConfigureESDLBindingMethod      5 triggers
+   4. CWsWorkunitsEx::onWUQuerysetExport                 5 triggers
+   5. CFileSprayEx::onGetSprayTargets                    4 triggers
+   6. CFileSprayEx::onGetDFUWorkunits                    3 triggers
+   7. CWsPackageProcessEx::onGetQueryFileMapping         3 triggers
+   8. CWsCloudEx::onGetPODs                              3 triggers
+   9. CWsESDLConfigEx::onGetESDLBinding                  3 triggers
+  10. CWsESDLConfigEx::onListDESDLEspBindings            3 triggers
+
+Trigger method usage:
+  getElements            47 calls
+  queryPropTree          12 calls
+  addPropTree             2 calls
+  removeProp              2 calls
+
+Methods by service:
+  ws_workunits            6 methods
+  ws_esdlconfig           4 methods
+  ws_fs                   2 methods
+  espcontrol              2 methods
+  ws_resources            1 methods
+  ws_packageprocess       1 methods
+  ws_cloud                1 methods
+  ws_machine              1 methods
+  ws_logaccess            1 methods
+  ws_dfu                  1 methods
+  ws_sql                  1 methods
+
+================================================================================
+Analysis Complete!
+================================================================================

@@ -1,0 +1,387 @@
+================================================================================
+ESP Service Call Chains to CClientSDSManager::getChildren
+================================================================================
+
+Generated: 2025-12-15 10:59:18
+Target: CClientSDSManager::getChildren at dali/base/dacsds.cpp:1393
+
+Total ESP Methods Found: 514
+Total Call Chains Identified: 41
+Services: 10
+
+================================================================================
+
+## Summary by Service ##
+
+  espcontrol: 3 call chains
+    - direct_tree_navigation: 2
+    - sds_usage_indirect: 1
+  ws_dali: 4 call chains
+    - sds_usage_indirect: 4
+  ws_dfu: 2 call chains
+    - sds_usage_indirect: 2
+  ws_esdlconfig: 8 call chains
+    - direct_tree_navigation: 8
+  ws_logaccess: 1 call chains
+    - direct_tree_navigation: 1
+  ws_resources: 2 call chains
+    - direct_tree_navigation: 2
+  ws_smc: 2 call chains
+    - direct_tree_navigation: 1
+    - sds_usage_indirect: 1
+  ws_store: 1 call chains
+    - direct_tree_navigation: 1
+  ws_topology: 4 call chains
+    - direct_tree_navigation: 2
+    - sds_usage_indirect: 2
+  ws_workunits: 14 call chains
+    - direct_tree_navigation: 14
+
+================================================================================
+
+
+### Service: espcontrol ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 2
+
+  Trigger Methods: getElements
+
+  ESP Endpoints:
+    - CWSESPControlEx::onSessionQuery [esp/services/espcontrol/ws_espcontrolservice.cpp:261]
+      via IPropertyTree::getElements()
+    - CWSESPControlEx::onSetSessionTimeout [esp/services/espcontrol/ws_espcontrolservice.cpp:381]
+      via IPropertyTree::getElements()
+
+  Call Path:
+    1. CWSESPControlEx::onSessionQuery
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+  Pattern: sds_usage_indirect
+  Count: 1
+
+  ESP Endpoints:
+    - CWSESPControlEx::onSessionInfo [esp/services/espcontrol/ws_espcontrolservice.cpp:302]
+
+  Call Path:
+    1. CWSESPControlEx::onSessionInfo
+    2. [intermediate calls]
+    3. querySDS().connect()
+    4. IPropertyTree navigation
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_dali ###
+
+
+  Pattern: sds_usage_indirect
+  Count: 4
+
+  ESP Endpoints:
+    - CWSDaliEx::onGetConnections [esp/services/ws_dali/ws_daliservice.cpp:529]
+    - CWSDaliEx::onGetSDSStats [esp/services/ws_dali/ws_daliservice.cpp:563]
+    - CWSDaliEx::onGetSDSSubscribers [esp/services/ws_dali/ws_daliservice.cpp:580]
+    - CWSDaliEx::onListSDSLocks [esp/services/ws_dali/ws_daliservice.cpp:621]
+
+  Call Path:
+    1. CWSDaliEx::onGetConnections
+    2. [intermediate calls]
+    3. querySDS().connect()
+    4. IPropertyTree navigation
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_dfu ###
+
+
+  Pattern: sds_usage_indirect
+  Count: 2
+
+  ESP Endpoints:
+    - CWsDfuEx::onEraseHistory [esp/services/ws_dfu/ws_dfuService.cpp:5206]
+    - CWsDfuEx::onListHistory [esp/services/ws_dfu/ws_dfuService.cpp:5169]
+
+  Call Path:
+    1. CWsDfuEx::onListHistory
+    2. [intermediate calls]
+    3. querySDS().connect()
+    4. IPropertyTree navigation
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_esdlconfig ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 8
+
+  Trigger Methods: getElements, queryPropTree
+
+  ESP Endpoints:
+    - CWsESDLConfigEx::onConfigureESDLBindingMethod [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:722]
+      via IPropertyTree::getElements()
+    - CWsESDLConfigEx::onConfigureESDLBindingMethod [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:722]
+      via IPropertyTree::queryPropTree()
+    - CWsESDLConfigEx::onGetESDLBinding [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1151]
+      via IPropertyTree::getElements()
+    - CWsESDLConfigEx::onGetESDLBinding [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1151]
+      via IPropertyTree::queryPropTree()
+    - CWsESDLConfigEx::onListDESDLEspBindings [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1707]
+      via IPropertyTree::getElements()
+    - CWsESDLConfigEx::onListDESDLEspBindings [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:1707]
+      via IPropertyTree::queryPropTree()
+    - CWsESDLConfigEx::onPublishESDLBinding [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:455]
+      via IPropertyTree::getElements()
+    - CWsESDLConfigEx::onPublishESDLBinding [esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp:455]
+      via IPropertyTree::queryPropTree()
+
+  Call Path:
+    1. CWsESDLConfigEx::onPublishESDLBinding
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_logaccess ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 1
+
+  Trigger Methods: getElements
+
+  ESP Endpoints:
+    - Cws_logaccessEx::onGetLogAccessInfo [esp/services/ws_logaccess/WsLogAccessService.cpp:10]
+      via IPropertyTree::getElements()
+
+  Call Path:
+    1. Cws_logaccessEx::onGetLogAccessInfo
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_resources ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 2
+
+  Trigger Methods: getElements, queryPropTree
+
+  ESP Endpoints:
+    - CWsResourcesEx::onWebLinksQuery [esp/services/ws_resources/ws_resourcesService.cpp:108]
+      via IPropertyTree::getElements()
+    - CWsResourcesEx::onWebLinksQuery [esp/services/ws_resources/ws_resourcesService.cpp:108]
+      via IPropertyTree::queryPropTree()
+
+  Call Path:
+    1. CWsResourcesEx::onWebLinksQuery
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_smc ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 1
+
+  Trigger Methods: setPropTree
+
+  ESP Endpoints:
+    - CWsSMCEx::onRoxieXrefCmd [esp/services/ws_smc/ws_smcService.cpp:2371]
+      via IPropertyTree::setPropTree()
+
+  Call Path:
+    1. CWsSMCEx::onRoxieXrefCmd
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::setPropTree()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+  Pattern: sds_usage_indirect
+  Count: 1
+
+  ESP Endpoints:
+    - CWsSMCEx::onLockQuery [esp/services/ws_smc/ws_smcService.cpp:2739]
+
+  Call Path:
+    1. CWsSMCEx::onLockQuery
+    2. [intermediate calls]
+    3. querySDS().connect()
+    4. IPropertyTree navigation
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_store ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 1
+
+  Trigger Methods: getElements
+
+  ESP Endpoints:
+    - CwsstoreEx::onListStores [esp/services/ws_store/ws_storeService.cpp:140]
+      via IPropertyTree::getElements()
+
+  Call Path:
+    1. CwsstoreEx::onListStores
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_topology ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 2
+
+  Trigger Methods: getElements, queryPropTree
+
+  ESP Endpoints:
+    - CWsTopologyEx::onTpClusterInfo [esp/services/ws_topology/ws_topologyService.cpp:1408]
+      via IPropertyTree::getElements()
+    - CWsTopologyEx::onTpGetComponentFile [esp/services/ws_topology/ws_topologyService.cpp:1612]
+      via IPropertyTree::queryPropTree()
+
+  Call Path:
+    1. CWsTopologyEx::onTpClusterInfo
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+  Pattern: sds_usage_indirect
+  Count: 2
+
+  ESP Endpoints:
+    - CWsTopologyEx::onSystemLog [esp/services/ws_topology/ws_topologyService.cpp:249]
+    - CWsTopologyEx::onTpThorStatus [esp/services/ws_topology/ws_topologyService.cpp:1898]
+
+  Call Path:
+    1. CWsTopologyEx::onSystemLog
+    2. [intermediate calls]
+    3. querySDS().connect()
+    4. IPropertyTree navigation
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------
+
+### Service: ws_workunits ###
+
+
+  Pattern: direct_tree_navigation
+  Count: 14
+
+  Trigger Methods: addPropTree, getElements, queryPropTree, removeProp
+
+  ESP Endpoints:
+    - CWsWorkunitsEx::onWUGetNumFileToCopy [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3921]
+      via IPropertyTree::getElements()
+    - CWsWorkunitsEx::onWUQueryConfig [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2767]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUQueryFiles [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2001]
+      via IPropertyTree::getElements()
+    - CWsWorkunitsEx::onWUQueryFiles [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2001]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUQuerysetAliasAction [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:2918]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUQuerysetExport [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656]
+      via IPropertyTree::getElements()
+    - CWsWorkunitsEx::onWUQuerysetExport [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656]
+      via IPropertyTree::addPropTree()
+    - CWsWorkunitsEx::onWUQuerysetExport [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3656]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUQuerysetImport [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3567]
+      via IPropertyTree::removeProp()
+    - CWsWorkunitsEx::onWUQuerysetImport [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3567]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUShowScheduled [esp/services/ws_workunits/ws_workunitsService.cpp:3748]
+      via IPropertyTree::getElements()
+    - CWsWorkunitsEx::onWUShowScheduled [esp/services/ws_workunits/ws_workunitsService.cpp:3748]
+      via IPropertyTree::queryPropTree()
+    - CWsWorkunitsEx::onWUUpdateQueryEntry [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3892]
+      via IPropertyTree::removeProp()
+    - CWsWorkunitsEx::onWUUpdateQueryEntry [esp/services/ws_workunits/ws_workunitsQuerySets.cpp:3892]
+      via IPropertyTree::queryPropTree()
+
+  Call Path:
+    1. CWsWorkunitsEx::onWUShowScheduled
+    2. querySDS().connect()
+    3. IRemoteConnection::queryRoot()
+    4. IPropertyTree::getElements()
+    5. PTree::checkChildren()
+    6. CClientRemoteTree::_checkChildren()
+    7. queryManager().getChildren()
+    8. CClientSDSManager::getChildren
+
+
+--------------------------------------------------------------------------------

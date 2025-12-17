@@ -1,0 +1,3705 @@
+[
+  {
+    "class": "CWsDeployEx",
+    "method": "onNavMenuEvent",
+    "signature": "CWsDeployEx::onNavMenuEvent",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6491
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onSaveSetting",
+    "signature": "CWsDeployEx::onSaveSetting",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6507
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetNavTreeDefn",
+    "signature": "CWsDeployEx::onGetNavTreeDefn",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6513
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onLockEnvironmentForCloud",
+    "signature": "CWsDeployEx::onLockEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6526
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onUnlockEnvironmentForCloud",
+    "signature": "CWsDeployEx::onUnlockEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6532
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onSaveEnvironmentForCloud",
+    "signature": "CWsDeployEx::onSaveEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6538
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onRollbackEnvironmentForCloud",
+    "signature": "CWsDeployEx::onRollbackEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6544
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onNotifyInitSystemSaveEnvForCloud",
+    "signature": "CWsDeployEx::onNotifyInitSystemSaveEnvForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6550
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetValue",
+    "signature": "CWsDeployExCE::onGetValue",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6556
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onUnlockUser",
+    "signature": "CWsDeployExCE::onUnlockUser",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6768
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onClientAlive",
+    "signature": "CWsDeployExCE::onClientAlive",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6774
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetEnvironment",
+    "signature": "CWsDeployExCE::onGetEnvironment",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6780
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onSetEnvironment",
+    "signature": "CWsDeployExCE::onSetEnvironment",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6786
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onDisplaySettings",
+    "signature": "CWsDeployEx::onDisplaySettings",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6792
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onStartDeployment",
+    "signature": "CWsDeployEx::onStartDeployment",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6798
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetDeployableComps",
+    "signature": "CWsDeployEx::onGetDeployableComps",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6804
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetComputersForRoxie",
+    "signature": "CWsDeployEx::onGetComputersForRoxie",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6810
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleRoxieOperation",
+    "signature": "CWsDeployEx::onHandleRoxieOperation",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6816
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetBuildSetInfo",
+    "signature": "CWsDeployEx::onGetBuildSetInfo",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6822
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onImportBuild",
+    "signature": "CWsDeployEx::onImportBuild",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6828
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetBuildServerDirs",
+    "signature": "CWsDeployEx::onGetBuildServerDirs",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6834
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleComponent",
+    "signature": "CWsDeployEx::onHandleComponent",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6840
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleAttributeAdd",
+    "signature": "CWsDeployEx::onHandleAttributeAdd",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6846
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleAttributeDelete",
+    "signature": "CWsDeployEx::onHandleAttributeDelete",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6852
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleInstance",
+    "signature": "CWsDeployEx::onHandleInstance",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6858
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleEspServiceBindings",
+    "signature": "CWsDeployEx::onHandleEspServiceBindings",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6864
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleComputer",
+    "signature": "CWsDeployEx::onHandleComputer",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6870
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleTopology",
+    "signature": "CWsDeployEx::onHandleTopology",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6876
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleThorTopology",
+    "signature": "CWsDeployEx::onHandleThorTopology",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6882
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleRows",
+    "signature": "CWsDeployEx::onHandleRows",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6888
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleAccessRules",
+    "signature": "CWsDeployEx::onHandleAccessRules",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6894
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onHandleBaseAccessControlList",
+    "signature": "CWsDeployEx::onHandleBaseAccessControlList",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6900
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGraph",
+    "signature": "CWsDeployEx::onGraph",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6906
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onBuildEnvironment",
+    "signature": "CWsDeployExCE::onBuildEnvironment",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6918
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetSubnetIPAddr",
+    "signature": "CWsDeployExCE::onGetSubnetIPAddr",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6930
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetSummary",
+    "signature": "CWsDeployExCE::onGetSummary",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6936
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onAddReqdComps",
+    "signature": "CWsDeployExCE::onAddReqdComps",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 6942
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onNavMenuEvent",
+    "signature": "CWsDeployExCE::onNavMenuEvent",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7027
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onSaveSetting",
+    "signature": "CWsDeployExCE::onSaveSetting",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7040
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetNavTreeDefn",
+    "signature": "CWsDeployExCE::onGetNavTreeDefn",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7045
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onLockEnvironmentForCloud",
+    "signature": "CWsDeployExCE::onLockEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7050
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onUnlockEnvironmentForCloud",
+    "signature": "CWsDeployExCE::onUnlockEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7055
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onSaveEnvironmentForCloud",
+    "signature": "CWsDeployExCE::onSaveEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7060
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onRollbackEnvironmentForCloud",
+    "signature": "CWsDeployExCE::onRollbackEnvironmentForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7065
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onNotifyInitSystemSaveEnvForCloud",
+    "signature": "CWsDeployExCE::onNotifyInitSystemSaveEnvForCloud",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7070
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onDisplaySettings",
+    "signature": "CWsDeployExCE::onDisplaySettings",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7075
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onStartDeployment",
+    "signature": "CWsDeployExCE::onStartDeployment",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7080
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetDeployableComps",
+    "signature": "CWsDeployExCE::onGetDeployableComps",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7085
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetBuildServerDirs",
+    "signature": "CWsDeployExCE::onGetBuildServerDirs",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7090
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onImportBuild",
+    "signature": "CWsDeployExCE::onImportBuild",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7095
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetComputersForRoxie",
+    "signature": "CWsDeployExCE::onGetComputersForRoxie",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7100
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleRoxieOperation",
+    "signature": "CWsDeployExCE::onHandleRoxieOperation",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7105
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleThorTopology",
+    "signature": "CWsDeployExCE::onHandleThorTopology",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7110
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleComponent",
+    "signature": "CWsDeployExCE::onHandleComponent",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7115
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleAttributeAdd",
+    "signature": "CWsDeployExCE::onHandleAttributeAdd",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7120
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleAttributeDelete",
+    "signature": "CWsDeployExCE::onHandleAttributeDelete",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7125
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleInstance",
+    "signature": "CWsDeployExCE::onHandleInstance",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7130
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleEspServiceBindings",
+    "signature": "CWsDeployExCE::onHandleEspServiceBindings",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7135
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleComputer",
+    "signature": "CWsDeployExCE::onHandleComputer",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7140
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleTopology",
+    "signature": "CWsDeployExCE::onHandleTopology",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7145
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleRows",
+    "signature": "CWsDeployExCE::onHandleRows",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7150
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleBaseAccessControlList",
+    "signature": "CWsDeployExCE::onHandleBaseAccessControlList",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7155
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onHandleAccessRules",
+    "signature": "CWsDeployExCE::onHandleAccessRules",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7160
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGraph",
+    "signature": "CWsDeployExCE::onGraph",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7165
+  },
+  {
+    "class": "CWsDeployExCE",
+    "method": "onGetBuildSetInfo",
+    "signature": "CWsDeployExCE::onGetBuildSetInfo",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7170
+  },
+  {
+    "class": "CWsDeployEx",
+    "method": "onGetValue",
+    "signature": "CWsDeployEx::onGetValue",
+    "file": "esp/services/WsDeploy/WsDeployService.cpp",
+    "line": 7175
+  },
+  {
+    "class": "CWsDeployEngine",
+    "method": "onDisconnect",
+    "signature": "CWsDeployEngine::onDisconnect",
+    "file": "esp/services/WsDeploy/WsDeployEngine.cpp",
+    "line": 530
+  },
+  {
+    "class": "Cws_elkEx",
+    "method": "onGetConfigDetails",
+    "signature": "Cws_elkEx::onGetConfigDetails",
+    "file": "esp/services/ws_elk/WsELKService.cpp",
+    "line": 25
+  },
+  {
+    "class": "Cws_codesignEx",
+    "method": "onSign",
+    "signature": "Cws_codesignEx::onSign",
+    "file": "esp/services/ws_codesign/ws_codesignService.cpp",
+    "line": 41
+  },
+  {
+    "class": "Cws_codesignEx",
+    "method": "onListUserIDs",
+    "signature": "Cws_codesignEx::onListUserIDs",
+    "file": "esp/services/ws_codesign/ws_codesignService.cpp",
+    "line": 75
+  },
+  {
+    "class": "Cws_codesignEx",
+    "method": "onVerify",
+    "signature": "Cws_codesignEx::onVerify",
+    "file": "esp/services/ws_codesign/ws_codesignService.cpp",
+    "line": 92
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onGetSoapBuilder",
+    "signature": "CWsEclBinding::onGetSoapBuilder",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 1942
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onSubmitQueryOutput",
+    "signature": "CWsEclBinding::onSubmitQueryOutput",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2171
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onSubmitQueryOutputView",
+    "signature": "CWsEclBinding::onSubmitQueryOutputView",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2237
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onGetWsdl",
+    "signature": "CWsEclBinding::onGetWsdl",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2335
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onGetXsd",
+    "signature": "CWsEclBinding::onGetXsd",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2344
+  },
+  {
+    "class": "CWsEclBinding",
+    "method": "onGet",
+    "signature": "CWsEclBinding::onGet",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2653
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onGet",
+    "signature": "EspHttpBinding::onGet",
+    "file": "esp/services/ws_ecl/ws_ecl_service.cpp",
+    "line": 2685
+  },
+  {
+    "class": "Cws_configEx",
+    "method": "onGetConfigAccess",
+    "signature": "Cws_configEx::onGetConfigAccess",
+    "file": "esp/services/ws_config/ws_configService.cpp",
+    "line": 28
+  },
+  {
+    "class": "Cws_accountEx",
+    "method": "onUpdateUser",
+    "signature": "Cws_accountEx::onUpdateUser",
+    "file": "esp/services/ws_account/ws_accountService.cpp",
+    "line": 33
+  },
+  {
+    "class": "Cws_accountEx",
+    "method": "onUpdateUserInput",
+    "signature": "Cws_accountEx::onUpdateUserInput",
+    "file": "esp/services/ws_account/ws_accountService.cpp",
+    "line": 140
+  },
+  {
+    "class": "Cws_accountEx",
+    "method": "onMyAccount",
+    "signature": "Cws_accountEx::onMyAccount",
+    "file": "esp/services/ws_account/ws_accountService.cpp",
+    "line": 157
+  },
+  {
+    "class": "Cws_accountEx",
+    "method": "onVerifyUser",
+    "signature": "Cws_accountEx::onVerifyUser",
+    "file": "esp/services/ws_account/ws_accountService.cpp",
+    "line": 245
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDFUWUSearch",
+    "signature": "CFileSprayEx::onDFUWUSearch",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 673
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetDFUWorkunits",
+    "signature": "CFileSprayEx::onGetDFUWorkunits",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 919
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetDFUWorkunit",
+    "signature": "CFileSprayEx::onGetDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1402
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetDFUProgress",
+    "signature": "CFileSprayEx::onGetDFUProgress",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1445
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onCreateDFUWorkunit",
+    "signature": "CFileSprayEx::onCreateDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1494
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onCreateDFUPublisherWorkunit",
+    "signature": "CFileSprayEx::onCreateDFUPublisherWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1519
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onUpdateDFUWorkunit",
+    "signature": "CFileSprayEx::onUpdateDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1542
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDFUWorkunitsAction",
+    "signature": "CFileSprayEx::onDFUWorkunitsAction",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1615
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDeleteDFUWorkunits",
+    "signature": "CFileSprayEx::onDeleteDFUWorkunits",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1737
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDeleteDFUWorkunit",
+    "signature": "CFileSprayEx::onDeleteDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1764
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onSubmitDFUWorkunit",
+    "signature": "CFileSprayEx::onSubmitDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1790
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onAbortDFUWorkunit",
+    "signature": "CFileSprayEx::onAbortDFUWorkunit",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1812
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetDFUExceptions",
+    "signature": "CFileSprayEx::onGetDFUExceptions",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 1835
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onSprayFixed",
+    "signature": "CFileSprayEx::onSprayFixed",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2091
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onSprayVariable",
+    "signature": "CFileSprayEx::onSprayVariable",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2248
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onReplicate",
+    "signature": "CFileSprayEx::onReplicate",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2438
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDespray",
+    "signature": "CFileSprayEx::onDespray",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2528
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onCopy",
+    "signature": "CFileSprayEx::onCopy",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2677
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onRename",
+    "signature": "CFileSprayEx::onRename",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2885
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDFUWUFile",
+    "signature": "CFileSprayEx::onDFUWUFile",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2958
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onFileList",
+    "signature": "CFileSprayEx::onFileList",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 2999
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDropZoneFileSearch",
+    "signature": "CFileSprayEx::onDropZoneFileSearch",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3200
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDfuMonitor",
+    "signature": "CFileSprayEx::onDfuMonitor",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3271
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onOpenSave",
+    "signature": "CFileSprayEx::onOpenSave",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3328
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDropZoneFiles",
+    "signature": "CFileSprayEx::onDropZoneFiles",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3414
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onDeleteDropZoneFiles",
+    "signature": "CFileSprayEx::onDeleteDropZoneFiles",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3536
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetSprayTargets",
+    "signature": "CFileSprayEx::onGetSprayTargets",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3718
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetDFUServerQueues",
+    "signature": "CFileSprayEx::onGetDFUServerQueues",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3809
+  },
+  {
+    "class": "CFileSprayEx",
+    "method": "onGetRemoteTargets",
+    "signature": "CFileSprayEx::onGetRemoteTargets",
+    "file": "esp/services/ws_fs/ws_fsService.cpp",
+    "line": 3840
+  },
+  {
+    "class": "CFileSpraySoapBindingEx",
+    "method": "onGetInstantQuery",
+    "signature": "CFileSpraySoapBindingEx::onGetInstantQuery",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 27
+  },
+  {
+    "class": "CFileSpraySoapBinding",
+    "method": "onGetInstantQuery",
+    "signature": "CFileSpraySoapBinding::onGetInstantQuery",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 197
+  },
+  {
+    "class": "CFileSpraySoapBindingEx",
+    "method": "downloadFile",
+    "signature": "CFileSpraySoapBindingEx::downloadFile",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 387
+  },
+  {
+    "class": "CFileSpraySoapBindingEx",
+    "method": "onStartUpload",
+    "signature": "CFileSpraySoapBindingEx::onStartUpload",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 453
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onStartUpload",
+    "signature": "EspHttpBinding::onStartUpload",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 461
+  },
+  {
+    "class": "CFileSpraySoapBindingEx",
+    "method": "onFinishUpload",
+    "signature": "CFileSpraySoapBindingEx::onFinishUpload",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 463
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onFinishUpload",
+    "signature": "EspHttpBinding::onFinishUpload",
+    "file": "esp/services/ws_fs/ws_fsBinding.cpp",
+    "line": 514
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUsers",
+    "signature": "Cws_accessEx::onUsers",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 468
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserQuery",
+    "signature": "Cws_accessEx::onUserQuery",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 574
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserEdit",
+    "signature": "Cws_accessEx::onUserEdit",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 659
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserGroupEditInput",
+    "signature": "Cws_accessEx::onUserGroupEditInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 692
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserGroupEdit",
+    "signature": "Cws_accessEx::onUserGroupEdit",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 742
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroups",
+    "signature": "Cws_accessEx::onGroups",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 793
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupQuery",
+    "signature": "Cws_accessEx::onGroupQuery",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 858
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAddUser",
+    "signature": "Cws_accessEx::onAddUser",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 927
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserAction",
+    "signature": "Cws_accessEx::onUserAction",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1012
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupAdd",
+    "signature": "Cws_accessEx::onGroupAdd",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1057
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupAction",
+    "signature": "Cws_accessEx::onGroupAction",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1112
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupEdit",
+    "signature": "Cws_accessEx::onGroupEdit",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1330
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupMemberQuery",
+    "signature": "Cws_accessEx::onGroupMemberQuery",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1384
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupMemberEditInput",
+    "signature": "Cws_accessEx::onGroupMemberEditInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1471
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onGroupMemberEdit",
+    "signature": "Cws_accessEx::onGroupMemberEdit",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1532
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onPermissions",
+    "signature": "Cws_accessEx::onPermissions",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1610
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResources",
+    "signature": "Cws_accessEx::onResources",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1643
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourceQuery",
+    "signature": "Cws_accessEx::onResourceQuery",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1799
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourceAddInput",
+    "signature": "Cws_accessEx::onResourceAddInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1895
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourceAdd",
+    "signature": "Cws_accessEx::onResourceAdd",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 1930
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourceDelete",
+    "signature": "Cws_accessEx::onResourceDelete",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2041
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourcePermissions",
+    "signature": "Cws_accessEx::onResourcePermissions",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2151
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onResourcePermissionQuery",
+    "signature": "Cws_accessEx::onResourcePermissionQuery",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2214
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onQueryViews",
+    "signature": "Cws_accessEx::onQueryViews",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2280
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAddView",
+    "signature": "Cws_accessEx::onAddView",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2309
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onDeleteView",
+    "signature": "Cws_accessEx::onDeleteView",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2330
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onQueryViewColumns",
+    "signature": "Cws_accessEx::onQueryViewColumns",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2349
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAddViewColumn",
+    "signature": "Cws_accessEx::onAddViewColumn",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2382
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onDeleteViewColumn",
+    "signature": "Cws_accessEx::onDeleteViewColumn",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2421
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onQueryViewMembers",
+    "signature": "Cws_accessEx::onQueryViewMembers",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2450
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAddViewMember",
+    "signature": "Cws_accessEx::onAddViewMember",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2491
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onDeleteViewMember",
+    "signature": "Cws_accessEx::onDeleteViewMember",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2529
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onQueryUserViewColumns",
+    "signature": "Cws_accessEx::onQueryUserViewColumns",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2567
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onPermissionAddInput",
+    "signature": "Cws_accessEx::onPermissionAddInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2611
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onPermissionsResetInput",
+    "signature": "Cws_accessEx::onPermissionsResetInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2649
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onClearPermissionsCache",
+    "signature": "Cws_accessEx::onClearPermissionsCache",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2737
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onQueryScopeScansEnabled",
+    "signature": "Cws_accessEx::onQueryScopeScansEnabled",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2761
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onEnableScopeScans",
+    "signature": "Cws_accessEx::onEnableScopeScans",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2782
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onDisableScopeScans",
+    "signature": "Cws_accessEx::onDisableScopeScans",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2794
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onPermissionsReset",
+    "signature": "Cws_accessEx::onPermissionsReset",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 2865
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onPermissionAction",
+    "signature": "Cws_accessEx::onPermissionAction",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3200
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserResetPassInput",
+    "signature": "Cws_accessEx::onUserResetPassInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3377
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserResetPass",
+    "signature": "Cws_accessEx::onUserResetPass",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3393
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserPosix",
+    "signature": "Cws_accessEx::onUserPosix",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3446
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserPosixInput",
+    "signature": "Cws_accessEx::onUserPosixInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3519
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserInfoEdit",
+    "signature": "Cws_accessEx::onUserInfoEdit",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3554
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserInfoEditInput",
+    "signature": "Cws_accessEx::onUserInfoEditInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3615
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserSudoersInput",
+    "signature": "Cws_accessEx::onUserSudoersInput",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3658
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserSudoers",
+    "signature": "Cws_accessEx::onUserSudoers",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3663
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAccountPermissions",
+    "signature": "Cws_accessEx::onAccountPermissions",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 3668
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onAccountPermissionsV2",
+    "signature": "Cws_accessEx::onAccountPermissionsV2",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 4006
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onFilePermission",
+    "signature": "Cws_accessEx::onFilePermission",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 4457
+  },
+  {
+    "class": "Cws_accessEx",
+    "method": "onUserAccountExport",
+    "signature": "Cws_accessEx::onUserAccountExport",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 4662
+  },
+  {
+    "class": "Cws_accessSoapBindingEx",
+    "method": "onGetForm",
+    "signature": "Cws_accessSoapBindingEx::onGetForm",
+    "file": "esp/services/ws_access/ws_accessService.cpp",
+    "line": 4799
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onEcho",
+    "signature": "CWsPackageProcessEx::onEcho",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 38
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onAddPackage",
+    "signature": "CWsPackageProcessEx::onAddPackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 870
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onCopyPackageMap",
+    "signature": "CWsPackageProcessEx::onCopyPackageMap",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 947
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onDeletePackage",
+    "signature": "CWsPackageProcessEx::onDeletePackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1022
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onActivatePackage",
+    "signature": "CWsPackageProcessEx::onActivatePackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1066
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onDeActivatePackage",
+    "signature": "CWsPackageProcessEx::onDeActivatePackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1073
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onListPackage",
+    "signature": "CWsPackageProcessEx::onListPackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1080
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onListPackages",
+    "signature": "CWsPackageProcessEx::onListPackages",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1094
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onGetPackage",
+    "signature": "CWsPackageProcessEx::onGetPackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1160
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onGetPackageMapById",
+    "signature": "CWsPackageProcessEx::onGetPackageMapById",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1174
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onValidatePackage",
+    "signature": "CWsPackageProcessEx::onValidatePackage",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1199
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onGetPackageMapSelectOptions",
+    "signature": "CWsPackageProcessEx::onGetPackageMapSelectOptions",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1349
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onGetQueryFileMapping",
+    "signature": "CWsPackageProcessEx::onGetQueryFileMapping",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1415
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onAddPartToPackageMap",
+    "signature": "CWsPackageProcessEx::onAddPartToPackageMap",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1482
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onGetPartFromPackageMap",
+    "signature": "CWsPackageProcessEx::onGetPartFromPackageMap",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1526
+  },
+  {
+    "class": "CWsPackageProcessEx",
+    "method": "onRemovePartFromPackageMap",
+    "signature": "CWsPackageProcessEx::onRemovePartFromPackageMap",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1536
+  },
+  {
+    "class": "CWsPackageProcessSoapBindingEx",
+    "method": "onFinishUpload",
+    "signature": "CWsPackageProcessSoapBindingEx::onFinishUpload",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1547
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onFinishUpload",
+    "signature": "EspHttpBinding::onFinishUpload",
+    "file": "esp/services/ws_packageprocess/ws_packageprocessService.cpp",
+    "line": 1561
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetMachineInfo",
+    "signature": "Cws_machineEx::onGetMachineInfo",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 228
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetMachineInfoEx",
+    "signature": "Cws_machineEx::onGetMachineInfoEx",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 253
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetTargetClusterInfo",
+    "signature": "Cws_machineEx::onGetTargetClusterInfo",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 282
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "doGetMachineInfo",
+    "signature": "Cws_machineEx::doGetMachineInfo",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 1139
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetComponentUsage",
+    "signature": "Cws_machineEx::onGetComponentUsage",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 2830
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetTargetClusterUsage",
+    "signature": "Cws_machineEx::onGetTargetClusterUsage",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 2963
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetNodeGroupUsage",
+    "signature": "Cws_machineEx::onGetNodeGroupUsage",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 3163
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetComponentStatus",
+    "signature": "Cws_machineEx::onGetComponentStatus",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 3217
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onUpdateComponentStatus",
+    "signature": "Cws_machineEx::onUpdateComponentStatus",
+    "file": "esp/services/ws_machine/ws_machineService.cpp",
+    "line": 3258
+  },
+  {
+    "class": "CRemoteExecThreadParam",
+    "method": "doWork",
+    "signature": "CRemoteExecThreadParam::doWork",
+    "file": "esp/services/ws_machine/ws_machineServiceRexec.cpp",
+    "line": 394
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "doStartStop",
+    "signature": "Cws_machineEx::doStartStop",
+    "file": "esp/services/ws_machine/ws_machineServiceRexec.cpp",
+    "line": 501
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onStartStop",
+    "signature": "Cws_machineEx::onStartStop",
+    "file": "esp/services/ws_machine/ws_machineServiceRexec.cpp",
+    "line": 646
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onStartStopBegin",
+    "signature": "Cws_machineEx::onStartStopBegin",
+    "file": "esp/services/ws_machine/ws_machineServiceRexec.cpp",
+    "line": 714
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onStartStopDone",
+    "signature": "Cws_machineEx::onStartStopDone",
+    "file": "esp/services/ws_machine/ws_machineServiceRexec.cpp",
+    "line": 759
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "doGetMetrics",
+    "signature": "Cws_machineEx::doGetMetrics",
+    "file": "esp/services/ws_machine/ws_machineServiceMetrics.cpp",
+    "line": 302
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "doPostProcessing",
+    "signature": "Cws_machineEx::doPostProcessing",
+    "file": "esp/services/ws_machine/ws_machineServiceMetrics.cpp",
+    "line": 421
+  },
+  {
+    "class": "Cws_machineEx",
+    "method": "onGetMetrics",
+    "signature": "Cws_machineEx::onGetMetrics",
+    "file": "esp/services/ws_machine/ws_machineServiceMetrics.cpp",
+    "line": 454
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onListStores",
+    "signature": "CwsstoreEx::onListStores",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 139
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onCreateStore",
+    "signature": "CwsstoreEx::onCreateStore",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 173
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onDelete",
+    "signature": "CwsstoreEx::onDelete",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 198
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onDeleteNamespace",
+    "signature": "CwsstoreEx::onDeleteNamespace",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 214
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onListNamespaces",
+    "signature": "CwsstoreEx::onListNamespaces",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 238
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onListKeys",
+    "signature": "CwsstoreEx::onListKeys",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 257
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onSet",
+    "signature": "CwsstoreEx::onSet",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 280
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onFetch",
+    "signature": "CwsstoreEx::onFetch",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 300
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onFetchKeyMetadata",
+    "signature": "CwsstoreEx::onFetchKeyMetadata",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 321
+  },
+  {
+    "class": "CwsstoreEx",
+    "method": "onFetchAll",
+    "signature": "CwsstoreEx::onFetchAll",
+    "file": "esp/services/ws_store/ws_storeService.cpp",
+    "line": 360
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetInstantQuery",
+    "signature": "EsdlBindingImpl::onGetInstantQuery",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 2307
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onJavaPlugin",
+    "signature": "EsdlBindingImpl::onJavaPlugin",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 2868
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGet",
+    "signature": "EsdlBindingImpl::onGet",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 2959
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onGet",
+    "signature": "EspHttpBinding::onGet",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3002
+  },
+  {
+    "class": "EspHttpBinding",
+    "method": "onGet",
+    "signature": "EspHttpBinding::onGet",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3008
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetXsd",
+    "signature": "EsdlBindingImpl::onGetXsd",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3041
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetWsdl",
+    "signature": "EsdlBindingImpl::onGetWsdl",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3068
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetXForm",
+    "signature": "EsdlBindingImpl::onGetXForm",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3271
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onRoxieRequest",
+    "signature": "EsdlBindingImpl::onRoxieRequest",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3613
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetRoxieBuilder",
+    "signature": "EsdlBindingImpl::onGetRoxieBuilder",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3790
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetFile",
+    "signature": "EsdlBindingImpl::onGetFile",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3981
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetReqSampleXml",
+    "signature": "EsdlBindingImpl::onGetReqSampleXml",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 3999
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetRespSampleXml",
+    "signature": "EsdlBindingImpl::onGetRespSampleXml",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 4004
+  },
+  {
+    "class": "EsdlBindingImpl",
+    "method": "onGetSampleXml",
+    "signature": "EsdlBindingImpl::onGetSampleXml",
+    "file": "esp/services/esdl_svc_engine/esdl_binding.cpp",
+    "line": 4009
+  },
+  {
+    "class": "Cws_logaccessEx",
+    "method": "onGetLogAccessInfo",
+    "signature": "Cws_logaccessEx::onGetLogAccessInfo",
+    "file": "esp/services/ws_logaccess/WsLogAccessService.cpp",
+    "line": 9
+  },
+  {
+    "class": "Cws_logaccessEx",
+    "method": "onGetLogs",
+    "signature": "Cws_logaccessEx::onGetLogs",
+    "file": "esp/services/ws_logaccess/WsLogAccessService.cpp",
+    "line": 265
+  },
+  {
+    "class": "Cws_logaccessEx",
+    "method": "onGetHealthReport",
+    "signature": "Cws_logaccessEx::onGetHealthReport",
+    "file": "esp/services/ws_logaccess/WsLogAccessService.cpp",
+    "line": 387
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onDetachFromDali",
+    "signature": "CWSESPControlEx::onDetachFromDali",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 111
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onAttachToDali",
+    "signature": "CWSESPControlEx::onAttachToDali",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 124
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onDisableDaliSubscriptions",
+    "signature": "CWSESPControlEx::onDisableDaliSubscriptions",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 168
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onEnableDaliSubscriptions",
+    "signature": "CWSESPControlEx::onEnableDaliSubscriptions",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 176
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onSetLogging",
+    "signature": "CWSESPControlEx::onSetLogging",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 185
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onGetLoggingSettings",
+    "signature": "CWSESPControlEx::onGetLoggingSettings",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 216
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onSessionQuery",
+    "signature": "CWSESPControlEx::onSessionQuery",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 260
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onSessionInfo",
+    "signature": "CWSESPControlEx::onSessionInfo",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 301
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onCleanSession",
+    "signature": "CWSESPControlEx::onCleanSession",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 345
+  },
+  {
+    "class": "CWSESPControlEx",
+    "method": "onSetSessionTimeout",
+    "signature": "CWSESPControlEx::onSetSessionTimeout",
+    "file": "esp/services/espcontrol/ws_espcontrolservice.cpp",
+    "line": 380
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpSwapNode",
+    "signature": "CWsTopologyEx::onTpSwapNode",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 149
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpSetMachineStatus",
+    "signature": "CWsTopologyEx::onTpSetMachineStatus",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 178
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpLogFileDisplay",
+    "signature": "CWsTopologyEx::onTpLogFileDisplay",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 193
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpLogFile",
+    "signature": "CWsTopologyEx::onTpLogFile",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 200
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onSystemLog",
+    "signature": "CWsTopologyEx::onSystemLog",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 248
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpXMLFile",
+    "signature": "CWsTopologyEx::onTpXMLFile",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 398
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpClusterQuery",
+    "signature": "CWsTopologyEx::onTpClusterQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1153
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpListTargetClusters",
+    "signature": "CWsTopologyEx::onTpListTargetClusters",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1191
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpTargetClusterQuery",
+    "signature": "CWsTopologyEx::onTpTargetClusterQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1284
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpLogicalClusterQuery",
+    "signature": "CWsTopologyEx::onTpLogicalClusterQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1334
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpGroupQuery",
+    "signature": "CWsTopologyEx::onTpGroupQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1390
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpClusterInfo",
+    "signature": "CWsTopologyEx::onTpClusterInfo",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1407
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpServiceQuery",
+    "signature": "CWsTopologyEx::onTpServiceQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1461
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpMachineQuery",
+    "signature": "CWsTopologyEx::onTpMachineQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1528
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpMachineInfo",
+    "signature": "CWsTopologyEx::onTpMachineInfo",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1596
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpGetComponentFile",
+    "signature": "CWsTopologyEx::onTpGetComponentFile",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1611
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpThorStatus",
+    "signature": "CWsTopologyEx::onTpThorStatus",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1897
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpGetServicePlugins",
+    "signature": "CWsTopologyEx::onTpGetServicePlugins",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1950
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpDropZoneQuery",
+    "signature": "CWsTopologyEx::onTpDropZoneQuery",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1977
+  },
+  {
+    "class": "CWsTopologyEx",
+    "method": "onTpListLogFiles",
+    "signature": "CWsTopologyEx::onTpListLogFiles",
+    "file": "esp/services/ws_topology/ws_topologyService.cpp",
+    "line": 1992
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onOpenSession",
+    "signature": "Cws_configMgrEx::onOpenSession",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 50
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onCloseSession",
+    "signature": "Cws_configMgrEx::onCloseSession",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 102
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetOpenSessions",
+    "signature": "Cws_configMgrEx::onGetOpenSessions",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 120
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetEnvironmentFileList",
+    "signature": "Cws_configMgrEx::onGetEnvironmentFileList",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 138
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onOpenEnvironmentFile",
+    "signature": "Cws_configMgrEx::onOpenEnvironmentFile",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 184
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onCloseEnvironmentFile",
+    "signature": "Cws_configMgrEx::onCloseEnvironmentFile",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 208
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onSaveEnvironmentFile",
+    "signature": "Cws_configMgrEx::onSaveEnvironmentFile",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 230
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onLockSession",
+    "signature": "Cws_configMgrEx::onLockSession",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 292
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onUnlockSession",
+    "signature": "Cws_configMgrEx::onUnlockSession",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 329
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetNode",
+    "signature": "Cws_configMgrEx::onGetNode",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 347
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetCreateNodeInfo",
+    "signature": "Cws_configMgrEx::onGetCreateNodeInfo",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 372
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onInsertNode",
+    "signature": "Cws_configMgrEx::onInsertNode",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 398
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onRemoveNode",
+    "signature": "Cws_configMgrEx::onRemoveNode",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 438
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onValidateEnvironment",
+    "signature": "Cws_configMgrEx::onValidateEnvironment",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 460
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onSetValues",
+    "signature": "Cws_configMgrEx::onSetValues",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 473
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetParents",
+    "signature": "Cws_configMgrEx::onGetParents",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 506
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetNodeTree",
+    "signature": "Cws_configMgrEx::onGetNodeTree",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 534
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onFetchNodes",
+    "signature": "Cws_configMgrEx::onFetchNodes",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 554
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onGetNodeCopy",
+    "signature": "Cws_configMgrEx::onGetNodeCopy",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 603
+  },
+  {
+    "class": "Cws_configMgrEx",
+    "method": "onInsertNodeCopy",
+    "signature": "Cws_configMgrEx::onInsertNodeCopy",
+    "file": "esp/services/ws_configmgr/ws_configmgrService.cpp",
+    "line": 637
+  },
+  {
+    "class": "CWsLoggingServiceEx",
+    "method": "onUpdateLog",
+    "signature": "CWsLoggingServiceEx::onUpdateLog",
+    "file": "esp/services/ws_loggingservice/loggingservice.cpp",
+    "line": 117
+  },
+  {
+    "class": "CWsLoggingServiceEx",
+    "method": "onGetTransactionSeed",
+    "signature": "CWsLoggingServiceEx::onGetTransactionSeed",
+    "file": "esp/services/ws_loggingservice/loggingservice.cpp",
+    "line": 147
+  },
+  {
+    "class": "CWSDecoupledLogEx",
+    "method": "onGetLogAgentSetting",
+    "signature": "CWSDecoupledLogEx::onGetLogAgentSetting",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 99
+  },
+  {
+    "class": "CWSDecoupledLogEx",
+    "method": "onPauseLog",
+    "signature": "CWSDecoupledLogEx::onPauseLog",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 112
+  },
+  {
+    "class": "CWSDecoupledLogEx",
+    "method": "onGetAckedLogFiles",
+    "signature": "CWSDecoupledLogEx::onGetAckedLogFiles",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 126
+  },
+  {
+    "class": "CWSDecoupledLogEx",
+    "method": "onCleanAckedFiles",
+    "signature": "CWSDecoupledLogEx::onCleanAckedFiles",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 140
+  },
+  {
+    "class": "WSDecoupledLogAction",
+    "method": "doAction",
+    "signature": "WSDecoupledLogAction::doAction",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 168
+  },
+  {
+    "class": "WSDecoupledLogAction",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogAction::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 225
+  },
+  {
+    "class": "WSDecoupledLogGetSettings",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogGetSettings::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 247
+  },
+  {
+    "class": "WSDecoupledLogAction",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogAction::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 257
+  },
+  {
+    "class": "WSDecoupledLogGetSettings",
+    "method": "doActionForAgent",
+    "signature": "WSDecoupledLogGetSettings::doActionForAgent",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 262
+  },
+  {
+    "class": "WSDecoupledLogPause",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogPause::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 284
+  },
+  {
+    "class": "WSDecoupledLogAction",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogAction::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 289
+  },
+  {
+    "class": "WSDecoupledLogPause",
+    "method": "doActionForAgent",
+    "signature": "WSDecoupledLogPause::doActionForAgent",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 294
+  },
+  {
+    "class": "WSDecoupledLogGetAckedLogFileNames",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogGetAckedLogFileNames::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 309
+  },
+  {
+    "class": "WSDecoupledLogAction",
+    "method": "doActionInGroup",
+    "signature": "WSDecoupledLogAction::doActionInGroup",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 315
+  },
+  {
+    "class": "WSDecoupledLogGetAckedLogFileNames",
+    "method": "doActionForAgent",
+    "signature": "WSDecoupledLogGetAckedLogFileNames::doActionForAgent",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 320
+  },
+  {
+    "class": "WSDecoupledLogCleanAckedLogFiles",
+    "method": "doActionForAgent",
+    "signature": "WSDecoupledLogCleanAckedLogFiles::doActionForAgent",
+    "file": "esp/services/ws_decoupledlogging/ws_decoupledloggingservice.cpp",
+    "line": 342
+  },
+  {
+    "class": "CWsDfsEx",
+    "method": "onGetLease",
+    "signature": "CWsDfsEx::onGetLease",
+    "file": "esp/services/ws_dfsservice/ws_dfsservice.cpp",
+    "line": 160
+  },
+  {
+    "class": "CWsDfsEx",
+    "method": "onKeepAlive",
+    "signature": "CWsDfsEx::onKeepAlive",
+    "file": "esp/services/ws_dfsservice/ws_dfsservice.cpp",
+    "line": 169
+  },
+  {
+    "class": "CWsDfsEx",
+    "method": "onDFSFileLookup",
+    "signature": "CWsDfsEx::onDFSFileLookup",
+    "file": "esp/services/ws_dfsservice/ws_dfsservice.cpp",
+    "line": 174
+  },
+  {
+    "class": "CWsCloudEx",
+    "method": "onGetPODs",
+    "signature": "CWsCloudEx::onGetPODs",
+    "file": "esp/services/ws_cloud/ws_cloudService.cpp",
+    "line": 51
+  },
+  {
+    "class": "CWsCloudEx",
+    "method": "onGetServices",
+    "signature": "CWsCloudEx::onGetServices",
+    "file": "esp/services/ws_cloud/ws_cloudService.cpp",
+    "line": 184
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUSearch",
+    "signature": "CWsDfuEx::onDFUSearch",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 198
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUGetMetaInquiry",
+    "signature": "CWsDfuEx::onDFUGetMetaInquiry",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 335
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUQuery",
+    "signature": "CWsDfuEx::onDFUQuery",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 366
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUInfo",
+    "signature": "CWsDfuEx::onDFUInfo",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 392
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUSpace",
+    "signature": "CWsDfuEx::onDFUSpace",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 433
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onAddtoSuperfile",
+    "signature": "CWsDfuEx::onAddtoSuperfile",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 1203
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUArrayAction",
+    "signature": "CWsDfuEx::onDFUArrayAction",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 1487
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUDefFile",
+    "signature": "CWsDfuEx::onDFUDefFile",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 1720
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFURecordTypeInfo",
+    "signature": "CWsDfuEx::onDFURecordTypeInfo",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 1855
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onEclRecordTypeInfo",
+    "signature": "CWsDfuEx::onEclRecordTypeInfo",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 1888
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "doGetFileDetails",
+    "signature": "CWsDfuEx::doGetFileDetails",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 2216
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFileView",
+    "signature": "CWsDfuEx::onDFUFileView",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 2841
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "doLogicalFileSearch",
+    "signature": "CWsDfuEx::doLogicalFileSearch",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 3875
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onSuperfileList",
+    "signature": "CWsDfuEx::onSuperfileList",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 3987
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onSuperfileAction",
+    "signature": "CWsDfuEx::onSuperfileAction",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4026
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onSavexml",
+    "signature": "CWsDfuEx::onSavexml",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4055
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onAdd",
+    "signature": "CWsDfuEx::onAdd",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4087
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onAddRemote",
+    "signature": "CWsDfuEx::onAddRemote",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4115
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUGetDataColumns",
+    "signature": "CWsDfuEx::onDFUGetDataColumns",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4163
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUSearchData",
+    "signature": "CWsDfuEx::onDFUSearchData",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4612
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUGetFileMetaData",
+    "signature": "CWsDfuEx::onDFUGetFileMetaData",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4788
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUBrowseData",
+    "signature": "CWsDfuEx::onDFUBrowseData",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 4943
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onListHistory",
+    "signature": "CWsDfuEx::onListHistory",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 5168
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onEraseHistory",
+    "signature": "CWsDfuEx::onEraseHistory",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 5205
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFileAccess",
+    "signature": "CWsDfuEx::onDFUFileAccess",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 6241
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFileAccessV2",
+    "signature": "CWsDfuEx::onDFUFileAccessV2",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 6261
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFileCreate",
+    "signature": "CWsDfuEx::onDFUFileCreate",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 6370
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFileCreateV2",
+    "signature": "CWsDfuEx::onDFUFileCreateV2",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 6470
+  },
+  {
+    "class": "CWsDfuEx",
+    "method": "onDFUFilePublish",
+    "signature": "CWsDfuEx::onDFUFilePublish",
+    "file": "esp/services/ws_dfu/ws_dfuService.cpp",
+    "line": 6621
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefArrayAction",
+    "signature": "CWsDfuXRefEx::onDFUXRefArrayAction",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 129
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefLostFiles",
+    "signature": "CWsDfuXRefEx::onDFUXRefLostFiles",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 298
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefFoundFiles",
+    "signature": "CWsDfuXRefEx::onDFUXRefFoundFiles",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 324
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefOrphanFiles",
+    "signature": "CWsDfuXRefEx::onDFUXRefOrphanFiles",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 351
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefMessages",
+    "signature": "CWsDfuXRefEx::onDFUXRefMessages",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 377
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefCleanDirectories",
+    "signature": "CWsDfuXRefEx::onDFUXRefCleanDirectories",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 399
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefDirectories",
+    "signature": "CWsDfuXRefEx::onDFUXRefDirectories",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 420
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefBuild",
+    "signature": "CWsDfuXRefEx::onDFUXRefBuild",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 486
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefBuildCancel",
+    "signature": "CWsDfuXRefEx::onDFUXRefBuildCancel",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 537
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefList",
+    "signature": "CWsDfuXRefEx::onDFUXRefList",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 588
+  },
+  {
+    "class": "CWsDfuXRefEx",
+    "method": "onDFUXRefUnusedFiles",
+    "signature": "CWsDfuXRefEx::onDFUXRefUnusedFiles",
+    "file": "esp/services/ws_dfu/ws_dfuXRefService.cpp",
+    "line": 751
+  },
+  {
+    "class": "CWSDaliSoapBindingEx",
+    "method": "onGet",
+    "signature": "CWSDaliSoapBindingEx::onGet",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 35
+  },
+  {
+    "class": "CWSDaliSoapBinding",
+    "method": "onGet",
+    "signature": "CWSDaliSoapBinding::onGet",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 60
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetValue",
+    "signature": "CWSDaliEx::onSetValue",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 96
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetValue",
+    "signature": "CWSDaliEx::onGetValue",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 124
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onImport",
+    "signature": "CWSDaliEx::onImport",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 145
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onDelete",
+    "signature": "CWSDaliEx::onDelete",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 170
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onAdd",
+    "signature": "CWSDaliEx::onAdd",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 191
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onCount",
+    "signature": "CWSDaliEx::onCount",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 213
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onDFSLS",
+    "signature": "CWSDaliEx::onDFSLS",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 244
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetDFSCSV",
+    "signature": "CWSDaliEx::onGetDFSCSV",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 269
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onDFSExists",
+    "signature": "CWSDaliEx::onDFSExists",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 288
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetLogicalFile",
+    "signature": "CWSDaliEx::onGetLogicalFile",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 308
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetLogicalFilePart",
+    "signature": "CWSDaliEx::onGetLogicalFilePart",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 331
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetLogicalFilePartAttr",
+    "signature": "CWSDaliEx::onSetLogicalFilePartAttr",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 356
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetDFSMap",
+    "signature": "CWSDaliEx::onGetDFSMap",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 384
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetDFSParents",
+    "signature": "CWSDaliEx::onGetDFSParents",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 407
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onDFSCheck",
+    "signature": "CWSDaliEx::onDFSCheck",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 430
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetProtected",
+    "signature": "CWSDaliEx::onSetProtected",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 449
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetUnprotected",
+    "signature": "CWSDaliEx::onSetUnprotected",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 476
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetProtectedList",
+    "signature": "CWSDaliEx::onGetProtectedList",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 503
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetConnections",
+    "signature": "CWSDaliEx::onGetConnections",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 528
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetClients",
+    "signature": "CWSDaliEx::onGetClients",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 545
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetSDSStats",
+    "signature": "CWSDaliEx::onGetSDSStats",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 562
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onGetSDSSubscribers",
+    "signature": "CWSDaliEx::onGetSDSSubscribers",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 579
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onDisconnectClientConnection",
+    "signature": "CWSDaliEx::onDisconnectClientConnection",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 596
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onListSDSLocks",
+    "signature": "CWSDaliEx::onListSDSLocks",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 620
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onUnlockSDSLock",
+    "signature": "CWSDaliEx::onUnlockSDSLock",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 638
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSaveSDSStore",
+    "signature": "CWSDaliEx::onSaveSDSStore",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 670
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetTraceTransactions",
+    "signature": "CWSDaliEx::onSetTraceTransactions",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 688
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onSetTraceSlowTransactions",
+    "signature": "CWSDaliEx::onSetTraceSlowTransactions",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 706
+  },
+  {
+    "class": "CWSDaliEx",
+    "method": "onClearTraceTransactions",
+    "signature": "CWSDaliEx::onClearTraceTransactions",
+    "file": "esp/services/ws_dali/ws_daliservice.cpp",
+    "line": 728
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onIndex",
+    "signature": "CWsSMCEx::onIndex",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1028
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onActivity",
+    "signature": "CWsSMCEx::onActivity",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1329
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onMoveJobDown",
+    "signature": "CWsSMCEx::onMoveJobDown",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1558
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onMoveJobUp",
+    "signature": "CWsSMCEx::onMoveJobUp",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1587
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onMoveJobBack",
+    "signature": "CWsSMCEx::onMoveJobBack",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1616
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onMoveJobFront",
+    "signature": "CWsSMCEx::onMoveJobFront",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1662
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onRemoveJob",
+    "signature": "CWsSMCEx::onRemoveJob",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1709
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onStopQueue",
+    "signature": "CWsSMCEx::onStopQueue",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1739
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onResumeQueue",
+    "signature": "CWsSMCEx::onResumeQueue",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1765
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onPauseQueue",
+    "signature": "CWsSMCEx::onPauseQueue",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1808
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onClearQueue",
+    "signature": "CWsSMCEx::onClearQueue",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1834
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onSetJobPriority",
+    "signature": "CWsSMCEx::onSetJobPriority",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1896
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onGetThorQueueAvailability",
+    "signature": "CWsSMCEx::onGetThorQueueAvailability",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1936
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onSetBanner",
+    "signature": "CWsSMCEx::onSetBanner",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 1984
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onNotInCommunityEdition",
+    "signature": "CWsSMCEx::onNotInCommunityEdition",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2065
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onBrowseResources",
+    "signature": "CWsSMCEx::onBrowseResources",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2070
+  },
+  {
+    "class": "CWsSMCSoapBindingEx",
+    "method": "onHttpEcho",
+    "signature": "CWsSMCSoapBindingEx::onHttpEcho",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2225
+  },
+  {
+    "class": "CWsSMCSoapBindingEx",
+    "method": "onGet",
+    "signature": "CWsSMCSoapBindingEx::onGet",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2260
+  },
+  {
+    "class": "CWsSMCSoapBinding",
+    "method": "onGet",
+    "signature": "CWsSMCSoapBinding::onGet",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2266
+  },
+  {
+    "class": "CWsSMCSoapBindingEx",
+    "method": "onGetForm",
+    "signature": "CWsSMCSoapBindingEx::onGetForm",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2281
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onRoxieXrefCmd",
+    "signature": "CWsSMCEx::onRoxieXrefCmd",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2370
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onRoxieControlCmd",
+    "signature": "CWsSMCEx::onRoxieControlCmd",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2446
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onGetStatusServerInfo",
+    "signature": "CWsSMCEx::onGetStatusServerInfo",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2500
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onLockQuery",
+    "signature": "CWsSMCEx::onLockQuery",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2738
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onGetBuildInfo",
+    "signature": "CWsSMCEx::onGetBuildInfo",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2879
+  },
+  {
+    "class": "CWsSMCEx",
+    "method": "onGetGlobalMetrics",
+    "signature": "CWsSMCEx::onGetGlobalMetrics",
+    "file": "esp/services/ws_smc/ws_smcService.cpp",
+    "line": 2972
+  },
+  {
+    "class": "CldapenvironmentEx",
+    "method": "onLDAPQueryDefaults",
+    "signature": "CldapenvironmentEx::onLDAPQueryDefaults",
+    "file": "esp/services/ldapenvironment/ldapenvironmentService.cpp",
+    "line": 86
+  },
+  {
+    "class": "CldapenvironmentEx",
+    "method": "onLDAPCreateEnvironment",
+    "signature": "CldapenvironmentEx::onLDAPCreateEnvironment",
+    "file": "esp/services/ldapenvironment/ldapenvironmentService.cpp",
+    "line": 232
+  },
+  {
+    "class": "CWSSashaEx",
+    "method": "onGetVersion",
+    "signature": "CWSSashaEx::onGetVersion",
+    "file": "esp/services/ws_sasha/ws_sashaservice.cpp",
+    "line": 52
+  },
+  {
+    "class": "CWSSashaEx",
+    "method": "onArchiveWU",
+    "signature": "CWSSashaEx::onArchiveWU",
+    "file": "esp/services/ws_sasha/ws_sashaservice.cpp",
+    "line": 87
+  },
+  {
+    "class": "CWSSashaEx",
+    "method": "onRestoreWU",
+    "signature": "CWSSashaEx::onRestoreWU",
+    "file": "esp/services/ws_sasha/ws_sashaservice.cpp",
+    "line": 124
+  },
+  {
+    "class": "CWSSashaEx",
+    "method": "onListWU",
+    "signature": "CWSSashaEx::onListWU",
+    "file": "esp/services/ws_sasha/ws_sashaservice.cpp",
+    "line": 151
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onEcho",
+    "signature": "CwssqlEx::onEcho",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 35
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onGetDBMetaData",
+    "signature": "CwssqlEx::onGetDBMetaData",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 41
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onGetDBSystemInfo",
+    "signature": "CwssqlEx::onGetDBSystemInfo",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 252
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onSetRelatedIndexes",
+    "signature": "CwssqlEx::onSetRelatedIndexes",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 755
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onGetRelatedIndexes",
+    "signature": "CwssqlEx::onGetRelatedIndexes",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 808
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onExecuteSQL",
+    "signature": "CwssqlEx::onExecuteSQL",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 867
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onExecutePreparedSQL",
+    "signature": "CwssqlEx::onExecutePreparedSQL",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 1290
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onPrepareSQL",
+    "signature": "CwssqlEx::onPrepareSQL",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 1406
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onCreateTableAndLoad",
+    "signature": "CwssqlEx::onCreateTableAndLoad",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 1733
+  },
+  {
+    "class": "CwssqlEx",
+    "method": "onGetResults",
+    "signature": "CwssqlEx::onGetResults",
+    "file": "esp/services/ws_sql/ws_sqlService.cpp",
+    "line": 1997
+  },
+  {
+    "class": "CWsResourcesEx",
+    "method": "onServiceQuery",
+    "signature": "CWsResourcesEx::onServiceQuery",
+    "file": "esp/services/ws_resources/ws_resourcesService.cpp",
+    "line": 41
+  },
+  {
+    "class": "CWsResourcesEx",
+    "method": "onTargetQuery",
+    "signature": "CWsResourcesEx::onTargetQuery",
+    "file": "esp/services/ws_resources/ws_resourcesService.cpp",
+    "line": 54
+  },
+  {
+    "class": "CWsResourcesEx",
+    "method": "onWebLinksQuery",
+    "signature": "CWsResourcesEx::onWebLinksQuery",
+    "file": "esp/services/ws_resources/ws_resourcesService.cpp",
+    "line": 107
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onPublishESDLDefinition",
+    "signature": "CWsESDLConfigEx::onPublishESDLDefinition",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 274
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onPublishESDLBinding",
+    "signature": "CWsESDLConfigEx::onPublishESDLBinding",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 454
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onConfigureESDLBindingMethod",
+    "signature": "CWsESDLConfigEx::onConfigureESDLBindingMethod",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 721
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onConfigureESDLBindingLogTransform",
+    "signature": "CWsESDLConfigEx::onConfigureESDLBindingLogTransform",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1038
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onGetESDLBinding",
+    "signature": "CWsESDLConfigEx::onGetESDLBinding",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1150
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onEcho",
+    "signature": "CWsESDLConfigEx::onEcho",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1396
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onDeleteESDLDefinition",
+    "signature": "CWsESDLConfigEx::onDeleteESDLDefinition",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1402
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onDeleteESDLBinding",
+    "signature": "CWsESDLConfigEx::onDeleteESDLBinding",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1445
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onGetESDLDefinition",
+    "signature": "CWsESDLConfigEx::onGetESDLDefinition",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1544
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onListESDLDefinitions",
+    "signature": "CWsESDLConfigEx::onListESDLDefinitions",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1671
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onListDESDLEspBindings",
+    "signature": "CWsESDLConfigEx::onListDESDLEspBindings",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1706
+  },
+  {
+    "class": "CWsESDLConfigEx",
+    "method": "onListESDLBindings",
+    "signature": "CWsESDLConfigEx::onListESDLBindings",
+    "file": "esp/services/ws_esdlconfig/ws_esdlconfigservice.cpp",
+    "line": 1895
+  },
+  {
+    "class": "CWsFileIOEx",
+    "method": "onCreateFile",
+    "signature": "CWsFileIOEx::onCreateFile",
+    "file": "esp/services/ws_fileio/ws_fileioservice.cpp",
+    "line": 36
+  },
+  {
+    "class": "CWsFileIOEx",
+    "method": "onReadFileData",
+    "signature": "CWsFileIOEx::onReadFileData",
+    "file": "esp/services/ws_fileio/ws_fileioservice.cpp",
+    "line": 86
+  },
+  {
+    "class": "CWsFileIOEx",
+    "method": "onWriteFileData",
+    "signature": "CWsFileIOEx::onWriteFileData",
+    "file": "esp/services/ws_fileio/ws_fileioservice.cpp",
+    "line": 172
+  },
+  {
+    "class": "CWsWorkunitsSoapBindingEx",
+    "method": "downloadWUFiles",
+    "signature": "CWsWorkunitsSoapBindingEx::downloadWUFiles",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1477
+  },
+  {
+    "class": "CWsWorkunitsSoapBindingEx",
+    "method": "onGet",
+    "signature": "CWsWorkunitsSoapBindingEx::onGet",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1528
+  },
+  {
+    "class": "CWsWorkunitsSoapBinding",
+    "method": "onGet",
+    "signature": "CWsWorkunitsSoapBinding::onGet",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1662
+  },
+  {
+    "class": "CWsWorkunitsSoapBindingEx",
+    "method": "onGetInstantQuery",
+    "signature": "CWsWorkunitsSoapBindingEx::onGetInstantQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1665
+  },
+  {
+    "class": "CWsWorkunitsSoapBinding",
+    "method": "onGetInstantQuery",
+    "signature": "CWsWorkunitsSoapBinding::onGetInstantQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1691
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUClusterJobQueueXLS",
+    "signature": "CWsWorkunitsEx::onWUClusterJobQueueXLS",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1693
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUClusterJobQueueLOG",
+    "signature": "CWsWorkunitsEx::onWUClusterJobQueueLOG",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1724
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUJobList",
+    "signature": "CWsWorkunitsEx::onWUJobList",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1780
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUClusterJobXLS",
+    "signature": "CWsWorkunitsEx::onWUClusterJobXLS",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1785
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUClusterJobSummaryXLS",
+    "signature": "CWsWorkunitsEx::onWUClusterJobSummaryXLS",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1816
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetThorJobList",
+    "signature": "CWsWorkunitsEx::onWUGetThorJobList",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 1846
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetThorJobQueue",
+    "signature": "CWsWorkunitsEx::onWUGetThorJobQueue",
+    "file": "esp/services/ws_workunits/ws_workunitsAuditLogs.cpp",
+    "line": 2169
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCreate",
+    "signature": "CWsWorkunitsEx::onWUCreate",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 491
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUUpdate",
+    "signature": "CWsWorkunitsEx::onWUUpdate",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 529
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCreateAndUpdate",
+    "signature": "CWsWorkunitsEx::onWUCreateAndUpdate",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 676
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUAction",
+    "signature": "CWsWorkunitsEx::onWUAction",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 706
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUDelete",
+    "signature": "CWsWorkunitsEx::onWUDelete",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 768
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUAbort",
+    "signature": "CWsWorkunitsEx::onWUAbort",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 786
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUProtect",
+    "signature": "CWsWorkunitsEx::onWUProtect",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 803
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUResubmit",
+    "signature": "CWsWorkunitsEx::onWUResubmit",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 822
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUPushEvent",
+    "signature": "CWsWorkunitsEx::onWUPushEvent",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 905
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUSchedule",
+    "signature": "CWsWorkunitsEx::onWUSchedule",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 934
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUSubmit",
+    "signature": "CWsWorkunitsEx::onWUSubmit",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 985
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWURun",
+    "signature": "CWsWorkunitsEx::onWURun",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1046
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUFullResult",
+    "signature": "CWsWorkunitsEx::onWUFullResult",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1123
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUWaitCompiled",
+    "signature": "CWsWorkunitsEx::onWUWaitCompiled",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1175
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUWaitComplete",
+    "signature": "CWsWorkunitsEx::onWUWaitComplete",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1199
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCDebug",
+    "signature": "CWsWorkunitsEx::onWUCDebug",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1219
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUSyntaxCheckECL",
+    "signature": "CWsWorkunitsEx::onWUSyntaxCheckECL",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1238
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCompileECL",
+    "signature": "CWsWorkunitsEx::onWUCompileECL",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1311
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetDependancyTrees",
+    "signature": "CWsWorkunitsEx::onWUGetDependancyTrees",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1399
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUInfo",
+    "signature": "CWsWorkunitsEx::onWUInfo",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1561
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUInfoDetails",
+    "signature": "CWsWorkunitsEx::onWUInfoDetails",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1688
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUResultView",
+    "signature": "CWsWorkunitsEx::onWUResultView",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 1693
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuery",
+    "signature": "CWsWorkunitsEx::onWUQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 2616
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWULightWeightQuery",
+    "signature": "CWsWorkunitsEx::onWULightWeightQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 2692
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUFile",
+    "signature": "CWsWorkunitsEx::onWUFile",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3062
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUResultBin",
+    "signature": "CWsWorkunitsEx::onWUResultBin",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3297
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUResultSummary",
+    "signature": "CWsWorkunitsEx::onWUResultSummary",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3451
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUResult",
+    "signature": "CWsWorkunitsEx::onWUResult",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3486
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUShowScheduled",
+    "signature": "CWsWorkunitsEx::onWUShowScheduled",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3747
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUExport",
+    "signature": "CWsWorkunitsEx::onWUExport",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3815
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUListLocalFileRequired",
+    "signature": "CWsWorkunitsEx::onWUListLocalFileRequired",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3845
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUAddLocalFileToWorkunit",
+    "signature": "CWsWorkunitsEx::onWUAddLocalFileToWorkunit",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 3945
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetGraphNameAndTypes",
+    "signature": "CWsWorkunitsEx::onWUGetGraphNameAndTypes",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4037
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUProcessGraph",
+    "signature": "CWsWorkunitsEx::onWUProcessGraph",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4064
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetGraph",
+    "signature": "CWsWorkunitsEx::onWUGetGraph",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4160
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onGVCAjaxGraph",
+    "signature": "CWsWorkunitsEx::onGVCAjaxGraph",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4201
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUDetails",
+    "signature": "CWsWorkunitsEx::onWUDetails",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4222
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUAnalyseHotspot",
+    "signature": "CWsWorkunitsEx::onWUAnalyseHotspot",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4249
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUDetailsMeta",
+    "signature": "CWsWorkunitsEx::onWUDetailsMeta",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4340
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGraphInfo",
+    "signature": "CWsWorkunitsEx::onWUGraphInfo",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4410
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGVCGraphInfo",
+    "signature": "CWsWorkunitsEx::onWUGVCGraphInfo",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4439
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGraphTiming",
+    "signature": "CWsWorkunitsEx::onWUGraphTiming",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4479
+  },
+  {
+    "class": "CWsWorkunitsSoapBindingEx",
+    "method": "onGetForm",
+    "signature": "CWsWorkunitsSoapBindingEx::onGetForm",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4510
+  },
+  {
+    "class": "CWsWorkunitsSoapBindingEx",
+    "method": "onStartUpload",
+    "signature": "CWsWorkunitsSoapBindingEx::onStartUpload",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4607
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUDeployWorkunit",
+    "signature": "CWsWorkunitsEx::onWUDeployWorkunit",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4893
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCreateZAPInfo",
+    "signature": "CWsWorkunitsEx::onWUCreateZAPInfo",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 4918
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetZAPInfo",
+    "signature": "CWsWorkunitsEx::onWUGetZAPInfo",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5003
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCheckFeatures",
+    "signature": "CWsWorkunitsEx::onWUCheckFeatures",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5136
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetStats",
+    "signature": "CWsWorkunitsEx::onWUGetStats",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5167
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUListArchiveFiles",
+    "signature": "CWsWorkunitsEx::onWUListArchiveFiles",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5273
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetArchiveFile",
+    "signature": "CWsWorkunitsEx::onWUGetArchiveFile",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5305
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUEclDefinitionAction",
+    "signature": "CWsWorkunitsEx::onWUEclDefinitionAction",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5644
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetPlugins",
+    "signature": "CWsWorkunitsEx::onWUGetPlugins",
+    "file": "esp/services/ws_workunits/ws_workunitsService.cpp",
+    "line": 5695
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCopyLogicalFiles",
+    "signature": "CWsWorkunitsEx::onWUCopyLogicalFiles",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 477
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUPublishWorkunit",
+    "signature": "CWsWorkunitsEx::onWUPublishWorkunit",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 926
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysets",
+    "signature": "CWsWorkunitsEx::onWUQuerysets",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 1096
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetDetails",
+    "signature": "CWsWorkunitsEx::onWUQuerysetDetails",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 1435
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUMultiQuerysetDetails",
+    "signature": "CWsWorkunitsEx::onWUMultiQuerysetDetails",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 1491
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUListQueries",
+    "signature": "CWsWorkunitsEx::onWUListQueries",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 1673
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUListQueriesUsingFile",
+    "signature": "CWsWorkunitsEx::onWUListQueriesUsingFile",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 1888
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryFiles",
+    "signature": "CWsWorkunitsEx::onWUQueryFiles",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2000
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWURecreateQuery",
+    "signature": "CWsWorkunitsEx::onWURecreateQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2088
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryDetails",
+    "signature": "CWsWorkunitsEx::onWUQueryDetails",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2268
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryDetailsLightWeight",
+    "signature": "CWsWorkunitsEx::onWUQueryDetailsLightWeight",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2476
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryConfig",
+    "signature": "CWsWorkunitsEx::onWUQueryConfig",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2766
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetQueryAction",
+    "signature": "CWsWorkunitsEx::onWUQuerysetQueryAction",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2814
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetAliasAction",
+    "signature": "CWsWorkunitsEx::onWUQuerysetAliasAction",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 2917
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUCopyQuerySet",
+    "signature": "CWsWorkunitsEx::onWUCopyQuerySet",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3332
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetCopyQuery",
+    "signature": "CWsWorkunitsEx::onWUQuerysetCopyQuery",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3406
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetImport",
+    "signature": "CWsWorkunitsEx::onWUQuerysetImport",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3566
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQuerysetExport",
+    "signature": "CWsWorkunitsEx::onWUQuerysetExport",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3655
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryGetGraph",
+    "signature": "CWsWorkunitsEx::onWUQueryGetGraph",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3795
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUUpdateQueryEntry",
+    "signature": "CWsWorkunitsEx::onWUUpdateQueryEntry",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3891
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUGetNumFileToCopy",
+    "signature": "CWsWorkunitsEx::onWUGetNumFileToCopy",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 3920
+  },
+  {
+    "class": "CWsWorkunitsEx",
+    "method": "onWUQueryGetSummaryStats",
+    "signature": "CWsWorkunitsEx::onWUQueryGetSummaryStats",
+    "file": "esp/services/ws_workunits/ws_workunitsQuerySets.cpp",
+    "line": 4040
+  },
+  {
+    "class": "WsWuInfo",
+    "method": "doGetTimers",
+    "signature": "WsWuInfo::doGetTimers",
+    "file": "esp/services/ws_workunits/ws_workunitsHelpers.cpp",
+    "line": 675
+  },
+  {
+    "class": "WsWuInfo",
+    "method": "doGetGraphs",
+    "signature": "WsWuInfo::doGetGraphs",
+    "file": "esp/services/ws_workunits/ws_workunitsHelpers.cpp",
+    "line": 1064
+  },
+  {
+    "class": "LogicFileWrapper",
+    "method": "doDeleteFile",
+    "signature": "LogicFileWrapper::doDeleteFile",
+    "file": "esp/smc/SMCLib/LogicFileWrapper.cpp",
+    "line": 59
+  }
+]
