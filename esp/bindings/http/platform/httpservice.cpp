@@ -2561,6 +2561,17 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
     now.setNow();
     time_t createTime = now.getSimple();
 
+    // Helper lambda for fallback session ID generation
+    auto generateFallbackSessionID = [this, createTime](StringBuffer& outSessionID) {
+        StringBuffer peer;
+        VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
+        for (int i = 0; i < 4; i++)
+        {
+            unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
+            outSessionID.appendf("%08x", hash);
+        }
+    };
+
     // Generate 128-bit (16 bytes) cryptographically secure random session ID
 #ifdef _USE_OPENSSL
     unsigned char buffer[16];
@@ -2580,25 +2591,12 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
         ERR_error_string_n(err, errBuf, sizeof(errBuf));
         UWARNLOG("RAND_bytes failed (%s), using fallback", errBuf);
         
-        // Fallback: hash-based generation with multiple rounds for 128 bits
-        StringBuffer peer;
-        VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
-        for (int i = 0; i < 4; i++)
-        {
-            unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
-            sessionID.appendf("%08x", hash);
-        }
+        generateFallbackSessionID(sessionID);
     }
 #else
     // No OpenSSL - use hash-based fallback with multiple rounds for 128 bits
     UWARNLOG("ESP compiled without OpenSSL - using hash-based session IDs");
-    StringBuffer peer;
-    VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
-    for (int i = 0; i < 4; i++)
-    {
-        unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
-        sessionID.appendf("%08x", hash);
-    }
+    generateFallbackSessionID(sessionID);
 #endif
 
     VStringBuffer sessionTag("%s%s", PathSessionSession, sessionID.str());
@@ -2618,7 +2616,7 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
     IPropertyTree* ptree = domainSessions->addPropTree(sessionTag.str());
     ptree->setProp(PropSessionNetworkAddress, m_request->getPeer(peer).str());
     ptree->setProp(PropSessionID, sessionID.str());
-    ptree->setProp(PropSessionExternalID, sessionID.str()); // For now, external ID is same as session ID
+    ptree->setProp(PropSessionExternalID, sessionID.str());
     ptree->setProp(PropSessionUserID, userID);
     ptree->setPropInt64(PropSessionCreateTime, createTime);
     ptree->setPropInt64(PropSessionLastAccessed, createTime);
