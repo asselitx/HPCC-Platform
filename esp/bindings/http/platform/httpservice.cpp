@@ -2564,12 +2564,27 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
     // Helper lambda for fallback session ID generation
     auto generateFallbackSessionID = [this, createTime](StringBuffer& outSessionID) {
         StringBuffer peer;
-        VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
-        for (int i = 0; i < 4; i++)
-        {
-            unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
-            outSessionID.appendf("%08x", hash);
-        }
+        // Use multiple diverse entropy sources and hash each independently
+        // This provides 128 bits (4 x 32-bit hashes) with different inputs for each hash
+        VStringBuffer baseStr("%s_%" PRId64, m_request->getPeer(peer).str(), (int64_t)createTime);
+        
+        // First hash: base string + random
+        unsigned rand1 = getRandom();
+        VStringBuffer input1("%s_%u", baseStr.str(), rand1);
+        outSessionID.appendf("%08x", hashc((unsigned char*)input1.str(), input1.length(), 0));
+        
+        // Second hash: base string + different random + iteration
+        unsigned rand2 = getRandom();
+        VStringBuffer input2("%s_%u_%d", baseStr.str(), rand2, 1);
+        outSessionID.appendf("%08x", hashc((unsigned char*)input2.str(), input2.length(), 1));
+        
+        // Third hash: base string + process ID + timestamp hash
+        VStringBuffer input3("%s_%d_%u", baseStr.str(), GetCurrentProcessId(), (unsigned)((createTime >> 16) & 0xFFFF));
+        outSessionID.appendf("%08x", hashc((unsigned char*)input3.str(), input3.length(), 2));
+        
+        // Fourth hash: base string + combined randoms
+        VStringBuffer input4("%s_%u%u_%u", baseStr.str(), rand1, rand2, getRandom());
+        outSessionID.appendf("%08x", hashc((unsigned char*)input4.str(), input4.length(), 3));
     };
 
     // Generate 128-bit (16 bytes) cryptographically secure random session ID
@@ -2585,17 +2600,17 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
     }
     else
     {
-        // Log error and use fallback
+        // Log critical error and use fallback
         unsigned long err = ERR_get_error();
         char errBuf[256];
         ERR_error_string_n(err, errBuf, sizeof(errBuf));
-        UWARNLOG("RAND_bytes failed (%s), using fallback", errBuf);
+        ERRLOG("CRITICAL: RAND_bytes failed (%s), using fallback session ID generation with reduced entropy", errBuf);
         
         generateFallbackSessionID(sessionID);
     }
 #else
     // No OpenSSL - use hash-based fallback with multiple rounds for 128 bits
-    UWARNLOG("ESP compiled without OpenSSL - using hash-based session IDs");
+    ERRLOG("CRITICAL: ESP compiled without OpenSSL - using hash-based session IDs with reduced cryptographic strength. Configure with _USE_OPENSSL for production use.");
     generateFallbackSessionID(sessionID);
 #endif
 
