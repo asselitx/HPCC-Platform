@@ -42,7 +42,7 @@ CLdapSecUser::CLdapSecUser(const char *name, const char *pw) :
     setName(name);
     setUserID(0);
     setPosixenabled(false);
-    setSessionToken(0);
+    setSessionToken(nullptr);
     setSignature(nullptr);
 }
 
@@ -240,14 +240,14 @@ bool CLdapSecUser::setEncodedPassword(SecPasswordEncoding enc, void * pw, unsign
     return FALSE;  //not supported yet
 }
 
-void CLdapSecUser::setSessionToken(unsigned token)
+void CLdapSecUser::setSessionToken(const char * token)
 {
-    m_sessionToken = token;
+    m_sessionToken.set(token);
 }
 
-unsigned CLdapSecUser::getSessionToken()
+const char * CLdapSecUser::getSessionToken()
 {
-    return m_sessionToken;
+    return m_sessionToken.get();
 }
 
 void CLdapSecUser::setSignature(const char * signature)
@@ -282,7 +282,7 @@ void CLdapSecUser::copyTo(ISecUser& destination)
     dest->setUserID(m_userid);
     dest->setPasswordExpiration(m_passwordExpiration);
     dest->setDistinguishedName(m_distinguishedName);
-    dest->credentials().setSessionToken(m_sessionToken);
+    dest->credentials().setSessionToken(m_sessionToken.get());
     dest->credentials().setSignature(m_signature.str());
 }
 
@@ -759,7 +759,7 @@ bool CLdapSecManager::authenticate(ISecUser* user)
 
     //User not in cache. Look for session token, or call LDAP to authenticate
 
-    if (0 != user->credentials().getSessionToken())//check for token existence
+    if (!isEmptyString(user->credentials().getSessionToken()))//check for token existence
     {
         user->setAuthenticateStatus(AS_AUTHENTICATED);
     }
@@ -770,7 +770,7 @@ bool CLdapSecManager::authenticate(ISecUser* user)
     {
         if (isCaching)
             m_permissionsCache->add(*user);
-        else if (isEmptyString(user->credentials().getPassword()) && (0 == user->credentials().getSessionToken()) && isEmptyString(user->credentials().getSignature()))
+        else if (isEmptyString(user->credentials().getPassword()) && isEmptyString(user->credentials().getSessionToken()) && isEmptyString(user->credentials().getSignature()))
         {
             //No need to sign if password or authenticated session based user
             if (!pDSM)
@@ -1560,7 +1560,7 @@ bool CLdapSecManager::logoutUser(ISecUser & user, IEspSecureContext* secureConte
     //remove user from permissions cache
     m_permissionsCache->removeFromUserCache(user);
     user.setAuthenticateStatus(AS_UNKNOWN);
-    user.credentials().setSessionToken(0);
+    user.credentials().setSessionToken(nullptr);
     return true;
 }
 bool CLdapSecManager::retrieveUserData(ISecUser& requestedUser, ISecUser* requestingUser, IEspSecureContext* secureContext)

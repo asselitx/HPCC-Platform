@@ -118,8 +118,8 @@ interface IEspContext : extends IInterface
     virtual const char * queryRealm() = 0;
     virtual void setUser(ISecUser * user) = 0;
     virtual ISecUser * queryUser() = 0;
-    virtual void setSessionToken(unsigned token) = 0;
-    virtual unsigned querySessionToken() = 0;
+    virtual void setSessionToken(const char * token) = 0;
+    virtual const char * querySessionToken() = 0;
     virtual void setSignature(const char * signature) = 0;
     virtual const char * querySignature() = 0;
     virtual void setResources(ISecResourceList * rlist) = 0;

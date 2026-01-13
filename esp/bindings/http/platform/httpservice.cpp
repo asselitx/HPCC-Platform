@@ -34,6 +34,12 @@
 #include "htmlpage.hpp"
 #include "dasds.hpp"
 
+//OpenSSL for secure random generation
+#ifdef _USE_OPENSSL
+#include <openssl/rand.h>
+#include <openssl/err.h>
+#endif
+
 #include <map>
 
 /***************************************************************************
@@ -827,12 +833,12 @@ int CEspHttpServer::onUpdatePassword(CHttpRequest* request, CHttpResponse* respo
             {//A session can only be set for those 2 auth types.
                 StringBuffer urlCookie;
                 readCookie(SESSION_START_URL_COOKIE, urlCookie);
-                unsigned sessionID = createHTTPSession(context, binding, request->getParameters()->queryProp("username"), urlCookie.isEmpty() ? "/" : urlCookie.str());
-                m_request->queryContext()->setSessionToken(sessionID);
-                VStringBuffer cookieStr("%u", sessionID);
-                addCookie(binding->querySessionIDCookieName(), cookieStr.str(), 0, true);
+                StringBuffer sessionID;
+                createHTTPSession(context, binding, request->getParameters()->queryProp("username"), urlCookie.isEmpty() ? "/" : urlCookie.str(), sessionID);
+                m_request->queryContext()->setSessionToken(sessionID.str());
+                addCookie(binding->querySessionIDCookieName(), sessionID.str(), 0, true);
                 addCookie(SESSION_AUTH_OK_COOKIE, "true", 0, false); //client can access this cookie.
-                cookieStr.setf("%u", binding->getClientSessionTimeoutSeconds());
+                VStringBuffer cookieStr("%u", binding->getClientSessionTimeoutSeconds());
                 addCookie(SESSION_TIMEOUT_COOKIE, cookieStr.str(), 0, false);
                 clearCookie(SESSION_START_URL_COOKIE);
             }
@@ -1399,8 +1405,9 @@ EspAuthState CEspHttpServer::preCheckAuth(EspAuthRequest& authReq)
             return authTaskDone;
         }
 
-        unsigned sessionID = readCookie(authReq.authBinding->querySessionIDCookieName());
-        if (sessionID > 0)
+        StringBuffer sessionID;
+        readCookie(authReq.authBinding->querySessionIDCookieName(), sessionID);
+        if (!sessionID.isEmpty())
         {
             if (authReq.authBinding->getDomainAuthType() == AuthUserNameOnly)
             {
@@ -1577,8 +1584,9 @@ void CEspHttpServer::verifyESPUserNameCookie(EspAuthRequest& authReq, CESPCookie
 
 bool CEspHttpServer::verifyESPSessionIDCookie(EspAuthRequest& authReq)
 {
-    unsigned sessionID = readCookie(authReq.authBinding->querySessionIDCookieName());
-    if (sessionID == 0) //No valid SessionIDCookie found
+    StringBuffer sessionID;
+    readCookie(authReq.authBinding->querySessionIDCookieName(), sessionID);
+    if (sessionID.isEmpty()) //No valid SessionIDCookie found
         return false;
 
     //Timeout old sessions.
@@ -1597,8 +1605,8 @@ bool CEspHttpServer::verifyESPSessionIDCookie(EspAuthRequest& authReq)
     }
 
     //Now, check whether the session ID is valid or not.
-    VStringBuffer xpath("%s[@port=\"%d\"]/%s%u", PathSessionApplication, authReq.authBinding->getPort(),
-        PathSessionSession, sessionID);
+    VStringBuffer xpath("%s[@port=\"%d\"]/%s%s", PathSessionApplication, authReq.authBinding->getPort(),
+        PathSessionSession, sessionID.str());
     IPropertyTree* sessionTree = espSessions->queryBranch(xpath.str());
     if (!sessionTree)
         return false;
@@ -1797,9 +1805,10 @@ EspAuthState CEspHttpServer::checkUserAuthPerSession(EspAuthRequest& authReq, St
 {
     ESPLOG(LogMax, "checkUserAuthPerSession");
 
-    unsigned sessionID = readCookie(authReq.authBinding->querySessionIDCookieName());
-    if (sessionID > 0)
-        return authExistingSession(authReq, sessionID);//Check session based authentication using this session ID.
+    StringBuffer sessionID;
+    readCookie(authReq.authBinding->querySessionIDCookieName(), sessionID);
+    if (!sessionID.isEmpty())
+        return authExistingSession(authReq, sessionID.str());//Check session based authentication using this session ID.
 
     if (authReq.authBinding->isDomainAuthResources(authReq.httpPath.str()))
         return authSucceeded;//Give the permission to send out some pages used for login or logout.
@@ -1907,14 +1916,14 @@ EspAuthState CEspHttpServer::authNewSession(EspAuthRequest& authReq, const char*
     // authenticate optional groups
     authOptionalGroups(authReq);
 
-    unsigned sessionID = createHTTPSession(authReq.ctx, authReq.authBinding, _userName, sessionStartURL);
-    authReq.ctx->setSessionToken(sessionID);
+    StringBuffer sessionID;
+    createHTTPSession(authReq.ctx, authReq.authBinding, _userName, sessionStartURL, sessionID);
+    authReq.ctx->setSessionToken(sessionID.str());
 
     ESPLOG(LogMax, "Authenticated for %s@%s", _userName, peer.str());
 
-    VStringBuffer cookieStr("%u", sessionID);
-    addCookie(authReq.authBinding->querySessionIDCookieName(), cookieStr.str(), 0, true);
-    cookieStr.setf("%u", authReq.authBinding->getClientSessionTimeoutSeconds());
+    addCookie(authReq.authBinding->querySessionIDCookieName(), sessionID.str(), 0, true);
+    VStringBuffer cookieStr("%u", authReq.authBinding->getClientSessionTimeoutSeconds());
     addCookie(SESSION_AUTH_OK_COOKIE, "true", 0, false); //client can access this cookie.
     addCookie(SESSION_TIMEOUT_COOKIE, cookieStr.str(), 0, false);
     clearCookie(SESSION_AUTH_MSG_COOKIE);
@@ -2117,7 +2126,7 @@ void CEspHttpServer::createGetSessionTimeoutResponse(StringBuffer& resp, ESPSeri
     }
 }
 
-void CEspHttpServer::resetSessionTimeout(EspAuthRequest& authReq, unsigned sessionID, StringBuffer& resp, ESPSerializationFormat format, IPropertyTree* sessionTree)
+void CEspHttpServer::resetSessionTimeout(EspAuthRequest& authReq, const char* sessionID, StringBuffer& resp, ESPSerializationFormat format, IPropertyTree* sessionTree)
 {
     if (format == ESPSerializationJSON)
     {
@@ -2151,8 +2160,7 @@ void CEspHttpServer::resetSessionTimeout(EspAuthRequest& authReq, unsigned sessi
         sessionTree->setPropInt64(PropSessionLastAccessed, createTime);
         sessionTree->setPropInt64(PropSessionTimeoutAt, timeoutAt);
 
-        VStringBuffer sessionIDStr("%u", sessionID);
-        addCookie(authReq.authBinding->querySessionIDCookieName(), sessionIDStr.str(), 0, true);
+        addCookie(authReq.authBinding->querySessionIDCookieName(), sessionID, 0, true);
         addCookie(SESSION_AUTH_OK_COOKIE, "true", 0, false); //client can access this cookie.
 
         if (getEspLogLevel()>=LogMax)
@@ -2278,9 +2286,9 @@ void CEspHttpServer::sendSessionReloadHTMLPage(IEspContext* ctx, EspAuthRequest&
     m_response->send();
 }
 
-EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsigned sessionID)
+EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, const char* sessionID)
 {
-    ESPLOG(LogMax, "authExistingSession: %s<%u>", PropSessionID, sessionID);
+    ESPLOG(LogMax, "authExistingSession: %s<%s>", PropSessionID, sessionID);
 
     bool getLoginPage = false;
     if (authReq.authBinding->isDomainAuthResources(authReq.httpPath.str()))
@@ -2304,7 +2312,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsign
         }
     }
 
-    VStringBuffer xpath("%s[@port=\"%d\"]/%s%u", PathSessionApplication, authReq.authBinding->getPort(), PathSessionSession, sessionID);
+    VStringBuffer xpath("%s[@port=\"%d\"]/%s%s", PathSessionApplication, authReq.authBinding->getPort(), PathSessionSession, sessionID);
     IPropertyTree* sessionTree = espSessions->queryBranch(xpath.str());
     if (!authReq.serviceName.isEmpty() && !authReq.methodName.isEmpty() && strieq(authReq.serviceName.str(), "esp"))
     {
@@ -2326,7 +2334,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsign
         authReq.ctx->setAuthStatus(AUTH_STATUS_FAIL);
         clearSessionCookies(authReq);
         sendSessionReloadHTMLPage(m_request->queryContext(), authReq, "Authentication failed: invalid session.");
-        ESPLOG(LogMin, "Authentication failed: invalid session ID '%u'. clearSessionCookies() called for the session.", sessionID);
+        ESPLOG(LogMin, "Authentication failed: invalid session ID '%s'. clearSessionCookies() called for the session.", sessionID);
         return authFailed;
     }
 
@@ -2340,7 +2348,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsign
         authReq.ctx->setAuthStatus(AUTH_STATUS_FAIL);
         clearSessionCookies(authReq);
         sendSessionReloadHTMLPage(m_request->queryContext(), authReq, "Authentication failed: Network address for ESP session has been changed.");
-        ESPLOG(LogMin, "Authentication failed: session ID %u from IP %s. ", sessionID, peer.str());
+        ESPLOG(LogMin, "Authentication failed: session ID %s from IP %s. ", sessionID, peer.str());
         return authFailed;
 #endif
     }
@@ -2357,7 +2365,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsign
     authReq.ctx->setAuthStatus(AUTH_STATUS_OK); //May be changed to AUTH_STATUS_NOACCESS if failed in feature level authorization.
     setDomainAuthDataInSecureContext(authReq.ctx, sessionTree);
 
-    ESPLOG(LogMax, "Authenticated for %s<%u> %s@%s", PropSessionID, sessionID, userID.str(), sessionTree->queryProp(PropSessionNetworkAddress));
+    ESPLOG(LogMax, "Authenticated for %s<%s> %s@%s", PropSessionID, sessionID, userID.str(), sessionTree->queryProp(PropSessionNetworkAddress));
     if (!authReq.serviceName.isEmpty() && !authReq.methodName.isEmpty() && strieq(authReq.serviceName.str(), "esp") && strieq(authReq.methodName.str(), "login"))
     {
         VStringBuffer msg("User %s has logged into this session. If you want to login as a different user, please logout and login again.", userID.str());
@@ -2403,7 +2411,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, unsign
     return authSucceeded;
 }
 
-void CEspHttpServer::logoutSession(EspAuthRequest& authReq, unsigned sessionID, IPropertyTree* espSessions, bool lock)
+void CEspHttpServer::logoutSession(EspAuthRequest& authReq, const char* sessionID, IPropertyTree* espSessions, bool lock)
 {
     //delete this session before logout
     VStringBuffer path("%s[@port=\"%d\"]", PathSessionApplication, authReq.authBinding->getPort());
@@ -2411,7 +2419,7 @@ void CEspHttpServer::logoutSession(EspAuthRequest& authReq, unsigned sessionID, 
     if (sessionTree)
     {
         ICopyArrayOf<IPropertyTree> toRemove;
-        path.setf("%s%u", PathSessionSession, sessionID);
+        path.setf("%s%s", PathSessionSession, sessionID);
         Owned<IPropertyTreeIterator> it = sessionTree->getElements(path.str());
         ForEach(*it)
             toRemove.append(it->query());
@@ -2547,18 +2555,53 @@ bool CEspHttpServer::changeRedirectURL(EspAuthRequest& authReq)
     return false;
 }
 
-unsigned CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* authBinding, const char* userID, const char* sessionStartURL)
+const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* authBinding, const char* userID, const char* sessionStartURL, StringBuffer& sessionID)
 {
     CDateTime now;
     now.setNow();
     time_t createTime = now.getSimple();
 
-    StringBuffer peer, sessionIDStr, sessionTag;
-    VStringBuffer idStr("%s_%ld", m_request->getPeer(peer).str(), createTime);
-    unsigned sessionID = hashc((unsigned char *)idStr.str(), idStr.length(), 0);
-    sessionIDStr.append(sessionID);
+    // Generate 128-bit (16 bytes) cryptographically secure random session ID
+#ifdef _USE_OPENSSL
+    unsigned char buffer[16];
+    if (RAND_bytes(buffer, sizeof(buffer)) == 1)
+    {
+        // Convert to hex string (32 characters)
+        for (size_t i = 0; i < sizeof(buffer); i++)
+            sessionID.appendf("%02x", buffer[i]);
+        
+        ESPLOG(LogMax, "Generated secure 128-bit session ID: %s", sessionID.str());
+    }
+    else
+    {
+        // Log error and use fallback
+        unsigned long err = ERR_get_error();
+        char errBuf[256];
+        ERR_error_string_n(err, errBuf, sizeof(errBuf));
+        UWARNLOG("RAND_bytes failed (%s), using fallback", errBuf);
+        
+        // Fallback: hash-based generation with multiple rounds for 128 bits
+        StringBuffer peer;
+        VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
+        for (int i = 0; i < 4; i++)
+        {
+            unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
+            sessionID.appendf("%08x", hash);
+        }
+    }
+#else
+    // No OpenSSL - use hash-based fallback with multiple rounds for 128 bits
+    UWARNLOG("ESP compiled without OpenSSL - using hash-based session IDs");
+    StringBuffer peer;
+    VStringBuffer idStr("%s_%" PRId64 "_%u", m_request->getPeer(peer).str(), (int64_t)createTime, getRandom());
+    for (int i = 0; i < 4; i++)
+    {
+        unsigned hash = hashc((unsigned char*)idStr.str(), idStr.length(), i);
+        sessionID.appendf("%08x", hash);
+    }
+#endif
 
-    sessionTag.appendf("%s%u", PathSessionSession, sessionID);
+    VStringBuffer sessionTag("%s%s", PathSessionSession, sessionID.str());
     Owned<IRemoteConnection> conn = getSDSConnection(authBinding->querySessionSDSPath(), RTM_LOCK_WRITE, SESSION_SDS_LOCK_TIMEOUT);
     IPropertyTree* domainSessions = conn->queryRoot();
     IPropertyTree* sessionTree = domainSessions->queryBranch(sessionTag.str());
@@ -2567,21 +2610,22 @@ unsigned CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* aut
         sessionTree->setPropInt64(PropSessionLastAccessed, createTime);
         if (!sessionTree->getPropBool(PropSessionTimeoutByAdmin, false))
             sessionTree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
-        return sessionID;
+        return sessionID.str();
     }
-    ESPLOG(LogMax, "New sessionID <%d> at <%ld> in createHTTPSession()", sessionID, createTime);
+    ESPLOG(LogMax, "New sessionID <%s> at <%ld> in createHTTPSession()", sessionID.str(), createTime);
 
+    StringBuffer peer;
     IPropertyTree* ptree = domainSessions->addPropTree(sessionTag.str());
-    ptree->setProp(PropSessionNetworkAddress, peer.str());
-    ptree->setPropInt64(PropSessionID, sessionID);
-    ptree->setPropInt64(PropSessionExternalID, hashc((unsigned char *)sessionIDStr.str(), sessionIDStr.length(), 0));
+    ptree->setProp(PropSessionNetworkAddress, m_request->getPeer(peer).str());
+    ptree->setProp(PropSessionID, sessionID.str());
+    ptree->setProp(PropSessionExternalID, sessionID.str()); // For now, external ID is same as session ID
     ptree->setProp(PropSessionUserID, userID);
     ptree->setPropInt64(PropSessionCreateTime, createTime);
     ptree->setPropInt64(PropSessionLastAccessed, createTime);
     ptree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
     ptree->setProp(PropSessionLoginURL, sessionStartURL);
     readDomainAuthDataFromSecureContext(ctx, ptree);
-    return sessionID;
+    return sessionID.str();
 }
 
 void CEspHttpServer::timeoutESPSessions(EspHttpBinding* authBinding, IPropertyTree* espSessions)
@@ -2669,18 +2713,6 @@ void CEspHttpServer::clearCookie(const char* cookieName)
     cookie->setExpires("Thu, 01 Jan 1970 00:00:01 GMT");
     m_response->addCookie(cookie);
     m_response->addHeader(cookieName,  "max-age=0");
-}
-
-unsigned CEspHttpServer::readCookie(const char* cookieName)
-{
-    CEspCookie* sessionIDCookie = m_request->queryCookie(cookieName);
-    if (sessionIDCookie)
-    {
-        StringBuffer sessionIDStr(sessionIDCookie->getValue());
-        if (sessionIDStr.length())
-            return atoi(sessionIDStr.str());
-    }
-    return 0;
 }
 
 const char* CEspHttpServer::readCookie(const char* cookieName, StringBuffer& cookieValue)
