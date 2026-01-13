@@ -182,14 +182,14 @@ public:
     {
         return m_password.get();
     }
-    virtual void setSessionToken(const char * token)
+    virtual void setSessionToken(unsigned token)
     {
         if (m_user)
             m_user->credentials().setSessionToken(token);
     }
-    virtual const char * querySessionToken()
+    virtual unsigned querySessionToken()
     {
-        return m_user ? m_user->credentials().getSessionToken() : nullptr;
+        return m_user ? m_user->credentials().getSessionToken() : 0;
     }
     virtual void setSignature(const char * signature)
     {

@@ -115,7 +115,7 @@ protected:
 		if (0 == user.length())
 			throw MakeStringException(-1, "htpasswd User name is NULL");
 
-        if (!isEmptyString(sec_user.credentials().getSessionToken()) || sec_user.getAuthenticateStatus()==AS_AUTHENTICATED)//Already authenticated if token or status set to authenticated
+        if (sec_user.credentials().getSessionToken() != 0 || sec_user.getAuthenticateStatus()==AS_AUTHENTICATED)//Already authenticated if token or status set to authenticated
 		    return true;
 
 		CriticalBlock block(crit);

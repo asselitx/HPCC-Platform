@@ -181,7 +181,7 @@ public:
     {
         clearPermissionsCache(user, secureContext);
         user.setAuthenticateStatus(AS_UNKNOWN);
-        user.credentials().setSessionToken(nullptr);
+        user.credentials().setSessionToken(0);
         return true;
     }
 
@@ -702,7 +702,7 @@ private:
             throw makeStringException(-1, "CJwtSecurityManager: Username is empty");
 
         // Already authenticated if token or status set to authenticated
-        if (!isEmptyString(user.credentials().getSessionToken()) || user.getAuthenticateStatus() == AS_AUTHENTICATED)
+        if (user.credentials().getSessionToken() != 0 || user.getAuthenticateStatus() == AS_AUTHENTICATED)
             return true;
 
         std::string     nonce = generateNonce();

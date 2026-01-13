@@ -102,7 +102,7 @@ protected:
         if (0 == username.length())
             throw MakeStringException(-1, "SingleUserAuth name is empty");
 
-        if (!isEmptyString(sec_user.credentials().getSessionToken())  || !isEmptyString(sec_user.credentials().getSignature()))//Already authenticated it token or signature exist
+        if (sec_user.credentials().getSessionToken() != 0  || !isEmptyString(sec_user.credentials().getSignature()))//Already authenticated it token or signature exist
             return true;
 
         if (strcmp(username.str(), m_userName.str())!=0)

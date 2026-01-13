@@ -350,7 +350,7 @@ public:
     virtual bool logoutUser(ISecUser& user, IEspSecureContext* secureContext = nullptr) override
     {
         user.setAuthenticateStatus(AS_UNKNOWN);
-        user.credentials().setSessionToken(nullptr);
+        user.credentials().setSessionToken(0);
         return true;
     }
 

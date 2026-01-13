@@ -41,7 +41,7 @@ private:
     StringBuffer    m_Peer;
     SecUserStatus   m_status;
     Owned<IProperties> m_parameters;
-    StringAttr      m_sessionToken;
+    unsigned        m_sessionToken;
     StringBuffer    m_signature;
     static const SecFeatureSet s_safeFeatures = SUF_ALL_FEATURES;
     static const SecFeatureSet s_implementedFeatures = (s_safeFeatures & ~(SUF_GetDataElement | SUF_GetDataElements | SUF_SetData));
@@ -51,7 +51,7 @@ public:
     IMPLEMENT_IINTERFACE
 
     CSecureUser(const char *name, const char *pw) :
-        m_name(name), m_pw(pw), m_authenticateStatus(AS_UNKNOWN), m_userID(0), m_status(SecUserStatus_Unknown), m_parameters(createProperties(false))
+        m_name(name), m_pw(pw), m_authenticateStatus(AS_UNKNOWN), m_userID(0), m_status(SecUserStatus_Unknown), m_parameters(createProperties(false)), m_sessionToken(0)
     {
     }
 
@@ -240,14 +240,14 @@ public:
         return m_pw.str();
     }
 
-    void setSessionToken(const char * token)
+    void setSessionToken(unsigned token)
     {
-        m_sessionToken.set(token);
+        m_sessionToken = token;
     }
 
-    const char * getSessionToken()
+    unsigned getSessionToken()
     {
-        return m_sessionToken.get();
+        return m_sessionToken;
     }
 
     void setSignature(const char * signature)

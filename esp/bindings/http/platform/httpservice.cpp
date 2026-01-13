@@ -42,6 +42,17 @@
 
 #include <map>
 
+// Helper function to convert a 128-bit session ID string to a 32-bit unsigned session token
+// This maintains backward compatibility with the ISecCredentials interface
+static unsigned sessionIDToToken(const char* sessionID)
+{
+    if (!sessionID || !*sessionID)
+        return 0;
+    
+    // Hash the full 128-bit session ID to a 32-bit token
+    return hashc((const unsigned char*)sessionID, strlen(sessionID), 0);
+}
+
 /***************************************************************************
  *              CEspHttpServer Implementation
  ***************************************************************************/
@@ -835,7 +846,7 @@ int CEspHttpServer::onUpdatePassword(CHttpRequest* request, CHttpResponse* respo
                 readCookie(SESSION_START_URL_COOKIE, urlCookie);
                 StringBuffer sessionID;
                 createHTTPSession(context, binding, request->getParameters()->queryProp("username"), urlCookie.isEmpty() ? "/" : urlCookie.str(), sessionID);
-                m_request->queryContext()->setSessionToken(sessionID.str());
+                m_request->queryContext()->setSessionToken(sessionIDToToken(sessionID.str()));
                 addCookie(binding->querySessionIDCookieName(), sessionID.str(), 0, true);
                 addCookie(SESSION_AUTH_OK_COOKIE, "true", 0, false); //client can access this cookie.
                 VStringBuffer cookieStr("%u", binding->getClientSessionTimeoutSeconds());
@@ -1918,7 +1929,7 @@ EspAuthState CEspHttpServer::authNewSession(EspAuthRequest& authReq, const char*
 
     StringBuffer sessionID;
     createHTTPSession(authReq.ctx, authReq.authBinding, _userName, sessionStartURL, sessionID);
-    authReq.ctx->setSessionToken(sessionID.str());
+    authReq.ctx->setSessionToken(sessionIDToToken(sessionID.str()));
 
     ESPLOG(LogMax, "Authenticated for %s@%s", _userName, peer.str());
 
@@ -2360,7 +2371,7 @@ EspAuthState CEspHttpServer::authExistingSession(EspAuthRequest& authReq, const 
     StringAttr userID = sessionTree->queryProp(PropSessionUserID);
     authReq.ctx->setUserID(userID.str());
     authReq.authBinding->populateRequest(m_request.get());
-    authReq.ctx->setSessionToken(sessionID);
+    authReq.ctx->setSessionToken(sessionIDToToken(sessionID));
     authReq.ctx->queryUser()->setAuthenticateStatus(AS_AUTHENTICATED);
     authReq.ctx->setAuthStatus(AUTH_STATUS_OK); //May be changed to AUTH_STATUS_NOACCESS if failed in feature level authorization.
     setDomainAuthDataInSecureContext(authReq.ctx, sessionTree);

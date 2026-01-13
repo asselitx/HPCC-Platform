@@ -336,7 +336,7 @@ class CTestAuthSecurityManager : public CBaseSecurityManager
     }
     bool authenticate(ISecUser& user)
     {
-        if (!isEmptyString(user.credentials().getSessionToken()) || user.getAuthenticateStatus() == AS_AUTHENTICATED)
+        if (user.credentials().getSessionToken() != 0 || user.getAuthenticateStatus() == AS_AUTHENTICATED)
         { //Authenticated.
             return true;
         }

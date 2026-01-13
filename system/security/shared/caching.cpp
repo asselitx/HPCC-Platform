@@ -368,7 +368,7 @@ bool CPermissionsCache::lookup(ISecUser& sec_user)
 
         time_t now;
         time(&now);
-        if(isEmptyString(sec_user.credentials().getSessionToken())  &&  (now - user->getTimestamp()) > m_cacheTimeoutInSeconds)//don't delete session based users
+        if(0==sec_user.credentials().getSessionToken()  &&  (now - user->getTimestamp()) > m_cacheTimeoutInSeconds)//don't delete session based users
         {
             deleteEntry = true;
         }
@@ -377,7 +377,7 @@ bool CPermissionsCache::lookup(ISecUser& sec_user)
             const char* cachedpw = user->queryUser()->credentials().getPassword();
             const char * pw = sec_user.credentials().getPassword();
 
-            if (!isEmptyString(sec_user.credentials().getSessionToken()) || !isEmptyString(sec_user.credentials().getSignature()) || !isEmptyString(user->queryUser()->credentials().getSignature()) )
+            if ((sec_user.credentials().getSessionToken() != 0) || !isEmptyString(sec_user.credentials().getSignature()) || !isEmptyString(user->queryUser()->credentials().getSignature()) )
             {//presence of session token or signature means user is authenticated
 #ifdef _DEBUG
                 DBGLOG("CACHE: CPermissionsCache Found validated user %s", username);
@@ -456,7 +456,7 @@ void CPermissionsCache::add(ISecUser& sec_user)
 #ifdef _DEBUG
     DBGLOG("CACHE: CPermissionsCache Adding cached user %s", username);
 #endif
-    if (isEmptyString(sec_user.credentials().getPassword()) && isEmptyString(sec_user.credentials().getSessionToken()) && isEmptyString(sec_user.credentials().getSignature()))
+    if (isEmptyString(sec_user.credentials().getPassword()) && (0 == sec_user.credentials().getSessionToken()) && isEmptyString(sec_user.credentials().getSignature()))
     {
         //No need to sign if password or authenticated session based user
         IDigitalSignatureManager * pDSM = queryDigitalSignatureManagerInstanceFromEnv();
