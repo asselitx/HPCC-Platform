@@ -2587,58 +2587,89 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
         outSessionID.appendf("%08x", hashc((unsigned char*)input4.str(), input4.length(), 3));
     };
 
-    // Generate 128-bit (16 bytes) cryptographically secure random session ID
+    // Helper lambda to generate a new session ID
+    auto generateNewSessionID = [&generateFallbackSessionID](StringBuffer& outSessionID) {
+        outSessionID.clear();
 #ifdef _USE_OPENSSL
-    unsigned char buffer[16];
-    if (RAND_bytes(buffer, sizeof(buffer)) == 1)
-    {
-        // Convert to hex string (32 characters)
-        for (size_t i = 0; i < sizeof(buffer); i++)
-            sessionID.appendf("%02x", buffer[i]);
-        
-        ESPLOG(LogMax, "Generated secure 128-bit session ID: %s", sessionID.str());
-    }
-    else
-    {
-        // Log critical error and use fallback
-        unsigned long err = ERR_get_error();
-        char errBuf[256];
-        ERR_error_string_n(err, errBuf, sizeof(errBuf));
-        ERRLOG("CRITICAL: RAND_bytes failed (%s), using fallback session ID generation with reduced entropy", errBuf);
-        
-        generateFallbackSessionID(sessionID);
-    }
+        unsigned char buffer[16];
+        if (RAND_bytes(buffer, sizeof(buffer)) == 1)
+        {
+            // Convert to hex string (32 characters)
+            for (size_t i = 0; i < sizeof(buffer); i++)
+                outSessionID.appendf("%02x", buffer[i]);
+        }
+        else
+        {
+            // Log critical error and use fallback
+            unsigned long err = ERR_get_error();
+            char errBuf[256];
+            ERR_error_string_n(err, errBuf, sizeof(errBuf));
+            ERRLOG("CRITICAL: RAND_bytes failed (%s), using fallback session ID generation with reduced entropy", errBuf);
+            
+            generateFallbackSessionID(outSessionID);
+        }
 #else
-    // No OpenSSL - use hash-based fallback with multiple rounds for 128 bits
-    ERRLOG("CRITICAL: ESP compiled without OpenSSL - using hash-based session IDs with reduced cryptographic strength. Configure with _USE_OPENSSL for production use.");
-    generateFallbackSessionID(sessionID);
+        // No OpenSSL - use hash-based fallback with multiple rounds for 128 bits
+        ERRLOG("CRITICAL: ESP compiled without OpenSSL - using hash-based session IDs with reduced cryptographic strength. Configure with _USE_OPENSSL for production use.");
+        generateFallbackSessionID(outSessionID);
 #endif
+    };
 
-    VStringBuffer sessionTag("%s%s", PathSessionSession, sessionID.str());
+    // Retry loop to handle session ID collisions
+    constexpr int maxRetries = 3;
+    StringBuffer peer;
+    m_request->getPeer(peer);
+    
     Owned<IRemoteConnection> conn = getSDSConnection(authBinding->querySessionSDSPath(), RTM_LOCK_WRITE, SESSION_SDS_LOCK_TIMEOUT);
     IPropertyTree* domainSessions = conn->queryRoot();
-    IPropertyTree* sessionTree = domainSessions->queryBranch(sessionTag.str());
-    if (sessionTree)
+    
+    for (int attempt = 0; attempt < maxRetries; attempt++)
     {
-        sessionTree->setPropInt64(PropSessionLastAccessed, createTime);
-        if (!sessionTree->getPropBool(PropSessionTimeoutByAdmin, false))
-            sessionTree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
+        // Generate a new session ID
+        generateNewSessionID(sessionID);
+        
+        VStringBuffer sessionTag("%s%s", PathSessionSession, sessionID.str());
+        IPropertyTree* sessionTree = domainSessions->queryBranch(sessionTag.str());
+        
+        if (sessionTree)
+        {
+            // Collision detected - verify if it's the same user and peer
+            const char* existingUser = sessionTree->queryProp(PropSessionUserID);
+            const char* existingPeer = sessionTree->queryProp(PropSessionNetworkAddress);
+            
+            if (existingUser && existingPeer && 
+                streq(existingUser, userID) && streq(existingPeer, peer.str()))
+            {
+                // Same user and peer - reuse the existing session
+                sessionTree->setPropInt64(PropSessionLastAccessed, createTime);
+                if (!sessionTree->getPropBool(PropSessionTimeoutByAdmin, false))
+                    sessionTree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
+                return sessionID.str();
+            }
+            
+            // Different user or peer - collision, try again
+            ESPLOG(LogMin, "Session ID collision detected, attempt %d of %d", attempt + 1, maxRetries);
+            continue;
+        }
+        
+        // No collision - create new session
+        ESPLOG(LogMax, "New sessionID <%s> at <%ld> in createHTTPSession()", sessionID.str(), createTime);
+        
+        IPropertyTree* ptree = domainSessions->addPropTree(sessionTag.str());
+        ptree->setProp(PropSessionNetworkAddress, peer.str());
+        ptree->setProp(PropSessionID, sessionID.str());
+        ptree->setProp(PropSessionExternalID, sessionID.str());
+        ptree->setProp(PropSessionUserID, userID);
+        ptree->setPropInt64(PropSessionCreateTime, createTime);
+        ptree->setPropInt64(PropSessionLastAccessed, createTime);
+        ptree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
+        ptree->setProp(PropSessionLoginURL, sessionStartURL);
+        readDomainAuthDataFromSecureContext(ctx, ptree);
         return sessionID.str();
     }
-    ESPLOG(LogMax, "New sessionID <%s> at <%ld> in createHTTPSession()", sessionID.str(), createTime);
-
-    StringBuffer peer;
-    IPropertyTree* ptree = domainSessions->addPropTree(sessionTag.str());
-    ptree->setProp(PropSessionNetworkAddress, m_request->getPeer(peer).str());
-    ptree->setProp(PropSessionID, sessionID.str());
-    ptree->setProp(PropSessionExternalID, sessionID.str());
-    ptree->setProp(PropSessionUserID, userID);
-    ptree->setPropInt64(PropSessionCreateTime, createTime);
-    ptree->setPropInt64(PropSessionLastAccessed, createTime);
-    ptree->setPropInt64(PropSessionTimeoutAt, createTime + authBinding->getServerSessionTimeoutSeconds());
-    ptree->setProp(PropSessionLoginURL, sessionStartURL);
-    readDomainAuthDataFromSecureContext(ctx, ptree);
-    return sessionID.str();
+    
+    // Failed to generate unique session ID after max retries
+    throw MakeStringException(-1, "Failed to generate unique session ID after %d attempts", maxRetries);
 }
 
 void CEspHttpServer::timeoutESPSessions(EspHttpBinding* authBinding, IPropertyTree* espSessions)
