@@ -38,6 +38,7 @@
 #ifdef _USE_OPENSSL
 #include <openssl/rand.h>
 #include <openssl/err.h>
+#include <openssl/sha.h>
 #endif
 
 #include <map>
@@ -51,6 +52,43 @@ static unsigned sessionIDToToken(const char* sessionID)
     
     // Hash the full 128-bit session ID to a 32-bit token
     return hashc((const unsigned char*)sessionID, strlen(sessionID), 0);
+}
+
+// Helper function to generate external session ID for admin visibility
+// Uses SHA256 when OpenSSL is available, otherwise falls back to hashc
+static void generateExternalSessionID(const char* sessionID, StringBuffer& externalID)
+{
+    if (!sessionID || !*sessionID)
+    {
+        externalID.clear();
+        return;
+    }
+
+#ifdef _USE_OPENSSL
+    // Use SHA256 hash for external ID (similar to jwtSecurity)
+    SHA256_CTX context;
+    unsigned char hashedValue[SHA256_DIGEST_LENGTH];
+    
+    if (SHA256_Init(&context) && 
+        SHA256_Update(&context, (const unsigned char*)sessionID, strlen(sessionID)) &&
+        SHA256_Final(hashedValue, &context))
+    {
+        // Convert to hex string
+        for (size_t i = 0; i < SHA256_DIGEST_LENGTH; i++)
+            externalID.appendf("%02x", hashedValue[i]);
+    }
+    else
+    {
+        // SHA256 failed, use fallback
+        UWARNLOG("SHA256 hashing failed for external session ID, using fallback");
+        unsigned hash = hashc((const unsigned char*)sessionID, strlen(sessionID), 1);
+        externalID.appendf("%08x", hash);
+    }
+#else
+    // No OpenSSL - use hashc-based fallback
+    unsigned hash = hashc((const unsigned char*)sessionID, strlen(sessionID), 1);
+    externalID.appendf("%08x", hash);
+#endif
 }
 
 /***************************************************************************
@@ -2669,7 +2707,12 @@ const char* CEspHttpServer::createHTTPSession(IEspContext* ctx, EspHttpBinding* 
         IPropertyTree* ptree = domainSessions->addPropTree(sessionTag.str());
         ptree->setProp(PropSessionNetworkAddress, peer.str());
         ptree->setProp(PropSessionID, sessionID.str());
-        ptree->setProp(PropSessionExternalID, sessionID.str());
+        
+        // Generate external ID for admin visibility (SHA256 hash of session ID)
+        StringBuffer externalID;
+        generateExternalSessionID(sessionID.str(), externalID);
+        ptree->setProp(PropSessionExternalID, externalID.str());
+        
         ptree->setProp(PropSessionUserID, userID);
         ptree->setPropInt64(PropSessionCreateTime, createTime);
         ptree->setPropInt64(PropSessionLastAccessed, createTime);
