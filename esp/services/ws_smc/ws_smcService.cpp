@@ -2067,10 +2067,12 @@ bool CWsSMCEx::onSetBanner(IEspContext &context, IEspSetBannerRequest &req, IEsp
 
 bool CWsSMCEx::onGetBanner(IEspContext &context, IEspGetBannerRequest &req, IEspGetBannerResponse& resp)
 {
+    context.ensureFeatureAccess(FEATURE_URL, SecAccess_Read, ECLWATCH_SMC_ACCESS_DENIED, SMC_ACCESS_DENIED);
+    
     try
     {
         // Similar to setBannerAndChatData, return the banner information stored in member variables
-        resp.setShowBanner(m_BannerAction);
+        resp.setBannerAction(m_BannerAction);
         resp.setShowChatURL(m_EnableChatURL);
         resp.setBannerContent(m_Banner.str());
         resp.setBannerSize(m_BannerSize.str());
