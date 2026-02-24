@@ -60,7 +60,7 @@ class TPWRAPPER_API CInfoCacheReaderThread : public CSimpleInterfaceOf<IThreaded
     CInfoCacheReader* infoCacheReader;
     Semaphore sem;
     Semaphore firstSem;
-    CriticalSection crit;
+    ReadWriteLock rwLock;
     CThreaded threaded;
     std::atomic<bool> waiting = {false};
 
@@ -86,24 +86,47 @@ public:
     virtual void threadmain() override;
     CInfoCache* getCachedInfo()
     {
-        CLeavableCriticalBlock b(crit);
-        if (first)
         {
-            if (!active)
-                return nullptr;
-            firstBlocked = true;
-            b.leave();
+            ReadLockBlock rblock(rwLock);
+            if (first)
+            {
+                if (!active)
+                    return nullptr;
+            }
+        }
+
+        // If first, need to wait for initial cache build
+        // Check and set firstBlocked with write lock
+        bool needToWait = false;
+        {
+            WriteLockBlock wblock(rwLock);
+            if (first)
+            {
+                if (!active)
+                    return nullptr;
+                firstBlocked = true;
+                needToWait = true;
+            }
+        }
+
+        if (needToWait)
+        {
             firstSem.wait();
-            b.enter();
+            ReadLockBlock rblock(rwLock);
             if (first)
                 return nullptr;
         }
 
         //Now, activityInfoCache should always be available.
+        ReadLockBlock rblock(rwLock);
         assertex(infoCache);
-        if (active && !infoCache->isCachedInfoValid(forceRebuildSeconds))
+        bool needsRebuild = active && !infoCache->isCachedInfoValid(forceRebuildSeconds);
+        CInfoCache* result = infoCache.getLink();
+        rblock.clear();
+        
+        if (needsRebuild)
             buildCachedInfo();
-        return infoCache.getLink();
+        return result;
     }
     void buildCachedInfo()
     {
@@ -113,7 +136,7 @@ public:
     }
     void setActive(bool _active)
     {
-        CriticalBlock b(crit);
+        WriteLockBlock wblock(rwLock);
         if (active != _active)
         {
             active = _active;
@@ -130,7 +153,11 @@ public:
                 buildCachedInfo();
         }
     }
-    bool isActive() const { return active; }
+    bool isActive() const
+    {
+        ReadLockBlock rblock(const_cast<ReadWriteLock&>(rwLock));
+        return active;
+    }
 };
 
 class CInfoCacheReader : implements IInfoCacheReader, public CInterface

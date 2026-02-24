@@ -43,14 +43,20 @@ void CInfoCacheReaderThread::threadmain()
 
     while (!stopping)
     {
-        if (active)
+        bool isActive;
+        {
+            ReadLockBlock rblock(rwLock);
+            isActive = active;
+        }
+        
+        if (isActive)
         {
             try
             {
                 CCycleTimer timer;
                 Owned<CInfoCache> info = infoCacheReader->read();
 
-                CriticalBlock b(crit);
+                WriteLockBlock wblock(rwLock);
                 infoCache.setown(info.getClear());
 
                 // if 1st and getActivityInfo blocked, release it.
