@@ -60,7 +60,7 @@ class TPWRAPPER_API CInfoCacheReaderThread : public CSimpleInterfaceOf<IThreaded
     CInfoCacheReader* infoCacheReader;
     Semaphore sem;
     Semaphore firstSem;
-    ReadWriteLock rwLock;
+    mutable ReadWriteLock rwLock;
     CThreaded threaded;
     std::atomic<bool> waiting = {false};
 
@@ -86,21 +86,22 @@ public:
     virtual void threadmain() override;
     CInfoCache* getCachedInfo()
     {
+        // Fast path: check if initialization is needed (common case: first == false)
+        bool checkFirst;
         {
             ReadLockBlock rblock(rwLock);
-            if (first)
-            {
-                if (!active)
-                    return nullptr;
-            }
+            checkFirst = first;
+            if (checkFirst && !active)
+                return nullptr;
         }
 
         // If first, need to wait for initial cache build
-        // Check and set firstBlocked with write lock
+        // Upgrade to write lock to set firstBlocked
         bool needToWait = false;
+        if (checkFirst)
         {
             WriteLockBlock wblock(rwLock);
-            if (first)
+            if (first) // Re-check under write lock
             {
                 if (!active)
                     return nullptr;
@@ -122,7 +123,6 @@ public:
         assertex(infoCache);
         bool needsRebuild = active && !infoCache->isCachedInfoValid(forceRebuildSeconds);
         CInfoCache* result = infoCache.getLink();
-        rblock.clear();
         
         if (needsRebuild)
             buildCachedInfo();
@@ -155,7 +155,7 @@ public:
     }
     bool isActive() const
     {
-        ReadLockBlock rblock(const_cast<ReadWriteLock&>(rwLock));
+        ReadLockBlock rblock(rwLock);
         return active;
     }
 };
