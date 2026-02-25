@@ -119,16 +119,19 @@ public:
         }
 
         //Now, activityInfoCache should always be available.
-        ReadLockBlock rblock(rwLock);
-        assertex(infoCache);
-        bool needsRebuild = active && !infoCache->isCachedInfoValid(forceRebuildSeconds);
-        // getLink() increases ref count, so returned pointer remains valid even if infoCache changes
-        CInfoCache* result = infoCache.getLink();
-        // Release read lock before calling buildCachedInfo() to avoid holding lock during semaphore signal
+        Owned<CInfoCache> result;
+        bool needsRebuild;
+        {
+            ReadLockBlock rblock(rwLock);
+            assertex(infoCache);
+            needsRebuild = active && !infoCache->isCachedInfoValid(forceRebuildSeconds);
+            result.setown(infoCache.getLink());
+        }
+        // Lock released - safe to call buildCachedInfo() without holding lock
         
         if (needsRebuild)
-            buildCachedInfo(); // Just signals semaphore, doesn't need lock
-        return result;
+            buildCachedInfo();
+        return result.getClear();
     }
     void buildCachedInfo()
     {
