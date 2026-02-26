@@ -83,7 +83,7 @@ void CInfoCacheReaderThread::threadmain()
         }
 
         waiting = true;
-        if (!sem.wait(autoRebuildMillSeconds))
-            waiting = false;
+        sem.wait(autoRebuildMillSeconds);
+        waiting = false;
     }
 }
