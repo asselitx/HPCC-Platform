@@ -216,13 +216,17 @@ public:
                     }
                     else
                     {
+                        // laIndex is uint8_t (unsigned); post-decrementing past 0 would wrap
+                        // to 255. Use an explicit break at 0 to safely iterate down to index 0.
                         do
                         {
                             la = peekDataFrame(laIndex);
                             if (la)
                                 la->state = DataFrame::FrameIgnored;
+                            if (laIndex == 0) break;
+                            laIndex--;
                         }
-                        while (laIndex-- != 0);
+                        while (true);
                         pushFragment(injector.m_frame.getLink());
                     }
                 }
